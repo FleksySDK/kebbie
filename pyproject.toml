@@ -1,0 +1,28 @@
+[tool.pytest.ini_options]
+addopts = "-W ignore::DeprecationWarning --cov=pytere --no-cov-on-fail --cov-fail-under=80"
+testpaths = [
+    "tests",
+]
+
+[tool.ruff]
+line-length = 119
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["C", "D", "E", "F", "I", "W"]
+ignore = ["D205", "D107"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["pytere"]
+lines-after-imports = 2
+
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["F401"]
+"tests/**.py" = ["D"]
+"setup.py" = ["D"]
+
+[tool.ruff.lint.mccabe]
+max-complexity = 10
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
