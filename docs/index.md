@@ -1,14 +1,10 @@
-# Pytere
+# Kebbie
 
 ## Introduction
 
-Welcome to the documentation of the `pytere` package.
+Welcome to the documentation of the `kebbie` package.
 
-`pytere` (**Py**thon **te**mplate **re**pository) is simply a template repository for python packages.
-
-This full-fledged template provides you with everything you need (_documentation, unit-tests, code linting & formatting, pre-commit hooks, etc..._) so you can just focus on writing the code.
-
-If you want to use this template, follow the instructions at the [Usage](usage.md) page.
+TODO description
 
 ## Installation
 
@@ -17,13 +13,13 @@ If you want to use this template, follow the instructions at the [Usage](usage.m
 You can install the latest version of the package directly from PyPi with :
 
 ```bash
-pip install pytere
+pip install kebbie
 ```
 
 !!! hint
     If you want to install directly from Github, run :
     ```bash
-    pip install git+https://github.com/astariul/pytere.git
+    pip install git+https://github.com/FleksySDK/kebbie.git
     ```
 
 ### Specific version
@@ -31,13 +27,13 @@ pip install pytere
 You can install a specific version of the package (`0.1.0` in ths example) from PyPi with :
 
 ```bash
-pip install pytere==0.1.0
+pip install kebbie==0.1.0
 ```
 
 !!! hint
     If you want to install directly from Github, run :
     ```bash
-    pip install git+https://github.com/astariul/pytere.git@v0.1.0
+    pip install git+https://github.com/FleksySDK/kebbie.git@v0.1.0
     ```
 
 ### Local
@@ -45,8 +41,8 @@ pip install pytere==0.1.0
 You can also clone the repository locally and install it manually :
 
 ```bash
-git clone https://github.com/astariul/pytere.git
-cd pytere
+git clone https://github.com/FleksySDK/kebbie.git
+cd kebbie
 pip install -e .
 ```
 
@@ -63,7 +59,7 @@ Will install necessary dependencies for building the docs.
 !!! hint
     If you installed the package directly from github, run :
     ```bash
-    pip install "pytere[docs] @ git+https://github.com/astariul/pytere.git"
+    pip install "kebbie[docs] @ git+https://github.com/FleksySDK/kebbie.git"
     ```
 
 ---

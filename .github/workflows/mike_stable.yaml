@@ -27,7 +27,7 @@ jobs:
           git config --global user.email docs@dummy.bot.com
       - name: Build docs and push with mike
         run: |
-          version=$(pip show pytere | grep Version | cut -d ' ' -f 2)
+          version=$(pip show kebbie | grep Version | cut -d ' ' -f 2)
           bversion=$(echo $version | cut -d '.' -f 1,2)
           mike deploy --push --update-aliases $bversion latest
           mike retitle --push latest $version

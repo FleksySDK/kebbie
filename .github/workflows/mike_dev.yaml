@@ -29,5 +29,5 @@ jobs:
       - name: Build docs and push with mike
         run: |
           mike deploy --push --update-aliases master
-          version=$(pip show pytere | grep Version | cut -d ' ' -f 2)
+          version=$(pip show kebbie | grep Version | cut -d ' ' -f 2)
           mike retitle --push master $version

@@ -1,6 +1,6 @@
 import pytest
 
-from pytere import is_odd
+from kebbie import is_odd
 
 
 @pytest.mark.parametrize("x", [1, 3, 7, 348973243, -1])

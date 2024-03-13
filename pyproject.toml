@@ -1,5 +1,5 @@
 [tool.pytest.ini_options]
-addopts = "-W ignore::DeprecationWarning --cov=pytere --no-cov-on-fail --cov-fail-under=80"
+addopts = "-W ignore::DeprecationWarning --cov=kebbie --no-cov-on-fail --cov-fail-under=80"
 testpaths = [
     "tests",
 ]
@@ -13,7 +13,7 @@ select = ["C", "D", "E", "F", "I", "W"]
 ignore = ["D205", "D107"]
 
 [tool.ruff.lint.isort]
-known-first-party = ["pytere"]
+known-first-party = ["kebbie"]
 lines-after-imports = 2
 
 [tool.ruff.lint.per-file-ignores]

@@ -1,6 +1,6 @@
-site_name: PyTeRe
-repo_url: "https://github.com/astariul/pytere"
-repo_name: "astariul/pytere"
+site_name: Kebbie
+repo_url: "https://github.com/FleksySDK/kebbie"
+repo_name: "FleksySDK/kebbie"
 
 theme:
   name: material
@@ -35,7 +35,6 @@ markdown_extensions:
 
 nav:
   - Welcome: "index.md"
-  - "features.md"
   - "usage.md"
   - Code reference:
     - "code_ref.md"
