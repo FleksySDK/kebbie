@@ -1,0 +1,254 @@
+"""Various utils function used by `kebbie`."""
+import json
+import math
+import random
+import time
+import tracemalloc
+import unicodedata
+from pathlib import Path
+from typing import Any, Callable, Dict, Tuple
+
+
+SEC_TO_NANOSEC = 10e9
+
+
+def profile_fn(fn: Callable, *args, **kwargs) -> Tuple[Any, int, int]:
+    """Profile the runtime and memory usage of the given function.
+
+    Note that it will only account for memory allocated by python (if you use
+    a library in C/C++ that does its own allocation, it won't report it).
+
+    Args:
+        fn (Callable): Function to profile.
+        *args: Positional arguments to pass to the given function.
+        **kwargs: Keywords arguments to pass to the given function.
+
+    Returns:
+        Tuple[Any, int, int]: A tuple containing the return value of the
+            function called, the memory usage (in bytes), and the runtime (in
+            nano seconds).
+    """
+    tracemalloc.start()
+    t0 = time.time()
+
+    result = fn(*args, **kwargs)
+
+    runtime = time.time() - t0
+    _, memory = tracemalloc.get_traced_memory()
+
+    return result, memory, runtime * SEC_TO_NANOSEC
+
+
+def euclidian_dist(p1: Tuple[float, float], p2: Tuple[float, float]) -> float:
+    """Function computing the euclidian distance between 2 points.
+
+    Args:
+        p1 (Tuple[float, float]): Point 1.
+        p2 (Tuple[float, float]): Point 2.
+
+    Returns:
+        float: Euclidian distance between the 2 given points.
+    """
+    return math.sqrt(sum((a - b) ** 2 for a, b in zip(p1, p2)))
+
+
+def load_keyboard(lang: str = "en-US") -> Dict:
+    """Load the keyboard data for the given language.
+
+    For now, only `en-US` is supported.
+
+    Args:
+        lang (str, optional): Language of the keyboard to load. Defaults to
+            "en-US".
+
+    Returns:
+        Dict: The keyboard data.
+    """
+    layout_folder = Path(__file__).parent / "layouts"
+    with open(layout_folder / f"{lang}.json", "r") as f:
+        keyboard = json.load(f)
+    return keyboard
+
+
+def strip_accents(s: str) -> str:
+    """Util function for removing accents from a given string.
+
+    Args:
+        s (str): Accented string.
+
+    Returns:
+        str: Same string, without accent.
+    """
+    nfkd_form = unicodedata.normalize("NFKD", s)
+    return "".join([c for c in nfkd_form if not unicodedata.combining(c)])
+
+
+def sample(proba: float) -> bool:
+    """Simple function to sample an event with the given probability.
+    For example, calling `sample(0.95)` will return `True` in 95% cases, and
+    `False` in 5% cases.
+
+    Args:
+        proba (float): Probability of the event to happen. Should be between 0
+            and 1 (included).
+
+    Returns:
+        bool: `True` if the event was sampled, `False` otherwise.
+    """
+    assert 0 <= proba <= 1, f"`{proba}` is not a valid probability (should be between 0 and 1)"
+    if proba == 0:
+        return False
+    elif proba == 1:
+        return True
+    else:
+        return random.choices([True, False], weights=[proba, 1 - proba])[0]
+
+
+def sample_among(probs: Dict[Any, float], with_none: bool = True) -> Any:
+    """Function that sample an event among several with different
+    probabilities.
+
+    Args:
+        probs (Dict[Any, float]): Dictionary representing the different events
+            and their probabilities. Each probability should be above 0 and
+            their sum should not exceed 1.
+        with_none (bool): If set to `True`, add a `None` option (no event
+            sampled). Defaults to True.
+
+    Returns:
+        Any: The corresponding key of the event sampled.
+    """
+    options = list(probs.keys())
+    weights = list(probs.values())
+    assert (
+        all(w >= 0 for w in weights) and sum(weights) <= 1
+    ), "The numbers given are not a probability (should be above 0 and their sum should not exceed 1)"
+
+    if with_none:
+        options.append(None)
+        weights.append(1 - sum(weights))
+
+    return random.choices(options, weights=weights)[0]
+
+
+def accuracy(tp: int, tn: int, fp: int, fn: int) -> float:
+    """Function computing the precision.
+
+    Args:
+        tp (int): Number of True Positive.
+        tn (int): Number of True Negative.
+        fp (int): Number of False Positive.
+        fn (int): Number of False Negative.
+
+    Returns:
+        float: Accuracy.
+    """
+    try:
+        return (tp + tn) / (tp + tn + fp + fn)
+    except ZeroDivisionError:
+        return 0
+
+
+def precision(tp: int, fp: int) -> float:
+    """Function computing the precision.
+
+    Args:
+        tp (int): Number of True Positive.
+        fp (int): Number of False Positive.
+
+    Returns:
+        float: Precision.
+    """
+    try:
+        return tp / (tp + fp)
+    except ZeroDivisionError:
+        return 0
+
+
+def recall(tp: int, fn: int) -> float:
+    """Function computing the recall.
+
+    Args:
+        tp (int): Number of True Positive.
+        fn (int): Number of False Negative.
+
+    Returns:
+        float: Recall.
+    """
+    try:
+        return tp / (tp + fn)
+    except ZeroDivisionError:
+        return 0
+
+
+def fbeta(precision: float, recall: float, beta: float = 1) -> float:
+    """Function computing the F-beta score (which is a generalization of the
+    F1 score).
+
+    The value of Beta changes how much we weight recall versus precision:
+     * For beta=0.5, Precision is twice as important as Recall
+     * For beta=2, Recall is twice as important as Precision
+
+    Args:
+        precision (float): Precision.
+        recall (float): Recall.
+        beta (float): Beta factor. Defaults to 1.
+
+    Returns:
+        float: F-beta score.
+    """
+    try:
+        return (1 + beta**2) * precision * recall / (beta**2 * precision + recall)
+    except ZeroDivisionError:
+        return 0
+
+
+def round_to_n(x: float, n: int = 2) -> float:
+    """Util function to round a given number to n significant digits.
+
+    Args:
+        x (float): Number to round.
+        n (int): Number of significant digits to use. Defaults to 2.
+
+    Returns:
+        float: Rounded number.
+    """
+    return round(x, -int(math.floor(math.log10(x))) + (n - 1)) if x != 0 else 0
+
+
+def human_readable_memory(x: int) -> str:
+    """Given a number in bytes, return a human-readable string of this number,
+    with the right unit.
+
+    Args:
+        x (int): Number in bytes.
+
+    Returns:
+        str: Human-readable version of the given number, with the right unit.
+    """
+    x = round_to_n(x, n=3)
+    for unit in ["B", "KB", "MB", "GB"]:
+        if x < 1000:
+            return f"{x} {unit}"
+
+        x /= 1000
+    return f"{x} TB"
+
+
+def human_readable_runtime(x: int) -> str:
+    """Given a number in nanoseconds, return a human-readable string of this
+    number, with the right unit.
+
+    Args:
+        x (int): Number in nanoseconds.
+
+    Returns:
+        str: Human-readable version of the given number, with the right unit.
+    """
+    x = round_to_n(x, n=3)
+    for unit in ["ns", "μs", "ms"]:
+        if x < 1000:
+            return f"{x} {unit}"
+
+        x /= 1000
+    return f"{x} s"

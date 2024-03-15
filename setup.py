@@ -4,7 +4,7 @@ import setuptools
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
-reqs = []
+reqs = ["regex", "scipy~=1.12", "numpy~=1.26", "requests~=2.31"]
 
 extras_require = {
     "test": ["pytest~=8.0", "pytest-cov~=4.1", "coverage-badge~=1.0"],
@@ -28,10 +28,10 @@ setuptools.setup(
     url="https://github.com/FleksySDK/kebbie",
     packages=setuptools.find_packages(),
     classifiers=[
-        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
         "Operating System :: OS Independent",
     ],
-    python_requires=">=3.8",
+    python_requires=">=3.9",
     install_requires=reqs,
     extras_require=extras_require,
 )
