@@ -62,7 +62,7 @@ def evaluate(
     Returns:
         Dict: The results, in a dictionary.
     """
-    if lang not in SUPPORTED_LANG:
+    if lang not in SUPPORTED_LANG and custom_keyboard is None:
         raise UnsupportedLanguage(f"{lang} is not supported yet. List of supported languages : {SUPPORTED_LANG}")
 
     if dataset is None:
