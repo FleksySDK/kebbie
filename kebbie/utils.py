@@ -6,7 +6,9 @@ import time
 import tracemalloc
 import unicodedata
 from pathlib import Path
-from typing import Any, Callable, Dict, Tuple
+from typing import Any, Callable, Dict, List, Optional, Tuple
+
+import datasets
 
 
 SEC_TO_NANOSEC = 10e9
@@ -131,6 +133,38 @@ def sample_among(probs: Dict[Any, float], with_none: bool = True) -> Any:
     return random.choices(options, weights=weights)[0]
 
 
+def sample_partial_word(
+    keystrokes: List[Optional[Tuple[float, float]]], word: str, true_word: str
+) -> Tuple[List[Optional[Tuple[float, float]]], str]:
+    """Sample a partial word from a given word, and extract the corresponding
+    keystrokes as well.
+
+    Sampling is done with increasing weights (more chances to sample a longer
+    list). For example if the list represent the keystrokes of "abcdef", the
+    probabilities are as follow:
+     * "a" :     1/15
+     * "ab" :    2/15
+     * "abc" :   3/15
+     * "abcd" :  4/15
+     * "abcde" : 5/15
+
+    Args:
+        keystrokes (List[Optional[Tuple[float, float]]]): Complete list of
+            keystrokes, representing a full word.
+        word (str): The word corresponding to the keystrokes.
+        true_word (str): Actual word (without typo). Necessary to ensure the
+            sampled keystrokes are partial.
+
+    Returns:
+        Tuple[List[Optional[Tuple[float, float]]], str]: Return both the
+            partial list of keystrokes and the partial word, sampled from the
+            given word.
+    """
+    r = range(1, min(len(true_word), len(word)))
+    s = random.choices(r, weights=r)[0]
+    return keystrokes[:s], word[:s]
+
+
 def accuracy(tp: int, tn: int, fp: int, fn: int) -> float:
     """Function computing the precision.
 
@@ -252,3 +286,32 @@ def human_readable_runtime(x: int) -> str:
 
         x /= 1000
     return f"{x} s"
+
+
+def get_soda_dataset(max_sentences: int = 10_000) -> Dict[str, List[str]]:
+    """Load the SODA dataset.
+
+    Args:
+        max_sentences (int, optional): Maximum number of sentences to use per
+            domain. Defaults to `10 000`.
+
+    Returns:
+        Dict[str, List[str]]: The dataset, separated into two domains :
+            narrative and dialogue.
+    """
+    data = {"narrative": [], "dialogue": []}
+
+    hf_dataset = datasets.load_dataset("allenai/soda", split="test")
+
+    for sample in hf_dataset:
+        if len(data["narrative"]) >= max_sentences and len(data["dialogue"]) >= max_sentences:
+            break
+
+        if len(data["narrative"]) < max_sentences:
+            data["narrative"].append(sample["narrative"])
+
+        for sen in sample["dialogue"]:
+            if len(data["dialogue"]) < max_sentences:
+                data["dialogue"].append(sen)
+
+    return data
