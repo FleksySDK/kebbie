@@ -78,7 +78,7 @@ def tester(sentence: str) -> Scorer:
 
     context = ""
     # Keep track for predictions counts with a local scorer, for this sentence
-    scorer = Scorer(track_mistakes=tester.track_mistakes)
+    scorer = Scorer(domains=[None], track_mistakes=tester.track_mistakes)
     while words and len(context) < MAX_CHAR_PER_SENTENCE:
         # Before randomly generating typo, set the random state for determinism
         random.setstate(rnd_state)
@@ -100,17 +100,17 @@ def tester(sentence: str) -> Scorer:
 
         if swipe_gesture:
             # Call the swipe model
-            preds, memory, runtime = tester.corrector.resolve_swipe(context, swipe_gesture)
+            preds, memory, runtime = tester.corrector.profiled_resolve_swipe(context, swipe_gesture)
             scorer.swp(word_to_swipe, preds, context=context, memory=memory, runtime=runtime)
 
         # Call the model for auto-completion (for long enough words)
         if len(typed_word) > 1 and len(actual_word) > 1:
             partial_keystrokes, partial_word = sample_partial_word(keystrokes, typed_word, actual_word)
-            preds, memory, runtime = tester.corrector.auto_complete(context, partial_keystrokes, partial_word)
+            preds, memory, runtime = tester.corrector.profiled_auto_complete(context, partial_keystrokes, partial_word)
             scorer.acp(actual_word, preds, partial_word=partial_word, context=context, memory=memory, runtime=runtime)
 
         # Call the model for auto-correction
-        preds, memory, runtime = tester.corrector.auto_correct(context, keystrokes, typed_word)
+        preds, memory, runtime = tester.corrector.profiled_auto_correct(context, keystrokes, typed_word)
         scorer.acr(
             actual_word, preds, typed_word=typed_word, context=context, typos=typos, memory=memory, runtime=runtime
         )
@@ -120,7 +120,7 @@ def tester(sentence: str) -> Scorer:
 
         # Call the model for next-word prediction
         if next_word:
-            preds, memory, runtime = tester.corrector.predict_next_word(context)
+            preds, memory, runtime = tester.corrector.profiled_predict_next_word(context)
             scorer.nwp(next_word, preds, context=context, memory=memory, runtime=runtime)
 
     return scorer
@@ -181,7 +181,7 @@ class Oracle:
             Dict: Results formatted in a dictionary.
         """
         # Initialize a global Scorer here, that will gather counts across processes
-        scorer = Scorer(track_mistakes=self.track_mistakes)
+        scorer = Scorer(domains=self.data.keys(), track_mistakes=self.track_mistakes)
 
         # For multiprocessing
         n_proc = n_proc if n_proc is not None else os.cpu_count()
