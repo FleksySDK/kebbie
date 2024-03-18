@@ -2,14 +2,16 @@
 features of a mobile keyboard, as well as a command line to evaluate other
 keyboards running in an emulator.
 """
-from typing import Dict, List
+from typing import Dict, List, Optional
 
 from .correctors import Corrector
-from .oracle import N_MOST_COMMON_MISTAKES, Oracle
+from .oracle import Oracle
 from .utils import get_soda_dataset
 
 
 SUPPORTED_LANG = ["en-US"]
+N_MOST_COMMON_MISTAKES = 1000
+DEFAULT_SEED = 42
 
 
 class UnsupportedLanguage(Exception):
@@ -21,9 +23,12 @@ class UnsupportedLanguage(Exception):
 def evaluate(
     corrector: Corrector,
     lang: str = "en-US",
+    custom_keyboard: Dict = None,
     dataset: Dict[str, List[str]] = None,
     track_mistakes: bool = False,
     n_most_common_mistakes: int = N_MOST_COMMON_MISTAKES,
+    n_proc: Optional[int] = None,
+    seed: int = DEFAULT_SEED,
 ) -> Dict:
     """Main function of the `kebbie` framework, it evaluates the given
     Corrector.
@@ -31,6 +36,9 @@ def evaluate(
     Args:
         lang (str, optional): Language to test. For now, only `en-US` is
             supported. Defaults to `en-US`.
+        custom_keyboard (Dict, optional): If provided, instead of relying on
+            the keyboard layout provided by default, uses the given keyboard
+            layout. Defaults to `None`.
         corrector (Corrector): The corrector to evaluate.
         dataset (Dict[str, List[str]], optional): Data to use for testing. It
             should be a dictionary where the key is the name of the domain, and
@@ -42,6 +50,10 @@ def evaluate(
         n_most_common_mistakes (int, optional): If `track_mistakes` is set to
             `True`, the top X mistakes to record. Defaults to
             N_MOST_COMMON_MISTAKES.
+        n_proc (int, optional): Number of processes to use. If `None`,
+            `os.cpu_count()` is used. Defaults to `None`.
+        seed (int): Seed to use for running the tests. Defaults to
+            DEFAULT_SEED.
 
     Raises:
         UnsupportedLanguage: Exception raised if `lang` is set to a language
@@ -57,9 +69,14 @@ def evaluate(
         dataset = get_soda_dataset()
 
     # Create the Oracle, the class used to create test cases and evaluate the scores
-    oracle = Oracle(lang, dataset, track_mistakes=track_mistakes)
-    n_proc = None  # Use multiprocessing by default
+    oracle = Oracle(
+        lang,
+        dataset,
+        custom_keyboard=custom_keyboard,
+        track_mistakes=track_mistakes,
+        n_most_common_mistakes=n_most_common_mistakes,
+    )
 
     # Run the tests & get the results
-    results = oracle.test(corrector, n_proc=n_proc)
+    results = oracle.test(corrector, n_proc=n_proc, seed=seed)
     return results

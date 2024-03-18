@@ -1,5 +1,5 @@
-"""Module containing the helpers `LayoutHelper` and `LayoutFinder`, useful
-class to deal with the layout of a keyboard, access key positions, etc...
+"""Module containing the helpers `LayoutHelper`, useful class to deal with the
+layout of a keyboard, access key positions, etc...
 """
 from collections import defaultdict
 from dataclasses import dataclass
@@ -56,13 +56,16 @@ class LayoutHelper:
     Args:
         lang (str, optional): Language of the layout to load. Defaults to
             "en-US".
+        custom_keyboard (Dict, optional): If provided, instead of relying on
+            the keyboard layout provided by default, uses the given keyboard
+            layout. Defaults to `None`.
         ignore_layers_after (Optional[int]) : Ignore higher layers of the
             keyboard layout. If `None` is given, no layer is ignored. Defaults
             to `None`.
     """
 
-    def __init__(self, lang: str = "en-US", ignore_layers_after: Optional[int] = None):
-        keyboard = load_keyboard(lang)
+    def __init__(self, lang: str = "en-US", custom_keyboard: Dict = None, ignore_layers_after: Optional[int] = None):
+        keyboard = custom_keyboard if custom_keyboard is not None else load_keyboard(lang)
         self.keys_info, self.klayers_info, self.accents = self._extract_infos(keyboard["layout"], ignore_layers_after)
         self.letter_accents = [c for c in self.accents if re.match(r"^[\pL]+$", c)]
         self.spelling_symbols = keyboard["settings"]["allowed_symbols_in_words"]
@@ -251,60 +254,3 @@ class LayoutHelper:
             )
 
         return key.char
-
-
-class LayoutFinder:
-    """Small class that represents a Keyboard layout. The goal of this class is
-    to be able to easily find to which layout layer a specific character
-    belongs.
-
-    Args:
-        lang (str, optional): Language of the layout to load. Defaults to
-            "en-US".
-    """
-
-    def __init__(self, lang: str = "en-US"):  # noqa: C901
-        keyboard = load_keyboard(lang)
-        self.keys_layer = defaultdict(lambda: None)
-
-        # First, populate the dictionary using primary labels only
-        for klayer in keyboard["layout"]:
-            if klayer["buttons"] is None:
-                continue
-
-            # Each layer is a list of button
-            for button in klayer["buttons"]:
-                primary = button["labels"][0]
-
-                if primary.lower() == SPACE:
-                    primary = " "
-
-                if primary not in self.keys_layer:
-                    self.keys_layer[primary] = klayer["id"]
-
-        # Then, look at accents and populate the dictionary accordingly
-        for klayer in keyboard["layout"]:
-            if klayer["buttons"] is None:
-                continue
-
-            # Each layer is a list of button
-            for button in klayer["buttons"]:
-                for label in button["labels"]:
-                    if label.lower() == SPACE:
-                        label = " "
-
-                    if label not in self.keys_layer:
-                        self.keys_layer[label] = klayer["id"]
-
-    def get_klayer_of(self, char: str) -> Optional[int]:
-        """Method to retrieve the keyboard layer ID associated to a given
-        character.
-
-        Args:
-            char (str): Character for which to retrieve the keyboard layer ID.
-
-        Returns:
-            Optional[int]: Keyboard layer ID associated to the given character,
-                or None if the character doesn't exist in the keyboard.
-        """
-        return self.keys_layer[char]

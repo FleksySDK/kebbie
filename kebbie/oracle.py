@@ -19,13 +19,13 @@ from kebbie.utils import sample, sample_partial_word
 
 
 CHUNK_SIZE = 10
-DEFAULT_SEED = 42
 MAX_CHAR_PER_SENTENCE = 256
-N_MOST_COMMON_MISTAKES = 1000
 SWIPE_PROB = 0.01  # 1 / 100 is tested with swiping
 
 
-def init_tester(fn: Callable, lang: str, correctors: mp.Queue, seed: int, track_mistakes: bool) -> None:
+def init_tester(
+    fn: Callable, lang: str, custom_keyboard: Dict, correctors: mp.Queue, seed: int, track_mistakes: bool
+) -> None:
     """Function run at process initialization for Tester workers.
 
     Each worker in a Pool will run this function when created. It will
@@ -38,6 +38,9 @@ def init_tester(fn: Callable, lang: str, correctors: mp.Queue, seed: int, track_
         fn (Callable): Main tester function (instanciated objects will be
             attached to this function).
         lang (str): Language used.
+        custom_keyboard (Dict, optional): If provided, instead of relying on
+            the keyboard layout provided by default, uses the given keyboard
+            layout. Defaults to `None`.
         correctors (mp.Queue): Queue containing list of correctors to test.
             Each process will get the next corrector available in queue.
         seed (int): Base seed to use.
@@ -45,7 +48,7 @@ def init_tester(fn: Callable, lang: str, correctors: mp.Queue, seed: int, track_
             mistakes.
     """
     fn.tokenizer = BasicTokenizer()
-    fn.noisy = NoiseModel(lang)
+    fn.noisy = NoiseModel(lang, custom_keyboard=custom_keyboard)
     fn.corrector = correctors.get()
     fn.base_seed = seed
     fn.track_mistakes = track_mistakes
@@ -134,31 +137,33 @@ class Oracle:
         lang (str): Language used.
         test_data (Dict[str, List[str]]): List of clean sentences for each
             domain.
-        track_mistakes (bool, optional): Set to `True` for tracking the most
-            common mistakes. Most common mistakes are saved as a TSV file.
-            Defaults to `False`.
-        n_most_common_mistakes (int, optional): If `track_mistakes` is set to
-            `True`, the top X mistakes to record. Defaults to
-            N_MOST_COMMON_MISTAKES.
+        custom_keyboard (Dict): If provided, instead of relying on
+            the keyboard layout provided by default, uses the given keyboard
+            layout.
+        track_mistakes (bool): Set to `True` for tracking the most
+            common mistakes. Most common mistakes are added to the results
+            dictionary.
+        n_most_common_mistakes (int): If `track_mistakes` is set to
+            `True`, the top X mistakes to record.
     """
 
     def __init__(
         self,
         lang: str,
         test_data: Dict[str, List[str]],
-        track_mistakes: bool = False,
-        n_most_common_mistakes: int = N_MOST_COMMON_MISTAKES,
+        custom_keyboard: Dict,
+        track_mistakes: bool,
+        n_most_common_mistakes: int,
     ) -> None:
         super().__init__()
 
         self.lang = lang
         self.data = test_data
+        self.custom_keyboard = custom_keyboard
         self.track_mistakes = track_mistakes
         self.n_most_common_mistakes = n_most_common_mistakes
 
-    def test(
-        self, corrector: Union[Corrector, List[Corrector]], n_proc: Optional[int] = None, seed: int = DEFAULT_SEED
-    ) -> Dict:
+    def test(self, corrector: Union[Corrector, List[Corrector]], n_proc: Optional[int], seed: int) -> Dict:
         """Main method, it tests the given Corrector, and returns results as a
         dictionary.
 
@@ -169,9 +174,8 @@ class Oracle:
                 If a list of Corrector is given, the argument `n_proc` is
                 ignored, and one corrector is assigned for each process.
             n_proc (Optional[int]): Number of processes to use. If `None`,
-                `os.cpu_count()` is used. Defaults to `None`.
-            seed (int): Seed to use for running the tests. Defaults to
-                DEFAULT_SEED.
+                `os.cpu_count()` is used.
+            seed (int): Seed to use for running the tests.
 
         Returns:
             Dict: Results formatted in a dictionary.
@@ -197,7 +201,7 @@ class Oracle:
         with mp.Pool(
             processes=n_proc,
             initializer=init_tester,
-            initargs=(tester, self.lang, proc_correctors, seed, self.track_mistakes),
+            initargs=(tester, self.lang, self.custom_keyboard, proc_correctors, seed, self.track_mistakes),
         ) as pool, tqdm(total=d_size) as pbar:
             # Test data is made of several domain, where each domain contains a list of sentences
             for domain, sentence_list in self.data.items():

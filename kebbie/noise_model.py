@@ -101,6 +101,9 @@ class NoiseModel:
 
     Args:
         lang (str): Language used.
+        custom_keyboard (Dict, optional): If provided, instead of relying on
+            the keyboard layout provided by default, uses the given keyboard
+            layout. Defaults to `None`.
         common_typos (Optional[Dict[str, List[str]]], optional): Dictionary of
             common typos. If `None`, common typos are not used. Defaults to
             `None`.
@@ -126,6 +129,7 @@ class NoiseModel:
     def __init__(
         self,
         lang: str,
+        custom_keyboard: Dict = None,
         common_typos: Optional[Dict[str, List[str]]] = None,
         typo_probs: Optional[Dict[str, float]] = None,
         x_offset: float = 0,
@@ -136,7 +140,7 @@ class NoiseModel:
         self.lang = lang
         self.x_offset, self.y_offset = x_offset, y_offset
         self.x_ratio, self.y_ratio = x_ratio, y_ratio
-        self.klayout = LayoutHelper(self.lang, ignore_layers_after=3)
+        self.klayout = LayoutHelper(self.lang, custom_keyboard=custom_keyboard, ignore_layers_after=3)
         self.probs = typo_probs if typo_probs is not None else DEFAULT_TYPO_PROBS
         self.common_typos = common_typos if common_typos is not None else self._get_common_typos()
 
