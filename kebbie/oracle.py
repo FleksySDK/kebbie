@@ -145,6 +145,7 @@ class Oracle:
             dictionary.
         n_most_common_mistakes (int): If `track_mistakes` is set to
             `True`, the top X mistakes to record.
+        beta (float): Beta to use for computing the F-beta score.
     """
 
     def __init__(
@@ -154,6 +155,7 @@ class Oracle:
         custom_keyboard: Dict,
         track_mistakes: bool,
         n_most_common_mistakes: int,
+        beta: float,
     ) -> None:
         super().__init__()
 
@@ -162,6 +164,7 @@ class Oracle:
         self.custom_keyboard = custom_keyboard
         self.track_mistakes = track_mistakes
         self.n_most_common_mistakes = n_most_common_mistakes
+        self.beta = beta
 
     def test(self, corrector: Union[Corrector, List[Corrector]], n_proc: Optional[int], seed: int) -> Dict:
         """Main method, it tests the given Corrector, and returns results as a
@@ -212,7 +215,7 @@ class Oracle:
                     pbar.update(1)
 
         # Retrieve the results
-        results = scorer.score()
+        results = scorer.score(beta=self.beta)
 
         # Then potentially add the most common mistakes
         if self.track_mistakes:

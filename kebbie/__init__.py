@@ -6,6 +6,7 @@ from typing import Dict, List, Optional
 
 from .correctors import Corrector
 from .oracle import Oracle
+from .scorer import DEFAULT_BETA
 from .utils import get_soda_dataset
 
 
@@ -29,6 +30,7 @@ def evaluate(
     n_most_common_mistakes: int = N_MOST_COMMON_MISTAKES,
     n_proc: Optional[int] = None,
     seed: int = DEFAULT_SEED,
+    beta: float = DEFAULT_BETA,
 ) -> Dict:
     """Main function of the `kebbie` framework, it evaluates the given
     Corrector.
@@ -54,6 +56,8 @@ def evaluate(
             `os.cpu_count()` is used. Defaults to `None`.
         seed (int): Seed to use for running the tests. Defaults to
             DEFAULT_SEED.
+        beta (float, optional): Beta to use for computing the F-beta score.
+            Defaults to DEFAULT_BETA.
 
     Raises:
         UnsupportedLanguage: Exception raised if `lang` is set to a language
@@ -75,6 +79,7 @@ def evaluate(
         custom_keyboard=custom_keyboard,
         track_mistakes=track_mistakes,
         n_most_common_mistakes=n_most_common_mistakes,
+        beta=beta,
     )
 
     # Run the tests & get the results

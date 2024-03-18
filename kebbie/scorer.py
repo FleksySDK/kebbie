@@ -13,7 +13,7 @@ from kebbie.noise_model import Typo
 from kebbie.utils import accuracy, fbeta, human_readable_memory, human_readable_runtime, precision, recall, round_to_n
 
 
-BETA = 1
+DEFAULT_BETA = 0.9
 WITH_TYPO = "with_typo"
 WITHOUT_TYPO = "without_typo"
 
@@ -129,8 +129,6 @@ class Scorer:
         domains (List[str]): The list of domains in the dataset. The Scorer
             keeps track of the score for each domain, so that we can spot
             discrepancies between domain, if any.
-        beta (float, optional): The beta to use for computing the Fβ score.
-            Defaults to `1`.
         human_readable (bool, optional): If set to `False`, performance metrics
             (memory, runtime) are kept in their raw, numeral form. If set to
             `True`, these are converted to a human readable string. Defaults to
@@ -139,10 +137,7 @@ class Scorer:
             common mistakes. Defaults to `False`.
     """
 
-    def __init__(
-        self, domains: List[str], beta: float = BETA, human_readable: bool = True, track_mistakes: bool = False
-    ) -> None:
-        self.beta = beta
+    def __init__(self, domains: List[str], human_readable: bool = True, track_mistakes: bool = False) -> None:
         self.human_readable = human_readable
 
         # For each task, create a dictionary of Counts
@@ -434,7 +429,7 @@ class Scorer:
             "n": c.total,
         }
 
-    def _score_precision_recall(self, no_typo_c: Count, typo_c: Count) -> Dict:
+    def _score_precision_recall(self, no_typo_c: Count, typo_c: Count, beta: float) -> Dict:
         """Helper method to compute the precision and recall for
         auto-correction.
 
@@ -459,6 +454,7 @@ class Scorer:
                 were added.
             typo_c (Count): Count object for the predictions where typos were
                 added.
+            beta (float): Beta to use for computing the F-beta score.
 
         Returns:
             Dict: Dictionary with the computed metrics.
@@ -485,11 +481,11 @@ class Scorer:
             "accuracy": round_to_n(accuracy(tp=tp, tn=tn, fp=fp, fn=fn)),
             "precision": round_to_n(p),
             "recall": round_to_n(r),
-            "fscore": round_to_n(fbeta(precision=p, recall=r, beta=self.beta)),
+            "fscore": round_to_n(fbeta(precision=p, recall=r, beta=beta)),
             "top3_accuracy": round_to_n(accuracy(tp=tp_3, tn=tn_3, fp=fp_3, fn=fn_3)),
             "top3_precision": round_to_n(p_3),
             "top3_recall": round_to_n(r_3),
-            "top3_fscore": round_to_n(fbeta(precision=p_3, recall=r_3, beta=self.beta)),
+            "top3_fscore": round_to_n(fbeta(precision=p_3, recall=r_3, beta=beta)),
             "n_typo": typo_c.total,
             "n": no_typo_c.total + typo_c.total,
         }
@@ -527,10 +523,14 @@ class Scorer:
             for name, x in perf.items()
         }
 
-    def score(self) -> Dict:  # noqa: C901
+    def score(self, beta: float = DEFAULT_BETA) -> Dict:  # noqa: C901
         """Method that computes the final scores (as well as some alternative
         metrics that can bring insight in the capabilities of the model), and
         output these in an organized dictionary.
+
+        Args:
+            beta (float, optional): Beta to use for computing the F-beta score.
+                Defaults to DEFAULT_BETA.
 
         Returns:
             Dict: Dictionary containing the computed scores and metrics for the
@@ -602,7 +602,7 @@ class Scorer:
                     typo_per[domain] += c
         no_typo_total_c = sum(no_typo_per.values(), Count())
         typo_total_c = sum(typo_per.values(), Count())
-        per_domain = {k: self._score_precision_recall(no_typo_per[k], typo_per[k]) for k in no_typo_per}
+        per_domain = {k: self._score_precision_recall(no_typo_per[k], typo_per[k], beta=beta) for k in no_typo_per}
 
         # Group scores by typo type
         no_typo_c, typo_per = Count(), defaultdict(Count)
@@ -614,22 +614,24 @@ class Scorer:
                     typo_per[typo] += c
         # Divide the total count of no-typo into each type of typos with the right proportions
         no_typo_per = defaultdict(Count, {k: no_typo_c * (c.total / typo_total_c.total) for k, c in typo_per.items()})
-        per_typo_type = {t.name: self._score_precision_recall(no_typo_per[t], typo_per[t]) for t in Typo}
+        per_typo_type = {t.name: self._score_precision_recall(no_typo_per[t], typo_per[t], beta=beta) for t in Typo}
         per_n_typo = {
             "1": self._score_precision_recall(
                 sum((c for k, c in no_typo_per.items() if isinstance(k, Typo)), Count()),
                 sum((c for k, c in typo_per.items() if isinstance(k, Typo)), Count()),
+                beta=beta,
             ),
-            "2": self._score_precision_recall(no_typo_per[2], typo_per[2]),
+            "2": self._score_precision_recall(no_typo_per[2], typo_per[2], beta=beta),
             "3+": self._score_precision_recall(
                 sum((c for k, c in no_typo_per.items() if isinstance(k, int) and k > 2), Count()),
                 sum((c for k, c in typo_per.items() if isinstance(k, int) and k > 2), Count()),
+                beta=beta,
             ),
         }
 
         # Task results
         acr = {
-            "score": self._score_precision_recall(no_typo_total_c, typo_total_c),
+            "score": self._score_precision_recall(no_typo_total_c, typo_total_c, beta=beta),
             "per_domain": per_domain,
             "per_typo_type": per_typo_type,
             "per_number_of_typos": per_n_typo,
