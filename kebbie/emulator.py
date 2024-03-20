@@ -331,8 +331,8 @@ class Emulator:
             This is needed because each keyboard has a different layout, and we
             need to know each key's position in order to type words.
         device (str, optional): Device UDID to use.
-        host (str, optional): Appium server's address. Defaults to "127.0.0.1".
-        port (str, optional): Appium server's port. Defaults to "4723".
+        host (str, optional): Appium server's address.
+        port (str, optional): Appium server's port.
 
     Raises:
         ValueError: Error raised if the given platform doesn't exist.
@@ -540,7 +540,6 @@ class Emulator:
                 frame is : [start_pos_x, start_pos_y, width, height].
             keyboard_frame (List[int]): If specified, the Keyboard frame to
                 use. If `None`, it will use `self.layout["keyboard_frame"]`.
-                Defaults to `None`.
         """
         x, y, w, h = frame
         base_x, base_y, *_ = keyboard_frame if keyboard_frame else self.layout["keyboard_frame"]
@@ -754,8 +753,7 @@ class LayoutDetector:
             root (WebElement): Root element in the XML tree that represents the
                 keyboard (with all its keys).
             keyboard_frame (List[int], optional): Optionally, the keyboard
-                frame (so we don't need to re-detect it everytime). Defaults to
-                `None`.
+                frame (so we don't need to re-detect it everytime).
 
         Returns:
             Keyboard frame
@@ -809,8 +807,7 @@ class LayoutDetector:
         Args:
             element (WebElement): XML Element describing a key.
             is_suggestion (bool, optional): If we are retrieving the content of
-                a suggestion, the content shouldn't be translated. Defaults to
-                `False`.
+                a suggestion, the content shouldn't be translated.
 
         Returns:
             Content of the key, or None if it's a key we should ignore.

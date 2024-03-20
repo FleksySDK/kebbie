@@ -159,17 +159,15 @@ class EmulatorCorrector(Corrector):
     Args:
         platform (str): Name of the platform used. `android` or `ios`.
         keyboard (str): Name of the keyboard to test.
-        device (str): Device UDID to use for the emulator. Defaults to
-            `None`.
+        device (str): Device UDID to use for the emulator.
         fast_mode (bool): If `True`, only auto-correction will be tested,
             and suggestions will not be retrieved. This is faster because
-            we don't take screenshot and run the OCR. Defaults to `True`.
+            we don't take screenshot and run the OCR.
         instantiate_emulator (bool): If `False`, the emulator is not
             initialized (It will only be initialized after being pickled).
             This is useful to quickly create instances of this class,
             without going through the whole layout detection (which takes
             time) 2 times : at initialization and after being pickled.
-            Defaults to `True`.
     """
 
     def __init__(

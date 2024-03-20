@@ -79,7 +79,7 @@ def dd_x_layers(n_layers: int = 1):
     number of nest level. The end object is a Count.
 
     Args:
-        n_layers (int): Number of layer for the defaultdict. Defaults to 1.
+        n_layers (int): Number of layer for the defaultdict.
 
     Returns:
         Created nested defaultdict.
@@ -131,10 +131,9 @@ class Scorer:
             discrepancies between domain, if any.
         human_readable (bool, optional): If set to `False`, performance metrics
             (memory, runtime) are kept in their raw, numeral form. If set to
-            `True`, these are converted to a human readable string. Defaults to
-            `True`.
+            `True`, these are converted to a human readable string.
         track_mistakes (bool, optional): Set to `True` for tracking the most
-            common mistakes. Defaults to `False`.
+            common mistakes.
     """
 
     def __init__(self, domains: List[str], human_readable: bool = True, track_mistakes: bool = False) -> None:
@@ -530,7 +529,6 @@ class Scorer:
 
         Args:
             beta (float, optional): Beta to use for computing the F-beta score.
-                Defaults to DEFAULT_BETA.
 
         Returns:
             Dictionary containing the computed scores and metrics for the

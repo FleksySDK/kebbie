@@ -60,8 +60,7 @@ def load_keyboard(lang: str = "en-US") -> Dict:
     For now, only `en-US` is supported.
 
     Args:
-        lang (str, optional): Language of the keyboard to load. Defaults to
-            "en-US".
+        lang (str, optional): Language of the keyboard to load.
 
     Returns:
         The keyboard data.
@@ -115,7 +114,7 @@ def sample_among(probs: Dict[Any, float], with_none: bool = True) -> Any:
             and their probabilities. Each probability should be above 0 and
             their sum should not exceed 1.
         with_none (bool): If set to `True`, add a `None` option (no event
-            sampled). Defaults to True.
+            sampled).
 
     Returns:
         The corresponding key of the event sampled.
@@ -225,7 +224,7 @@ def fbeta(precision: float, recall: float, beta: float = 1) -> float:
     Args:
         precision (float): Precision.
         recall (float): Recall.
-        beta (float): Beta factor. Defaults to 1.
+        beta (float): Beta factor.
 
     Returns:
         F-beta score.
@@ -241,7 +240,7 @@ def round_to_n(x: float, n: int = 2) -> float:
 
     Args:
         x (float): Number to round.
-        n (int): Number of significant digits to use. Defaults to 2.
+        n (int): Number of significant digits to use.
 
     Returns:
         Rounded number.
@@ -293,11 +292,10 @@ def get_soda_dataset(max_sentences: int = 20_000, seed: int = 31) -> Dict[str, L
     Args:
         max_sentences (int, optional): Maximum number of sentences in total in
             the dataset. They will be shared across domain (50% from the
-            `narrative` domain, 50% from the `dialogue` domain). Defaults to
-            `20 000`.
+            `narrative` domain, 50% from the `dialogue` domain).
         seed (int, optional): Seed to use when shuffling the dataset (since we
             don't use the whole dataset, it's better to shuffle it before
-            extracting the X first sentences). Defaults to `31`.
+            extracting the X first sentences).
 
     Returns:
         The dataset, separated into two domains : narrative and dialogue.

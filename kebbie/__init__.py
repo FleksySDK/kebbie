@@ -37,27 +37,24 @@ def evaluate(
 
     Args:
         lang (str, optional): Language to test. For now, only `en-US` is
-            supported. Defaults to `en-US`.
+            supported.
         custom_keyboard (Dict, optional): If provided, instead of relying on
             the keyboard layout provided by default, uses the given keyboard
-            layout. Defaults to `None`.
+            layout.
         corrector (Corrector): The corrector to evaluate.
         dataset (Dict[str, List[str]], optional): Data to use for testing. It
             should be a dictionary where the key is the name of the domain, and
             the value is a list of sentences. If `None` is given, it will use
-            the SODA dataset. Defaults to `None`.
+            the SODA dataset.
         track_mistakes (bool, optional): If `True`, we will track the most
             common mistakes of the Corrector (these will be saved as TSV files
-            in the working directory). Defaults to `False`.
+            in the working directory).
         n_most_common_mistakes (int, optional): If `track_mistakes` is set to
-            `True`, the top X mistakes to record. Defaults to
-            N_MOST_COMMON_MISTAKES.
+            `True`, the top X mistakes to record.
         n_proc (int, optional): Number of processes to use. If `None`,
-            `os.cpu_count()` is used. Defaults to `None`.
-        seed (int): Seed to use for running the tests. Defaults to
-            DEFAULT_SEED.
+            `os.cpu_count()` is used.
+        seed (int): Seed to use for running the tests.
         beta (float, optional): Beta to use for computing the F-beta score.
-            Defaults to DEFAULT_BETA.
 
     Raises:
         UnsupportedLanguage: Exception raised if `lang` is set to a language

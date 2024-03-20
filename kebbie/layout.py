@@ -54,14 +54,12 @@ class LayoutHelper:
     to offer some easy-to-use method to deal with a keyboard layout.
 
     Args:
-        lang (str, optional): Language of the layout to load. Defaults to
-            "en-US".
+        lang (str, optional): Language of the layout to load.
         custom_keyboard (Dict, optional): If provided, instead of relying on
             the keyboard layout provided by default, uses the given keyboard
-            layout. Defaults to `None`.
+            layout.
         ignore_layers_after (Optional[int]) : Ignore higher layers of the
-            keyboard layout. If `None` is given, no layer is ignored. Defaults
-            to `None`.
+            keyboard layout. If `None` is given, no layer is ignored.
     """
 
     def __init__(self, lang: str = "en-US", custom_keyboard: Dict = None, ignore_layers_after: Optional[int] = None):
@@ -95,7 +93,6 @@ class LayoutHelper:
                 its layout.
             ignore_layers_after (Optional[int]) : Ignore higher layers of the
                 keyboard layout. If `None` is given, no layer is ignored.
-                Defaults to `None`.
 
         Returns:
             Key information for each character in the keyboard.

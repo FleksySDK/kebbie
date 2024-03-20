@@ -40,7 +40,7 @@ def init_tester(
         lang (str): Language used.
         custom_keyboard (Dict, optional): If provided, instead of relying on
             the keyboard layout provided by default, uses the given keyboard
-            layout. Defaults to `None`.
+            layout.
         correctors (mp.Queue): Queue containing list of correctors to test.
             Each process will get the next corrector available in queue.
         seed (int): Base seed to use.

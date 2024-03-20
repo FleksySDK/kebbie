@@ -103,27 +103,22 @@ class NoiseModel:
         lang (str): Language used.
         custom_keyboard (Dict, optional): If provided, instead of relying on
             the keyboard layout provided by default, uses the given keyboard
-            layout. Defaults to `None`.
+            layout.
         common_typos (Optional[Dict[str, List[str]]], optional): Dictionary of
-            common typos. If `None`, common typos are not used. Defaults to
-            `None`.
+            common typos. If `None`, common typos are not used.
         typo_probs (Optional[Dict[str, float]], optional): Probabilities for
             each type of typos. If `None` is given, `DEFAULT_TYPO_PROBS` is
-            used. Defaults to `None`.
+            used.
         x_offset (float, optional): Parameter for the Gaussian distribution for
             the fuzzy typing. Base position offset on the x-axis.
-            Defaults to `0`.
         y_offset (float, optional): Parameter for the Gaussian distribution for
             the fuzzy typing. Base position offset on the y-axis.
-            Defaults to `0`.
         x_ratio (float, optional): Parameter for the Gaussian distribution for
             the fuzzy typing. It controls how wide the distribution is on the
             x-axis, which is the precision of the typing.
-            Defaults to DEFAULT_SIGMA_RATIO.
         y_ratio (float, optional): Parameter for the Gaussian distribution for
             the fuzzy typing. It controls how wide the distribution is on the
             y-axis, which is the precision of the typing.
-            Defaults to DEFAULT_SIGMA_RATIO.
     """
 
     def __init__(
