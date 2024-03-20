@@ -43,7 +43,7 @@ def cli():
         "-N",
         dest="n_sentences",
         type=int,
-        default=250,
+        default=100,
         help="The number of sentences to use for the evaluation. Emulated keyboard are slow, so we can't run on the "
         "full test set. Instead we pick the first N sentences.",
     )
