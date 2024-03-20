@@ -8,3 +8,6 @@ __pycache__/
 
 # Coverage output
 .coverage
+
+# Results file
+*.json
