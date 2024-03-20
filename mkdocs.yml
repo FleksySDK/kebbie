@@ -5,8 +5,8 @@ repo_name: "FleksySDK/kebbie"
 theme:
   name: material
   custom_dir: docs/mkdocs
-  logo: "assets/flame.svg"
-  favicon: "assets/flame.svg"
+  logo: "assets/keyboard.svg"
+  favicon: "assets/keyboard.svg"
   features:
     - navigation.sections
   palette:
@@ -37,14 +37,16 @@ nav:
   - Welcome: "index.md"
   - "usage.md"
   - Code reference:
-    - "code_ref.md"
+    - "public_api.md"
+    - "internals.md"
 
 plugins:
   - search
   - mkdocstrings:
+      default_handler: python
       handlers:
         python:
-          rendering:
+          options:
             show_root_heading: True
             show_root_full_path: False
             members_order: source

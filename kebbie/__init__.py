@@ -36,12 +36,12 @@ def evaluate(
     Corrector.
 
     Args:
+        corrector (Corrector): The corrector to evaluate.
         lang (str, optional): Language to test. For now, only `en-US` is
             supported.
         custom_keyboard (Dict, optional): If provided, instead of relying on
             the keyboard layout provided by default, uses the given keyboard
             layout.
-        corrector (Corrector): The corrector to evaluate.
         dataset (Dict[str, List[str]], optional): Data to use for testing. It
             should be a dictionary where the key is the name of the domain, and
             the value is a list of sentences. If `None` is given, it will use

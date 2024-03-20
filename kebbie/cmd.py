@@ -10,11 +10,7 @@ from kebbie.utils import get_soda_dataset
 
 
 def cli():
-    """Entry-point of the `kebbie` command line.
-
-    Raises:
-        NotImplementedError: Temporary.
-    """
+    """Entry-point of the `kebbie` command line."""
     # create the top-level parser
     parser = argparse.ArgumentParser(description="Kebbie's command line.")
     subparsers = parser.add_subparsers(title="commands", dest="cmd")

@@ -4,7 +4,13 @@
 
 Welcome to the documentation of the `kebbie` package.
 
-TODO description
+`kebbie` is a small framework for **testing and benchmarking mobile keyboards**.  
+The primary goal of this package is to establish a *cohesive* and *standardized* method for evaluating the various NLP capabilities of a mobile keyboard and comparing them to existing alternatives.
+
+This is achieved through two features offered by `kebbie` :
+
+* An easy-to-use evaluation function that facilitates the testing of multiple NLP functionalities offered by a mobile keyboard : *auto-correction*, *auto-completion*, *next-word prediction*, and *swipe gesture recognition*.
+* A command-line interface for running the evaluation on established keyboards, operated within emulator.
 
 ## Installation
 
