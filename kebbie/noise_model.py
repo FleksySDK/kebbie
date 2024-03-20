@@ -165,11 +165,9 @@ class NoiseModel:
             words (List[str]): List of words to type.
 
         Returns:
-            Tuple[List[Optional[Tuple[float, float]]], str, int, List[Typo]]:
-                Several elements are returned : the list of keystrokes (may
-                contains some None), the typed characters as string, the number
-                of words typed, and the list of typos introduced in the string
-                typed.
+            Several elements are returned : the list of keystrokes (may
+            contains some None), the typed characters as string, the number of
+            words typed, and the list of typos introduced in the string typed.
         """
         all_keystrokes = []
         all_typed_char = ""
@@ -211,9 +209,8 @@ class NoiseModel:
             word (str): Word to type with a swipe gesture.
 
         Returns:
-            Optional[List[Tuple[float, float]]]: Positions (x, y) of the
-                generated swipe gesture, or None if the swipe gesture couldn't
-                be created.
+            Positions (x, y) of the generated swipe gesture, or None if the
+            swipe gesture couldn't be created.
         """
         # Some words can't be corrected (numbers, symbols, etc...) -> Don't introduce typos
         error_free = False if self._is_correctable(word) else True
@@ -242,8 +239,7 @@ class NoiseModel:
                 to False.
 
         Returns:
-            Tuple[str, List[Typo]]: The noisy string, and the list of typos
-                introduced.
+            The noisy string, and the list of typos introduced.
         """
         if error_free:
             return word, []
@@ -361,9 +357,8 @@ class NoiseModel:
                 to False.
 
         Returns:
-            Tuple[List[Optional[Tuple[float, float]]], str, List[Typo]]: List
-                of keystrokes, fuzzy string (corresponding to the keystrokes),
-                and list of typos introduced.
+            List of keystrokes, fuzzy string (corresponding to the keystrokes),
+            and list of typos introduced.
         """
         fuzzy_word = ""
         keystrokes = []
@@ -419,8 +414,8 @@ class NoiseModel:
             word (str): Word to classify as correctable or not.
 
         Returns:
-            bool: True if the word is correctable (and therefore we can
-                introduce typo), False otherwise.
+            True if the word is correctable (and therefore we can introduce
+            typo), False otherwise.
         """
         # Use the Unicode category `L` (see https://en.wikipedia.org/wiki/Unicode_character_property#General_Category)
         return not bool(re.match(r"^[^\pL]+$", word))
@@ -430,9 +425,8 @@ class NoiseModel:
         when introducing typos.
 
         Returns:
-            Dict[str, List[str]]: Dictionary where the keys are the correct
-                words and the values are the associated possible typos for this
-                word.
+            Dictionary where the keys are the correct words and the values are
+            the associated possible typos for this word.
         """
         plang = self.lang.split("-")[0]
         common_typos_cache_file = os.path.join(CACHE_DIR, f"{plang}.json")

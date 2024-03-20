@@ -65,7 +65,7 @@ def tester(sentence: str) -> Scorer:
         sentence (str): Sentence to use as data for the test.
 
     Returns:
-        Scorer: Scorer class with the prediction counts for this sentence.
+        Scorer class with the prediction counts for this sentence.
     """
     # Set the seed for reproducibility, using the hash of the sentence
     hsh = int(hashlib.sha256(sentence.encode("utf-8")).hexdigest(), 16)
@@ -181,7 +181,7 @@ class Oracle:
             seed (int): Seed to use for running the tests.
 
         Returns:
-            Dict: Results formatted in a dictionary.
+            Results formatted in a dictionary.
         """
         # Initialize a global Scorer here, that will gather counts across processes
         scorer = Scorer(domains=self.data.keys(), track_mistakes=self.track_mistakes)

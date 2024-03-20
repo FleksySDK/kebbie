@@ -64,7 +64,7 @@ def evaluate(
             that is not supported yet.
 
     Returns:
-        Dict: The results, in a dictionary.
+        The results, in a dictionary.
     """
     if lang not in SUPPORTED_LANG and custom_keyboard is None:
         raise UnsupportedLanguage(f"{lang} is not supported yet. List of supported languages : {SUPPORTED_LANG}")

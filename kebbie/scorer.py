@@ -39,7 +39,7 @@ class Count:
             count (Count): Count instance to add.
 
         Returns:
-            Count: Merged Count.
+            Merged Count.
         """
         return Count(
             correct=self.correct + count.correct,
@@ -54,7 +54,7 @@ class Count:
             proportion (float): Proportion to multiply by.
 
         Returns:
-            Count: Count with the right proportion.
+            Count with the right proportion.
         """
         return Count(
             correct=round(self.correct * proportion),
@@ -82,7 +82,7 @@ def dd_x_layers(n_layers: int = 1):
         n_layers (int): Number of layer for the defaultdict. Defaults to 1.
 
     Returns:
-        defaultdict: Created nested defaultdict.
+        Created nested defaultdict.
     """
     assert n_layers > 0, f"A default dict have at least 1 layer ({n_layers} given)"
     if n_layers == 1:
@@ -111,7 +111,7 @@ def one_score(results: Dict) -> float:
             the metrics (used to compute the one score).
 
     Returns:
-        float: One score, computed from the results given.
+        One score, computed from the results given.
     """
     nwp = results["next_word_prediction"]["score"]["top3_accuracy"]
     acp = results["auto_completion"]["score"]["top3_accuracy"]
@@ -421,7 +421,7 @@ class Scorer:
             c (Count): Count object to use to compute the accuracy.
 
         Returns:
-            Dict: Dictionary with the computed metrics.
+            Dictionary with the computed metrics.
         """
         return {
             "accuracy": round_to_n(c.correct / c.total) if c.total != 0 else 0,
@@ -457,7 +457,7 @@ class Scorer:
             beta (float): Beta to use for computing the F-beta score.
 
         Returns:
-            Dict: Dictionary with the computed metrics.
+            Dictionary with the computed metrics.
         """
         # The first step is to divide the counts into TN, FP, TP, FN
         tn = no_typo_c.correct
@@ -507,7 +507,7 @@ class Scorer:
             runtimes (List[int]): List of runtimes for a specific operation.
 
         Returns:
-            Dict: Dictionary with the computed metrics.
+            Dictionary with the computed metrics.
         """
         perf = {
             "mean_memory": stats.mean(memories) if memories else 0,
@@ -533,8 +533,8 @@ class Scorer:
                 Defaults to DEFAULT_BETA.
 
         Returns:
-            Dict: Dictionary containing the computed scores and metrics for the
-                model tested.
+            Dictionary containing the computed scores and metrics for the
+            model tested.
         """
         # --- Next-word prediction ---
         # Group scores by domain

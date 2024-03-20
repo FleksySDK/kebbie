@@ -26,9 +26,8 @@ def profile_fn(fn: Callable, *args, **kwargs) -> Tuple[Any, int, int]:
         **kwargs: Keywords arguments to pass to the given function.
 
     Returns:
-        Tuple[Any, int, int]: A tuple containing the return value of the
-            function called, the memory usage (in bytes), and the runtime (in
-            nano seconds).
+        A tuple containing the return value of the function called, the memory
+        usage (in bytes), and the runtime (in nano seconds).
     """
     tracemalloc.start()
     t0 = time.time()
@@ -49,7 +48,7 @@ def euclidian_dist(p1: Tuple[float, float], p2: Tuple[float, float]) -> float:
         p2 (Tuple[float, float]): Point 2.
 
     Returns:
-        float: Euclidian distance between the 2 given points.
+        Euclidian distance between the 2 given points.
     """
     return math.sqrt(sum((a - b) ** 2 for a, b in zip(p1, p2)))
 
@@ -64,7 +63,7 @@ def load_keyboard(lang: str = "en-US") -> Dict:
             "en-US".
 
     Returns:
-        Dict: The keyboard data.
+        The keyboard data.
     """
     layout_folder = Path(__file__).parent / "layouts"
     with open(layout_folder / f"{lang}.json", "r") as f:
@@ -79,7 +78,7 @@ def strip_accents(s: str) -> str:
         s (str): Accented string.
 
     Returns:
-        str: Same string, without accent.
+        Same string, without accent.
     """
     nfkd_form = unicodedata.normalize("NFKD", s)
     return "".join([c for c in nfkd_form if not unicodedata.combining(c)])
@@ -95,7 +94,7 @@ def sample(proba: float) -> bool:
             and 1 (included).
 
     Returns:
-        bool: `True` if the event was sampled, `False` otherwise.
+        `True` if the event was sampled, `False` otherwise.
     """
     assert 0 <= proba <= 1, f"`{proba}` is not a valid probability (should be between 0 and 1)"
     if proba == 0:
@@ -118,7 +117,7 @@ def sample_among(probs: Dict[Any, float], with_none: bool = True) -> Any:
             sampled). Defaults to True.
 
     Returns:
-        Any: The corresponding key of the event sampled.
+        The corresponding key of the event sampled.
     """
     options = list(probs.keys())
     weights = list(probs.values())
@@ -156,9 +155,8 @@ def sample_partial_word(
             sampled keystrokes are partial.
 
     Returns:
-        Tuple[List[Optional[Tuple[float, float]]], str]: Return both the
-            partial list of keystrokes and the partial word, sampled from the
-            given word.
+        Return both the partial list of keystrokes and the partial word,
+        sampled from the given word.
     """
     r = range(1, min(len(true_word), len(word)))
     s = random.choices(r, weights=r)[0]
@@ -175,7 +173,7 @@ def accuracy(tp: int, tn: int, fp: int, fn: int) -> float:
         fn (int): Number of False Negative.
 
     Returns:
-        float: Accuracy.
+        Accuracy.
     """
     try:
         return (tp + tn) / (tp + tn + fp + fn)
@@ -191,7 +189,7 @@ def precision(tp: int, fp: int) -> float:
         fp (int): Number of False Positive.
 
     Returns:
-        float: Precision.
+        Precision.
     """
     try:
         return tp / (tp + fp)
@@ -207,7 +205,7 @@ def recall(tp: int, fn: int) -> float:
         fn (int): Number of False Negative.
 
     Returns:
-        float: Recall.
+        Recall.
     """
     try:
         return tp / (tp + fn)
@@ -229,7 +227,7 @@ def fbeta(precision: float, recall: float, beta: float = 1) -> float:
         beta (float): Beta factor. Defaults to 1.
 
     Returns:
-        float: F-beta score.
+        F-beta score.
     """
     try:
         return (1 + beta**2) * precision * recall / (beta**2 * precision + recall)
@@ -245,7 +243,7 @@ def round_to_n(x: float, n: int = 2) -> float:
         n (int): Number of significant digits to use. Defaults to 2.
 
     Returns:
-        float: Rounded number.
+        Rounded number.
     """
     return round(x, -int(math.floor(math.log10(x))) + (n - 1)) if x != 0 else 0
 
@@ -258,7 +256,7 @@ def human_readable_memory(x: int) -> str:
         x (int): Number in bytes.
 
     Returns:
-        str: Human-readable version of the given number, with the right unit.
+        Human-readable version of the given number, with the right unit.
     """
     x = round_to_n(x, n=3)
     for unit in ["B", "KB", "MB", "GB"]:
@@ -277,7 +275,7 @@ def human_readable_runtime(x: int) -> str:
         x (int): Number in nanoseconds.
 
     Returns:
-        str: Human-readable version of the given number, with the right unit.
+        Human-readable version of the given number, with the right unit.
     """
     x = round_to_n(x, n=3)
     for unit in ["ns", "μs", "ms"]:
@@ -301,8 +299,7 @@ def get_soda_dataset(max_sentences: int = 20_000, seed: int = 31) -> Dict[str, L
             extracting the X first sentences). Defaults to `31`.
 
     Returns:
-        Dict[str, List[str]]: The dataset, separated into two domains :
-            narrative and dialogue.
+        The dataset, separated into two domains : narrative and dialogue.
     """
     data = {"narrative": [], "dialogue": []}
     max_domain_sentences = max_sentences // 2

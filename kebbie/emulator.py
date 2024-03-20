@@ -408,7 +408,7 @@ class Emulator:
         list of devices running.
 
         Returns:
-            List[str]: List of detected device UDID.
+            List of detected device UDID.
         """
         result = subprocess.run(["adb", "devices"], stdout=subprocess.PIPE)
         devices = result.stdout.decode().split("\n")
@@ -525,7 +525,7 @@ class Emulator:
             c (str): Character to check.
 
         Returns:
-            bool: True if the character is an EOS marker.
+            True if the character is an EOS marker.
         """
         if self.keyboard == GBOARD:
             return False
@@ -575,7 +575,7 @@ class Emulator:
             lang (str): Language to use for the OCR.
 
         Returns:
-            List[str]: List of predictions from the keyboard.
+            List of predictions from the keyboard.
         """
         if hasattr(self, "detected"):
             # Only keyboards that were auto-detected (using XML tree) have the
@@ -603,7 +603,7 @@ class Emulator:
         """Return the text currently contained in the typing field.
 
         Returns:
-            str: Text of the typing field.
+            Text of the typing field.
         """
         return self.typing_field.text
 
@@ -615,7 +615,7 @@ class Emulator:
         tries to access it and perform the action again.
 
         Returns:
-            str: Text of the typing field.
+            Text of the typing field.
         """
         try:
             return self._get_text()
@@ -741,7 +741,7 @@ class LayoutDetector:
                 overwritten.
 
         Returns:
-            List[str]: List of suggestions from the keyboard.
+            List of suggestions from the keyboard.
         """
         raise NotImplementedError
 
@@ -758,8 +758,8 @@ class LayoutDetector:
                 `None`.
 
         Returns:
-            Tuple[List[int], Dict]: Tuple with the keyboard frame and the
-                layout with all the keys detected on this screen.
+            Tuple with the keyboard frame and the layout with all the keys
+            detected on this screen.
         """
         layout = {}
         if keyboard_frame is None:
@@ -791,7 +791,7 @@ class LayoutDetector:
             element (WebElement): XML Element describing a key.
 
         Returns:
-            List[int]: Bounds of this key.
+            Bounds of this key.
         """
         m = re.match(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]", element.get_attribute("bounds"))
         if m:
@@ -813,7 +813,7 @@ class LayoutDetector:
                 `False`.
 
         Returns:
-            str: Content of the key, or None if it's a key we should ignore.
+            Content of the key, or None if it's a key we should ignore.
         """
         content = element.get_attribute("content-desc")
 
@@ -833,7 +833,7 @@ class LayoutDetector:
         bar from the XML tree.
 
         Returns:
-            List[int]: Bounds of the status bar.
+            Bounds of the status bar.
         """
         sb = self.driver.find_element(By.ID, "com.android.systemui:id/status_bar")
         return self._get_frame(sb)
@@ -850,7 +850,7 @@ class LayoutDetector:
             layout (Dict): Layout to fix.
 
         Returns:
-            Dict: Fixed layout.
+            Fixed layout.
         """
         # Find the offset between the keyboard frame and the keys
         keyboard_max_y = layout["keyboard_frame"][1] + layout["keyboard_frame"][3]
@@ -884,7 +884,7 @@ class GboardLayoutDetector(LayoutDetector):
         """Method to retrieve the keyboard suggestions from the XML tree.
 
         Returns:
-            List[str]: List of suggestions from the keyboard.
+            List of suggestions from the keyboard.
         """
         suggestions = []
 
@@ -923,7 +923,7 @@ class TappaLayoutDetector(LayoutDetector):
         """Method to retrieve the keyboard suggestions from the XML tree.
 
         Returns:
-            List[str]: List of suggestions from the keyboard.
+            List of suggestions from the keyboard.
         """
         suggestions = []
 

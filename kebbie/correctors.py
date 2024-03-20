@@ -38,7 +38,7 @@ class Corrector:
             word (str): Word being typed (corresponding to the keystrokes).
 
         Returns:
-            List[str]: The list of correction candidates.
+            The list of correction candidates.
         """
         return []
 
@@ -65,8 +65,8 @@ class Corrector:
             partial_word (str): Partial word being typed (corresponding to the
                 keystrokes).
 
-        Returns:  # noqa: DAR202
-            List[str]: The list of completion candidates.
+        Returns:
+            The list of completion candidates.
         """
         return []
 
@@ -83,7 +83,7 @@ class Corrector:
                 gesture.
 
         Returns:
-            List[str]: The list of swiped word candidates.
+            The list of swiped word candidates.
         """
         return []
 
@@ -96,7 +96,7 @@ class Corrector:
                 (the beginning of the sentence basically).
 
         Returns:
-            List[str]: The list of next-word candidates.
+            The list of next-word candidates.
         """
         return []
 
@@ -107,10 +107,9 @@ class Corrector:
         memory and/or runtime measure.
 
         Returns:
-            Tuple[List[str], int, int]: The first value is the return value of
-                the profiled method (list of candidates). Second value is the
-                memory consumption in bytes, and the third value is runtime in
-                nano seconds.
+            The first value is the return value of the profiled method (list
+            of candidates). Second value is the memory consumption in bytes,
+            and the third value is runtime in nano seconds.
         """
         return profile_fn(self.auto_correct, *args, **kwargs)
 
@@ -121,10 +120,9 @@ class Corrector:
         memory and/or runtime measure.
 
         Returns:
-            Tuple[List[str], int, int]: The first value is the return value of
-                the profiled method (list of candidates). Second value is the
-                memory consumption in bytes, and the third value is runtime in
-                nano seconds.
+            The first value is the return value of the profiled method (list
+            of candidates). Second value is the memory consumption in bytes,
+            and the third value is runtime in nano seconds.
         """
         return profile_fn(self.auto_complete, *args, **kwargs)
 
@@ -135,10 +133,9 @@ class Corrector:
         memory and/or runtime measure.
 
         Returns:
-            Tuple[List[str], int, int]: The first value is the return value of
-                the profiled method (list of candidates). Second value is the
-                memory consumption in bytes, and the third value is runtime in
-                nano seconds.
+            The first value is the return value of the profiled method (list
+            of candidates). Second value is the memory consumption in bytes,
+            and the third value is runtime in nano seconds.
         """
         return profile_fn(self.resolve_swipe, *args, **kwargs)
 
@@ -149,10 +146,9 @@ class Corrector:
         memory and/or runtime measure.
 
         Returns:
-            Tuple[List[str], int, int]: The first value is the return value of
-                the profiled method (list of candidates). Second value is the
-                memory consumption in bytes, and the third value is runtime in
-                nano seconds.
+            The first value is the return value of the profiled method (list
+            of candidates). Second value is the memory consumption in bytes,
+            and the third value is runtime in nano seconds.
         """
         return profile_fn(self.predict_next_word, *args, **kwargs)
 
@@ -204,7 +200,7 @@ class EmulatorCorrector(Corrector):
         """This method simply makes the object pickable.
 
         Returns:
-            Tuple: Tuple of callable and arguments.
+            Tuple of callable and arguments.
         """
         return (self.__class__, (self.platform, self.keyboard, self.device, self.fast_mode))
 
@@ -247,7 +243,7 @@ class EmulatorCorrector(Corrector):
             word (str): Word being typed (corresponding to the keystrokes).
 
         Returns:
-            List[str]: The list of correction candidates.
+            The list of correction candidates.
         """
         self.cached_type(context, word)
         candidates = self.emulator.get_predictions() if not self.fast_mode else []
@@ -292,8 +288,8 @@ class EmulatorCorrector(Corrector):
             partial_word (str): Partial word being typed (corresponding to the
                 keystrokes).
 
-        Returns:  # noqa: DAR202
-            List[str]: The list of completion candidates.
+        Returns:
+            The list of completion candidates.
         """
         if self.fast_mode:
             return []
@@ -313,7 +309,7 @@ class EmulatorCorrector(Corrector):
                 (the beginning of the sentence basically).
 
         Returns:
-            List[str]: The list of next-word candidates.
+            The list of next-word candidates.
         """
         if self.fast_mode:
             return []

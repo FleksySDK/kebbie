@@ -23,7 +23,7 @@ class BasicTokenizer:
             sentence (str): String to normalize.
 
         Returns:
-            str: Normalized string.
+            Normalized string.
         """
         # Replace things that are like "
         sentence = sentence.replace("“", '"').replace("”", '"').replace("„", '"')
@@ -54,7 +54,7 @@ class BasicTokenizer:
             sentence (str): Sentence to split.
 
         Returns:
-            List[str]: List of words from the sentence.
+            List of words from the sentence.
         """
         return sentence.strip().split()
 
@@ -66,6 +66,6 @@ class BasicTokenizer:
             word (str): Word being typed.
 
         Returns:
-            str: Updated context.
+            Updated context.
         """
         return context + word + " "
