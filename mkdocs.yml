@@ -36,6 +36,7 @@ markdown_extensions:
 nav:
   - Welcome: "index.md"
   - "usage.md"
+  - "advanced_usage.md"
   - Code reference:
     - "public_api.md"
     - "internals.md"

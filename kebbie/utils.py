@@ -286,7 +286,7 @@ def human_readable_runtime(x: int) -> str:
     return f"{x} s"
 
 
-def get_soda_dataset(max_sentences: int = 20_000, seed: int = 31) -> Dict[str, List[str]]:
+def get_soda_dataset(max_sentences: int = 2_000, seed: int = 31) -> Dict[str, List[str]]:
     """Load the SODA dataset.
 
     Args:
