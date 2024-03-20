@@ -758,8 +758,8 @@ class LayoutDetector:
                 `None`.
 
         Returns:
-            Tuple with the keyboard frame and the layout with all the keys
-            detected on this screen.
+            Keyboard frame
+            Layout with all the keys detected on this screen.
         """
         layout = {}
         if keyboard_frame is None:

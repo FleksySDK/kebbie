@@ -98,9 +98,9 @@ class LayoutHelper:
                 Defaults to `None`.
 
         Returns:
-            Three things are returned by this method : the key information for
-            each character in the keyboard, the key informations for each layer
-            of the keyboard, and a list of accents used in the keyboard.
+            Key information for each character in the keyboard.
+            Key information for each layer of the keyboard.
+            List of accents used in the keyboard.
         """
         keys_info = {}  # Dict char -> key infos (bounds, center, klayer ID)
         klayers_info = defaultdict(list)  # Dict klayer ID -> list of keys (bounds, char)
@@ -180,7 +180,8 @@ class LayoutHelper:
                 non-accented key.
 
         Returns:
-            Generated bounding box, and its associated center position.
+            Generated bounding box.
+            Its associated center position.
         """
         width = initial_bounds["right"] - initial_bounds["left"]
         height = initial_bounds["bottom"] - initial_bounds["top"]
@@ -211,9 +212,11 @@ class LayoutHelper:
                 because it doesn't exist on this keyboard layout).
 
         Returns:
-            Information of the key for the requested character : width, height,
-            center position on x-axis, center position on y-axis, and keyboard
-            layer ID where the character's key is located.
+            Width of the key for the requested character.
+            Height of the key for the requested character.
+            Center position (x-axis) of the key for the requested character.
+            Center position (y-axis) of the key for the requested character.
+            Keyboard layer ID where the character's key is located.
         """
         k = self.keys_info[char]
         return k.width, k.height, k.center[0], k.center[1], k.klayer_id

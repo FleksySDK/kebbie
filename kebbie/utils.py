@@ -26,8 +26,9 @@ def profile_fn(fn: Callable, *args, **kwargs) -> Tuple[Any, int, int]:
         **kwargs: Keywords arguments to pass to the given function.
 
     Returns:
-        A tuple containing the return value of the function called, the memory
-        usage (in bytes), and the runtime (in nano seconds).
+        The return value of the function called.
+        The memory usage (in bytes).
+        The runtime (in nano seconds).
     """
     tracemalloc.start()
     t0 = time.time()
@@ -155,8 +156,8 @@ def sample_partial_word(
             sampled keystrokes are partial.
 
     Returns:
-        Return both the partial list of keystrokes and the partial word,
-        sampled from the given word.
+        The partial list of keystrokes (sampled from the given word).
+        The partial word (sampled from the given word).
     """
     r = range(1, min(len(true_word), len(word)))
     s = random.choices(r, weights=r)[0]

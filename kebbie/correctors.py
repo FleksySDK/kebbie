@@ -107,9 +107,9 @@ class Corrector:
         memory and/or runtime measure.
 
         Returns:
-            The first value is the return value of the profiled method (list
-            of candidates). Second value is the memory consumption in bytes,
-            and the third value is runtime in nano seconds.
+            List of candidates returned from the profiled method.
+            Memory consumption in bytes.
+            Runtime in nano seconds.
         """
         return profile_fn(self.auto_correct, *args, **kwargs)
 
@@ -120,9 +120,9 @@ class Corrector:
         memory and/or runtime measure.
 
         Returns:
-            The first value is the return value of the profiled method (list
-            of candidates). Second value is the memory consumption in bytes,
-            and the third value is runtime in nano seconds.
+            List of candidates returned from the profiled method.
+            Memory consumption in bytes.
+            Runtime in nano seconds.
         """
         return profile_fn(self.auto_complete, *args, **kwargs)
 
@@ -133,9 +133,9 @@ class Corrector:
         memory and/or runtime measure.
 
         Returns:
-            The first value is the return value of the profiled method (list
-            of candidates). Second value is the memory consumption in bytes,
-            and the third value is runtime in nano seconds.
+            List of candidates returned from the profiled method.
+            Memory consumption in bytes.
+            Runtime in nano seconds.
         """
         return profile_fn(self.resolve_swipe, *args, **kwargs)
 
@@ -146,9 +146,9 @@ class Corrector:
         memory and/or runtime measure.
 
         Returns:
-            The first value is the return value of the profiled method (list
-            of candidates). Second value is the memory consumption in bytes,
-            and the third value is runtime in nano seconds.
+            List of candidates returned from the profiled method.
+            Memory consumption in bytes.
+            Runtime in nano seconds.
         """
         return profile_fn(self.predict_next_word, *args, **kwargs)
 

@@ -165,9 +165,10 @@ class NoiseModel:
             words (List[str]): List of words to type.
 
         Returns:
-            Several elements are returned : the list of keystrokes (may
-            contains some None), the typed characters as string, the number of
-            words typed, and the list of typos introduced in the string typed.
+            List of keystrokes (may contains some None).
+            The typed characters as string.
+            The number of words typed.
+            The list of typos introduced in the string typed.
         """
         all_keystrokes = []
         all_typed_char = ""
@@ -210,7 +211,7 @@ class NoiseModel:
 
         Returns:
             Positions (x, y) of the generated swipe gesture, or None if the
-            swipe gesture couldn't be created.
+                swipe gesture couldn't be created.
         """
         # Some words can't be corrected (numbers, symbols, etc...) -> Don't introduce typos
         error_free = False if self._is_correctable(word) else True
@@ -239,7 +240,8 @@ class NoiseModel:
                 to False.
 
         Returns:
-            The noisy string, and the list of typos introduced.
+            The noisy string.
+            The list of typos introduced.
         """
         if error_free:
             return word, []
@@ -357,8 +359,9 @@ class NoiseModel:
                 to False.
 
         Returns:
-            List of keystrokes, fuzzy string (corresponding to the keystrokes),
-            and list of typos introduced.
+            List of keystrokes.
+            Fuzzy string (corresponding to the keystrokes).
+            List of typos introduced.
         """
         fuzzy_word = ""
         keystrokes = []
@@ -426,7 +429,7 @@ class NoiseModel:
 
         Returns:
             Dictionary where the keys are the correct words and the values are
-            the associated possible typos for this word.
+                the associated possible typos for this word.
         """
         plang = self.lang.split("-")[0]
         common_typos_cache_file = os.path.join(CACHE_DIR, f"{plang}.json")
