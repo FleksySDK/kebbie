@@ -288,7 +288,7 @@ def human_readable_runtime(x: int) -> str:
     return f"{x} s"
 
 
-def get_soda_dataset(max_sentences: int = 20_000) -> Dict[str, List[str]]:
+def get_soda_dataset(max_sentences: int = 20_000, seed: int = 31) -> Dict[str, List[str]]:
     """Load the SODA dataset.
 
     Args:
@@ -296,6 +296,9 @@ def get_soda_dataset(max_sentences: int = 20_000) -> Dict[str, List[str]]:
             the dataset. They will be shared across domain (50% from the
             `narrative` domain, 50% from the `dialogue` domain). Defaults to
             `20 000`.
+        seed (int, optional): Seed to use when shuffling the dataset (since we
+            don't use the whole dataset, it's better to shuffle it before
+            extracting the X first sentences). Defaults to `31`.
 
     Returns:
         Dict[str, List[str]]: The dataset, separated into two domains :
@@ -305,6 +308,7 @@ def get_soda_dataset(max_sentences: int = 20_000) -> Dict[str, List[str]]:
     max_domain_sentences = max_sentences // 2
 
     hf_dataset = datasets.load_dataset("allenai/soda", split="test")
+    hf_dataset = hf_dataset.shuffle(seed=seed)
 
     for sample in hf_dataset:
         if len(data["narrative"]) >= max_domain_sentences and len(data["dialogue"]) >= max_domain_sentences:
