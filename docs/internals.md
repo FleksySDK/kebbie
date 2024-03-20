@@ -64,3 +64,85 @@
     options:
       show_root_heading: false
       show_root_toc_entry: false
+
+## Constants
+
+### `__init__.py`
+#### ::: kebbie
+    options:
+      show_if_no_docstring: true
+      show_root_heading: false
+      show_root_toc_entry: false
+      show_labels: false
+      show_docstring_description: false
+      filters: ["!.*", "^[A-Z][A-Z_0-9]*$"]
+
+### `emulator.py`
+#### ::: kebbie.emulator
+    options:
+      show_if_no_docstring: true
+      show_root_heading: false
+      show_root_toc_entry: false
+      show_labels: false
+      show_docstring_description: false
+      filters: ["!.*", "^[A-Z][A-Z_0-9]*$"]
+
+### `gesture.py`
+#### ::: kebbie.gesture
+    options:
+      show_if_no_docstring: true
+      show_root_heading: false
+      show_root_toc_entry: false
+      show_labels: false
+      show_docstring_description: false
+      filters: ["!.*", "^[A-Z][A-Z_0-9]*$"]
+
+### `layout.py`
+#### ::: kebbie.layout
+    options:
+      show_if_no_docstring: true
+      show_root_heading: false
+      show_root_toc_entry: false
+      show_labels: false
+      show_docstring_description: false
+      filters: ["!.*", "^[A-Z][A-Z_0-9]*$"]
+
+### `noise_model.py`
+#### ::: kebbie.noise_model
+    options:
+      show_if_no_docstring: true
+      show_root_heading: false
+      show_root_toc_entry: false
+      show_labels: false
+      show_docstring_description: false
+      filters: ["!.*", "^[A-Z][A-Z_0-9]*$"]
+
+### `oracle.py`
+#### ::: kebbie.oracle
+    options:
+      show_if_no_docstring: true
+      show_root_heading: false
+      show_root_toc_entry: false
+      show_labels: false
+      show_docstring_description: false
+      filters: ["!.*", "^[A-Z][A-Z_0-9]*$"]
+
+### `scorer.py`
+#### ::: kebbie.scorer
+    options:
+      show_if_no_docstring: true
+      show_root_heading: false
+      show_root_toc_entry: false
+      show_labels: false
+      show_docstring_description: false
+      filters: ["!.*", "^[A-Z][A-Z_0-9]*$"]
+
+### `utils.py`
+#### ::: kebbie.utils
+    options:
+      show_if_no_docstring: true
+      show_root_heading: false
+      show_root_toc_entry: false
+      show_labels: false
+      show_docstring_description: false
+      filters: ["!.*", "^[A-Z][A-Z_0-9]*$"]
