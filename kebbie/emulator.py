@@ -349,7 +349,7 @@ class Emulator:
         capabilities = ANDROID_CAPABILITIES if self.platform == ANDROID else IOS_CAPABILITIES
         if device is not None:
             capabilities["udid"] = device
-        self.driver = webdriver.Remote(f"{host}:{port}/wd/hub", capabilities)
+        self.driver = webdriver.Remote(f"{host}:{port}", capabilities)
         self.driver.implicitly_wait(20)
 
         self.screen_size = self.driver.get_window_size()
