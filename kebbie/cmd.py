@@ -38,6 +38,15 @@ def cli():
         help="If specified, all tasks are evaluated (not only auto-correction, but also auto-completion and "
         "next-word prediction).",
     )
+    evaluate_parser.add_argument(
+        "--n_sentences",
+        "-N",
+        dest="n_sentences",
+        type=int,
+        default=250,
+        help="The number of sentences to use for the evaluation. Emulated keyboard are slow, so we can't run on the "
+        "full test set. Instead we pick the first N sentences.",
+    )
 
     layout_parser = subparsers.add_parser(
         "show_layout", help="Display the layout over the keyboard for debugging purpose."
@@ -64,7 +73,7 @@ def cli():
         ]
 
         # Get dataset, and filter it to keep only a small number of sentences
-        dataset = get_soda_dataset(2)
+        dataset = get_soda_dataset(args.n_sentences)
 
         # Run the evaluation
         results = evaluate(correctors, dataset=dataset)

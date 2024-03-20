@@ -288,30 +288,33 @@ def human_readable_runtime(x: int) -> str:
     return f"{x} s"
 
 
-def get_soda_dataset(max_sentences: int = 10_000) -> Dict[str, List[str]]:
+def get_soda_dataset(max_sentences: int = 20_000) -> Dict[str, List[str]]:
     """Load the SODA dataset.
 
     Args:
-        max_sentences (int, optional): Maximum number of sentences to use per
-            domain. Defaults to `10 000`.
+        max_sentences (int, optional): Maximum number of sentences in total in
+            the dataset. They will be shared across domain (50% from the
+            `narrative` domain, 50% from the `dialogue` domain). Defaults to
+            `20 000`.
 
     Returns:
         Dict[str, List[str]]: The dataset, separated into two domains :
             narrative and dialogue.
     """
     data = {"narrative": [], "dialogue": []}
+    max_domain_sentences = max_sentences // 2
 
     hf_dataset = datasets.load_dataset("allenai/soda", split="test")
 
     for sample in hf_dataset:
-        if len(data["narrative"]) >= max_sentences and len(data["dialogue"]) >= max_sentences:
+        if len(data["narrative"]) >= max_domain_sentences and len(data["dialogue"]) >= max_domain_sentences:
             break
 
-        if len(data["narrative"]) < max_sentences:
+        if len(data["narrative"]) < max_domain_sentences:
             data["narrative"].append(sample["narrative"])
 
         for sen in sample["dialogue"]:
-            if len(data["dialogue"]) < max_sentences:
+            if len(data["dialogue"]) < max_domain_sentences:
                 data["dialogue"].append(sen)
 
     return data
