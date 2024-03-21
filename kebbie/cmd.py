@@ -80,6 +80,7 @@ def cli():
 
     elif args.cmd == "show_layout":
         # TODO : get the right keyboard
-        e = Emulator("android", "gboard")
-        e.show_keyboards()
-        print("Predictions : ", e.get_predictions())
+        for d in Emulator.get_devices():
+            e = Emulator(device=d, platform="android", keyboard="gboard")
+            e.show_keyboards()
+            print(f"Predictions for {d}: {e.get_predictions()}")
