@@ -12,7 +12,7 @@ reqs = [
     "opencv-python~=4.9",
     "tesseract~=0.1",
     "pytesseract~=0.3",
-    "appium-python-client~=2.9",
+    "appium-python-client>=2.9,<5.0",
 ]
 
 extras_require = {
