@@ -26,6 +26,7 @@ theme:
 
 markdown_extensions:
   - admonition
+  - tables
   - pymdownx.details
   - pymdownx.caret
   - pymdownx.keys
@@ -38,6 +39,7 @@ nav:
   - Welcome: "index.md"
   - "usage.md"
   - "emulated_keyboard.md"
+  - "how_testing_is_done.md"
   - "advanced_usage.md"
   - "emu_setup.md"
   - Code reference:

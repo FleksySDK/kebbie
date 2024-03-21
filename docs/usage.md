@@ -486,7 +486,8 @@ There is also a value `n`, which shows the total number of words we tried to aut
 
 For auto-correction, the metric we care about is the F-score, as it measure both the precision and the recall.
 
-TODO Link to the section where we talk about metrics.
+!!! info
+    For more information about the metrics and their meaning, check out the [Metrics](how_testing_is_done.md#metrics) page.
 
 ---
 
