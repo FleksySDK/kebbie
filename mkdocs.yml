@@ -9,6 +9,7 @@ theme:
   favicon: "assets/keyboard.svg"
   features:
     - navigation.sections
+    - content.code.copy
   palette:
     - scheme: default
       primary: teal
@@ -36,7 +37,9 @@ markdown_extensions:
 nav:
   - Welcome: "index.md"
   - "usage.md"
+  - "emulated_keyboard.md"
   - "advanced_usage.md"
+  - "emu_setup.md"
   - Code reference:
     - "public_api.md"
     - "internals.md"
