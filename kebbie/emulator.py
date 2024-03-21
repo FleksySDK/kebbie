@@ -51,10 +51,10 @@ IOS_CAPABILITIES = {
     "newCommandTimeout": 3600,
 }
 APP_PACKAGE = "com.google.android.apps.messaging"
-APP_ACTIVITY = "com.google.android.apps.messaging.main.MainActivity"
+APP_ACTIVITY = "com.google.android.apps.messaging.ui.ConversationListActivity"
 ANDROID_TYPING_FIELD_ID = "com.google.android.apps.messaging:id/compose_message_text"
 ANDROID_START_CHAT_FIELD_ID = "com.google.android.apps.messaging:id/start_chat_fab"
-ANDROID_RECIPIENT_FIELD_CLASSNAME = "android.widget.EditText"
+ANDROID_RECIPIENT_FIELD_ID = "com.google.android.apps.messaging:id/recipient_text_view"
 DUMMY_RECIPIENT = "0"
 IOS_TYPING_FIELD_ID = "messageBodyField"
 TESSERACT_CONFIG = "-c tessedit_char_blacklist=0123456789”:!@·$%&/()=.¿?"
@@ -392,7 +392,7 @@ class Emulator:
             self.driver.start_activity(APP_PACKAGE, APP_ACTIVITY)
             start_chat = self.driver.find_element(By.ID, ANDROID_START_CHAT_FIELD_ID)
             start_chat.click()
-            recipient = self.driver.find_element(By.CLASS_NAME, ANDROID_RECIPIENT_FIELD_CLASSNAME)
+            recipient = self.driver.find_element(By.ID, ANDROID_RECIPIENT_FIELD_ID)
             recipient.click()
             recipient.send_keys(DUMMY_RECIPIENT)
             ActionChains(self.driver).send_keys(Keys.RETURN).perform()
