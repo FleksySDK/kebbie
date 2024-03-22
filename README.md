@@ -1,6 +1,6 @@
 <h1 align="center">kebbie</h1>
 <p align="center">
-Python Template repository
+A small framework to test and compare mobile keyboards
 </p>
 
 <p align="center">
@@ -24,7 +24,13 @@ Python Template repository
 
 <h2 align="center">Description</h2>
 
-TODO
+`kebbie` is a small framework for **testing and benchmarking mobile keyboards**.  
+The primary goal of this package is to establish a *cohesive* and *standardized* method for evaluating the various NLP capabilities of a mobile keyboard and comparing them to existing alternatives.
+
+`kebbie` achieves this through the following two features :
+
+* An easy-to-use evaluation function that facilitates the testing of multiple NLP functionalities offered by a mobile keyboard : *auto-correction*, *auto-completion*, *next-word prediction*, and *swipe gesture recognition*.
+* A command-line interface for running the evaluation on established keyboards, operated within emulator.
 
 
 <h2 align="center">Install</h2>
@@ -48,7 +54,48 @@ pip install -e .
 
 <h2 align="center">Usage</h2>
 
-TODO
+If you want to test how well your custom code performs, just declare your own instance of `Corrector`, and run the `evaluate()` function !
+
+For example, here is how to test the auto-correction provided by [`pyspellchecker`](https://github.com/barrust/pyspellchecker) :
+
+```python
+from typing import List
+
+from spellchecker import SpellChecker
+from kebbie import Corrector, evaluate
+
+
+class ExampleCorrector(Corrector):
+    def __init__(self):
+        self.spellchecker = SpellChecker()
+
+    def auto_correct(self, context: str, keystrokes, word: str) -> List[str]:
+        cands = self.spellchecker.candidates(word)
+        return list(cands) if cands is not None else []
+
+
+if __name__ == "__main__":
+    corrector = ExampleCorrector()
+    results = evaluate(corrector)
+
+    # Save the results in a local file for later inspection
+    with open("results.json", "w") as f:
+        json.dump(results, f, ensure_ascii=False, indent=4)
+```
+
+> [!TIP]
+> Make sure to check the [full documentation](https://FleksySDK.github.io/kebbie/usage/) for a detailed explanations of how to use the code !
+
+---
+
+If instead you want to test an existing keyboard, then you just have to start `appium`, start your emulator and install the keyboard you want to test, and finally run :
+
+```bash
+kebbie evaluate --all_tasks
+```
+
+> [!TIP]
+> Make sure to check the [full documentation](https://FleksySDK.github.io/kebbie/emulated_keyboard/) for a detailed explanations of how to setup emulators and how to use the command line !
 
 
 <h2 align="center">Contribute</h2>
