@@ -500,3 +500,148 @@ Note that the [evaluate()][kebbie.evaluate] does not introduce all type of typos
 After we have a `per_number_of_typos` field, which gives the metrics depending on how many typos were introduced in that word.
 
 And finally we have a field `performances`, which show the memory consumption and runtime for the [auto_correct()][kebbie.Corrector.auto_correct] method that we wrote.
+
+## Advanced usage
+
+### Leveraging the keystroke coordinates
+
+Did you notice that in our [auto_correct()][kebbie.Corrector.auto_correct] implementation, there is an argument `keystrokes` that we didn't use ?
+
+```python hl_lines="5"
+class ExampleCorrector(Corrector):
+    def __init__(self):
+        self.spellchecker = SpellChecker()
+
+    def auto_correct(self, context: str, keystrokes, word: str) -> List[str]:
+        cands = self.spellchecker.candidates(word)
+        return list(cands) if cands is not None else []
+```
+
+This `keystrokes` argument is a list of keystrokes coordinates (one per character of the typed `word`).
+
+These coordinates may hold useful information : for example on a QWERTY keyboard, if the word typed is `lovw` but the keystroke for `w` is very close to the border of the `e` key... There is a great chance that the word should be auto-corrected to `love`...
+
+---
+
+These coordinates are defined in a layout file internally. To interact easily with the layout, you can use the [LayoutHelper][kebbie.layout.LayoutHelper] class.
+
+You can use the method [get_key_info()][kebbie.layout.LayoutHelper.get_key_info] to retrieve data about the key for the given character.
+
+For example, let's compute the distance between the first keystroke of the word, and the key for the character `w` :
+
+```python
+import math
+from kebbie.layout import LayoutHelper
+
+layout = LayoutHelper()
+
+def auto_correct(self, context: str, keystrokes, word: str) -> List[str]:
+    _, _, w_key_center_x, w_key_center_y, _ = layout.get_key_info("w")
+    if len(keystrokes) > 0 and keystrokes[0] is not None:
+        print(math.dist(keystrokes[0], [w_key_center_x, w_key_center_y]))
+```
+
+### Custom dataset
+
+The [evaluate()][kebbie.evaluate] function uses a good default dataset (see [Test data](how_testing_is_done.md#test-data)) to run the evaluation.
+
+However, you might want to run the evaluation on your own dataset.
+
+You can do this by passing your custom dataset to the [evaluate()][kebbie.evaluate] function :
+
+```python hl_lines="1 3"
+my_dataset = load_my_private_dataset()
+corrector = ExampleCorrector()
+results = evaluate(corrector, dataset=my_dataset)
+```
+
+Your custom dataset should be a `Dict[str, List[str]]`, where each keys of the dictionary represents a specific domain, and the values are just the list of sentences.
+
+### Get insights on most common mistakes
+
+When trying to improve your models, you might want to take a look at the most common mistakes your model is doing.
+
+You can achieve this simply by passing `track_mistakes=True` to the [evaluate()][kebbie.evaluate] function :
+
+```python hl_lines="2"
+corrector = ExampleCorrector()
+results = evaluate(corrector, track_mistakes=True)
+```
+
+It will record the most common mistakes your [Corrector][kebbie.Corrector] is doing, and add them in a new field (`most_common_mistakes`) in the returned results.
+
+The mistakes are tracked for the following tasks : next-word prediction, auto-completion, and auto-correction.
+
+Let's look at the most common mistakes for our example with `pyspellchecker` :
+
+```json
+"auto_correction": [
+    [
+        "Count",
+        "Expected",
+        "Predictions",
+        "Context"
+    ],
+    [
+        266,
+        "I'm",
+        "[ism, h'm]",
+        "Kolten beckoned Aida over wanting to hear what he had to say Aida I want to know what's on your mind Kolten said I'm"
+    ],
+    [
+        157,
+        "to",
+        "[tho]",
+        "Destanie was so angry that he felt like he might explode He felt the hot blood rushing to his head and his fists clenched tightly at his sides He took a deep breath and tried tho"
+    ],
+    ...
+```
+
+Here we can see that we track several thing for each mistake :
+
+* `Count` : The total number of times this mistake happened
+* `Expected` : The expected word
+* `Predictions` : The model's predictions
+* `Context` : An example of a sentence where the mistake happened
+
+So we can see that the most common mistake of `pyspellchecker` is to try to auto correct `I'm` into `ism`, even though it should not be corrected. This mistake was encountered 266 times during the evaluation.
+
+The second most common mistake is to not auto-correct `tho`, even though it should be corrected to `to`. This mistake was encountered 157 times during the evaluation.
+
+!!! tip
+    By default, the 1 000 most common mistakes will be saved. You can specify a different `n`, with the `n_most_common_mistakes` argument :
+
+    ```python hl_lines="2"
+    corrector = ExampleCorrector()
+    results = evaluate(corrector, track_mistakes=True, n_most_common_mistakes=150)
+    ```
+
+### Other arguments
+
+Specify the number of processes to be used for multiprocessing with the `n_proc` argument :
+
+```python hl_lines="2"
+corrector = ExampleCorrector()
+results = evaluate(corrector, n_proc=4)
+```
+
+!!! info "Note"
+    If `None` is given, [evaluate()][kebbie.evaluate] will use `os.cpu_count()` (the number of CPU of your machine). Defaults to `None`.
+
+---
+
+Specify a different seed with the `seed` argument :
+
+```python hl_lines="2"
+corrector = ExampleCorrector()
+results = evaluate(corrector, seed=36)
+```
+
+---
+
+Specify a different Beta for the F-score calculation (see the [Metrics](how_testing_is_done.md#auto-correction) section) with the `beta` argument :
+
+```python hl_lines="2"
+corrector = ExampleCorrector()
+results = evaluate(corrector, beta=1.2)
+```
