@@ -59,6 +59,7 @@ If you want to test how well your custom code performs, just declare your own in
 For example, here is how to test the auto-correction provided by [`pyspellchecker`](https://github.com/barrust/pyspellchecker) :
 
 ```python
+import json
 from typing import List
 
 from spellchecker import SpellChecker

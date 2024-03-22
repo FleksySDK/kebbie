@@ -60,6 +60,7 @@ Great ! We have a testable [Corrector][kebbie.Corrector] class.
 Once we have the [Corrector][kebbie.Corrector] implemented, we can simply instantiate it and call the [evaluate()][kebbie.evaluate] function :
 
 ```python hl_lines="4 17-18"
+import json
 from typing import List
 
 from spellchecker import SpellChecker
