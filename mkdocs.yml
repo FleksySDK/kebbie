@@ -40,7 +40,7 @@ nav:
   - "usage.md"
   - "emulated_keyboard.md"
   - "how_testing_is_done.md"
-  - "advanced_usage.md"
+  - "architecture.md"
   - "emu_setup.md"
   - Code reference:
     - "public_api.md"

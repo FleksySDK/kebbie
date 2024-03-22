@@ -95,6 +95,18 @@ As mentioned in the section [Artificial typos](#artificial-typos), we rely on a 
 
 The dataset of common typos that we use is the [Twitter Typo Corpus](https://luululu.com/tweet/).
 
+## Tasks
+
+We test the most important NLP features of a mobile keyboards. These are :
+
+* **Auto-correction**: Corrects the words typed by the user.  
+For example, if a user types `I’m especialy touched`, the typo should be detected and corrected to `I’m especially touched`.
+* **Auto-completion**: Completes the word typed by the user.  
+For example, if a user types `I love y`, the word should be auto-completed to `I love you`.
+* **Next-word prediction**: Predicts the next word to be typed.  
+For example, if a user types `I want to eat french`, a probable next word can be `fries`.
+* **Swipe gesture resolution**: Predicts the intended word from a swipe gesture.
+
 ## Metrics
 
 If you look into the results from `kebbie`, for each task we have a handful of metrics that help us understand how good the tested keyboard is. Let's look at the details of these metrics.
