@@ -501,6 +501,37 @@ After we have a `per_number_of_typos` field, which gives the metrics depending o
 
 And finally we have a field `performances`, which show the memory consumption and runtime for the [auto_correct()][kebbie.Corrector.auto_correct] method that we wrote.
 
+## A note about multiprocessing
+
+Under the hood, [evaluate()][kebbie.evaluate] uses multiprocessing to run faster.
+
+It means that your [Corrector][kebbie.Corrector] should be pickable !
+
+!!! success "Example"
+    In the example above, the implementation provided is already pickable, so there is nothing to do.
+
+If you need to make your class pickable, just implement the `__reduce__()` magic method, like this :
+
+```python hl_lines="12 14-16"
+from typing import Tuple
+
+from kebbie import Corrector
+
+
+class GreatCorrector(Corrector):
+    def __init__(self, model_path: str):
+        self.m_path = model_path
+
+        # Because of this (imaginary) non-pickable attribute,
+        # the class `GreatCorrector` is not pickable as-is
+        self.non_pickable_model = load_model(model_path)
+
+    def __reduce__(self) -> Tuple:
+        # But by implementing `__reduce__()`, we can make it pickable !
+        return (GreatCorrector, (self.m_path,))
+```
+
+
 ## Advanced usage
 
 ### Leveraging the keystroke coordinates

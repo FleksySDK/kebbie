@@ -111,3 +111,13 @@ You can change the destination file for the results with the option `--result_fi
 ```bash
 kebbie evaluate -K gboard --all_tasks --result_file my/folder/evaluation_results.json
 ```
+
+---
+
+You can track the most common mistakes with the option `--track_mistakes` :
+
+```bash
+kebbie evaluate -K gboard --all_tasks --track_mistakes
+```
+
+It will save the most common mistakes in the result file.
