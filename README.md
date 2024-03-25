@@ -92,7 +92,11 @@ if __name__ == "__main__":
 If instead you want to test an existing keyboard, then you just have to start `appium`, start your emulator and install the keyboard you want to test, and finally run :
 
 ```bash
-kebbie evaluate --all_tasks
+# For GBoard on Android emulator
+kebbie evaluate -K gboard --all_tasks
+
+# For iOS keyboard on iOS emulator
+kebbie evaluate -K ios --all_tasks
 ```
 
 > [!TIP]

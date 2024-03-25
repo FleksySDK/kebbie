@@ -19,16 +19,18 @@ Once everything you need is installed, you should have the following running :
 
 ## Layout detection
 
-`kebbie` tries to automatically detect the layout of the keyboard in use. It is working for GBoard for example.
+`kebbie` tries to automatically detect the layout of the keyboard in use. It is working for GBoard or iOS keyboard for example.
 
 But some keyboards cannot be detected automatically. In this case we rely on a manual definition of the layout.
 
 But these manual definitions of the layout may not fit all devices.
 
-`kebbie` provides a CLI to check the layout. To visualize the keyboard's layout, run the following command :
+### Showing the layout
+
+`kebbie` provides a CLI to check the layout. To visualize the keyboard's layout, run the `show_layout` command. For example for GBoard :
 
 ```bash
-kebbie show_layout
+kebbie show_layout -K gboard
 ```
 
 It will display 3 images (one for each layer of the keyboard : `lowercase`, `uppercase`, `numbers`), so you can see if the layout (automatically detected or manually defined) fits the current keyboard. You can leave the images by pressing any key.
@@ -39,7 +41,7 @@ It will display 3 images (one for each layer of the keyboard : `lowercase`, `upp
     For auto-detected keyboards, these suggestions are retrieved directly from the XML tree (fast and accurate). For keyboards with manual layout, we use OCR to find the suggestions (slow and may be wrong).
 
 !!! tip
-    If you have several emulators running, `kebbie show_layout` will find and display the layout for each emulator, one by one.
+    If you have several emulators running, the `show_layout` command will find and display the layout for each emulator, one by one.
 
 Example where the layout match the keys properly :
 
@@ -52,6 +54,14 @@ Example where the layout doesn't match the keyboard's keys :
 !!! experiment "If it doesn't match..."
     You need to modify the definition of the layout (in [emulator.py](internals.md#emulatorpy)), and experiment with new coordinates until it matches well...
 
+### List of supported keyboards
+
+Here is the list of keyboards for which the layout auto-detection is supported :
+
+* **GBoard**, with the `-K gboard` argument
+* **iOS keyboard**, with the `-K ios` argument
+* **Tappa keyboard**, with the `-K tappa` argument
+
 ## Testing the keyboard
 
 After you made sure the layout is properly detected / defined, it's time to run the tests !
@@ -59,7 +69,11 @@ After you made sure the layout is properly detected / defined, it's time to run 
 Simply run :
 
 ```bash
-kebbie evaluate --all_tasks
+# For GBoard on Android emulator
+kebbie evaluate -K gboard --all_tasks
+
+# For iOS keyboard on iOS emulator
+kebbie evaluate -K ios --all_tasks
 ```
 
 After a while, you should see the emulator start typing sentences !
@@ -69,7 +83,7 @@ The command line will type the sentences from the test data, and record the sugg
 Once all sentences are tested, the results will be saved in a file `results.json`.
 
 !!! info
-    The `kebbie evaluate` CLI will use only 100 sentences of the test data (versus 2 000 by default for the [evaluate()][kebbie.evaluate] function, see [Usage](usage.md)).
+    The `evaluate` CLI will use only 100 sentences of the test data (versus 2 000 by default for the [evaluate()][kebbie.evaluate] function, see [Usage](usage.md)).
 
     This is because typing on an emulated keyboard is significantly slower. 100 sentences is enough to get some good, comparable metrics.
 
@@ -87,7 +101,7 @@ The default behavior (when `--all_tasks` is not specified) is to run only the *a
 If you want to change the number of sentences the CLI run on, just use the option `--n_sentences` :
 
 ```bash
-kebbie evaluate --all_tasks --n_sentences 10
+kebbie evaluate -K gboard --all_tasks --n_sentences 10
 ```
 
 ---
@@ -95,5 +109,5 @@ kebbie evaluate --all_tasks --n_sentences 10
 You can change the destination file for the results with the option `--result_file` :
 
 ```bash
-kebbie evaluate --all_tasks --result_file my/folder/evaluation_results.json
+kebbie evaluate -K gboard --all_tasks --result_file my/folder/evaluation_results.json
 ```

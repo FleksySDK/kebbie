@@ -47,7 +47,7 @@ You can start the emulator directly from the command line with :
 *(so you don't need to run Android Studio, which takes a lot of resources)*
 
 ```bash
-emulator -avd <name>
+emulator -avd <name> -no-snapshot-load
 ```
 
 Once started, make sure you can see it. From another terminal, run :
@@ -108,7 +108,62 @@ Make sure to disable the clipboard :
 
 ## Setting up iOS emulator
 
-TODO
+### Creating the emulator
+
+* Install [XCode](https://apps.apple.com/us/app/xcode/id497799835?mt=12)
+* Open WebDriverAgent in Xcode :
+```bash
+open ~/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj
+```
+* Go to `Signing & Capabilities` of the project :
+
+![](assets/ios_setup_1.png)
+
+* Then click `Team` and select your Apple ID
+* You should do this for the three following targets : `WebDriverAgentLib`, `WebDriverAgentRunner`, `IntegrationApp`.
+
+---
+
+Now, make sure you can properly build the `WebDriverAgentRunner` target : select it in the top bar and run it (button "play") :
+
+![](assets/ios_setup_2.png)
+
+If all the stars are aligned, it should start the emulator !
+
+!!! warning "Important"
+    Once the emulator started, take note of the device name and the platform version.
+
+    ![](assets/ios_setup_3.png)
+
+    When running the `kebbie` CLI, you need to specify both, with the arguments `--ios_name` and `ios_platform`. For example :
+
+    ```bash
+    kebbie evaluate -K ios --all_tasks --ios_name "iPhone 15 Pro" --ios_platform "17.4"
+    ```
+
+    *(The default values are `iPhone 15 Pro` and `17.4`)*
+
+### Preparing iOS Keyboard
+
+iOS Keyboard is the default keyboard on iOS, so there is nothing to do to enable it.
+
+However, predictions and auto-corrections are disabled by default. They should be enabled :
+
+* Go to `Settings` :
+
+![](assets/ios_setup_4.png){ width="250" }
+
+* Then go to `General` :
+
+![](assets/ios_setup_5.png){ width="250" }
+
+* Then go to `Keyboard` :
+
+![](assets/ios_setup_6.png){ width="250" }
+
+* Then enable `Auto-Correction` and `Predictive Text` :
+
+![](assets/ios_setup_7.png){ width="250" }
 
 ## Parallel Android emulators
 
@@ -129,7 +184,7 @@ emulator -list-avds
 Then open several terminal, and in each terminal open one emulator :
 
 ```bash
-emulator -avd <name>
+emulator -avd <name> -no-snapshot-load
 ```
 
 After they started, you should be able to see them with :
