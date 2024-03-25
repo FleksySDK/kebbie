@@ -123,6 +123,14 @@ def cli():
         help="The number of sentences to use for the evaluation. Emulated keyboard are slow, so we can't run on the "
         "full test set. Instead we pick the first N sentences.",
     )
+    evaluate_parser.add_argument(
+        "--track_mistakes",
+        "-T",
+        dest="track_mistakes",
+        action="store_true",
+        default=False,
+        help="If specified, mistakes will be tracked and saved in the result file.",
+    )
 
     layout_parser = subparsers.add_parser(
         "show_layout", help="Display the layout over the keyboard for debugging purpose."
@@ -144,11 +152,13 @@ def cli():
         dataset = get_soda_dataset(args.n_sentences)
 
         # Run the evaluation
-        results = evaluate(correctors, dataset=dataset)
+        results = evaluate(correctors, dataset=dataset, track_mistakes=args.track_mistakes)
 
         # Save the results in a file
         with open(args.result_file, "w", encoding="utf-8") as f:
             json.dump(results, f, ensure_ascii=False, indent=4)
+
+        print("Overall score : ", results["overall_score"])
 
     elif args.cmd == "show_layout":
         correctors = instantiate_correctors(args.keyboard, args.ios_name, args.ios_platform)
