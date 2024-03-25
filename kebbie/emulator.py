@@ -3,6 +3,7 @@ Appium.
 """
 import html
 import io
+import json
 import random
 import subprocess
 import time
@@ -39,8 +40,8 @@ ANDROID_CAPABILITIES = {
 IOS_CAPABILITIES = {
     "platformName": "iOS",
     "automationName": "XCUITest",
-    "deviceName": "iPhone 8 Plus",
-    "platformVersion": "14.4",
+    "deviceName": "iPhone 15 Pro",
+    "platformVersion": "17.4",
     "udid": "auto",
     "xcodeOrgId": "8556JTA4X4",
     "xcodeSigningId": "iPhone Developer",
@@ -57,6 +58,7 @@ ANDROID_START_CHAT_FIELD_ID = "com.google.android.apps.messaging:id/start_chat_f
 ANDROID_RECIPIENT_FIELD_ID = "com.google.android.apps.messaging:id/recipient_text_view"
 DUMMY_RECIPIENT = "0"
 IOS_TYPING_FIELD_ID = "messageBodyField"
+IOS_START_CHAT_CLASS_NAME = "XCUIElementTypeCell"
 TESSERACT_CONFIG = "-c tessedit_char_blacklist=0123456789”:!@·$%&/()=.¿?"
 PREDICTION_DELAY = 0.4
 CONTENT_TO_IGNORE = ["Sticker", "GIF", "Clipboard", "Settings", "Back", "Switch input method", "Paste item"]
@@ -74,6 +76,7 @@ CONTENT_TO_RENAME = {
     "Open features menu": "magic",
     "underline": "_",
     "&amp;": "&",
+    "ampersand": "&",
     "Dash": "-",
     "Plus": "+",
     "Left parenthesis": "(",
@@ -376,7 +379,8 @@ class Emulator:
         elif self.keyboard == FLEKSY:
             self.layout = FLEKSY_LAYOUT
         elif self.keyboard == IOS:
-            self.layout = IOS_LAYOUT
+            self.detected = IosLayoutDetector(self.driver, self._tap)
+            self.layout = self.detected.layout
         else:
             raise ValueError(
                 f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, " f"`{FLEKSY}` or `{IOS}`."
@@ -390,15 +394,14 @@ class Emulator:
         """
         if self.platform == ANDROID:
             self.driver.start_activity(APP_PACKAGE, APP_ACTIVITY)
-            start_chat = self.driver.find_element(By.ID, ANDROID_START_CHAT_FIELD_ID)
-            start_chat.click()
+            self.driver.find_element(By.ID, ANDROID_START_CHAT_FIELD_ID).click()
             recipient = self.driver.find_element(By.ID, ANDROID_RECIPIENT_FIELD_ID)
             recipient.click()
             recipient.send_keys(DUMMY_RECIPIENT)
             ActionChains(self.driver).send_keys(Keys.RETURN).perform()
             self.typing_field = self.driver.find_element(By.ID, ANDROID_TYPING_FIELD_ID)
         else:
-            self.driver.find_element(By.NAME, "Forward").click()
+            self.driver.find_element(By.CLASS_NAME, IOS_START_CHAT_CLASS_NAME).click()
             self.typing_field = self.driver.find_element(By.ID, IOS_TYPING_FIELD_ID)
         self.typing_field.click()
         self.typing_field.clear()
@@ -695,11 +698,14 @@ class LayoutDetector:
         xpath_keys (str): XPath to detect the keys elements.
     """
 
-    def __init__(self, driver: webdriver.Remote, tap_fn: Callable, xpath_root: str, xpath_keys: str):
+    def __init__(
+        self, driver: webdriver.Remote, tap_fn: Callable, xpath_root: str, xpath_keys: str, android: bool = True
+    ):
         self.driver = driver
         self.tap = tap_fn
         self.xpath_root = xpath_root
         self.xpath_keys = xpath_keys
+        self.android = android
 
         layout = {}
 
@@ -708,25 +714,28 @@ class LayoutDetector:
 
         # On empty field, the keyboard is on uppercase
         # So first, retrieve the keyboard frame and uppercase characters
-        kb_frame, screen_layout = self._detect_keys(root)
+        kb_frame, screen_layout = self._detect_keys(root, current_layout="uppercase")
         layout["keyboard_frame"] = kb_frame
         layout["uppercase"] = screen_layout
 
         # Then, after typing a letter, the keyboard goes to lowercase automatically
         self.tap(layout["uppercase"]["A"], layout["keyboard_frame"])
-        _, screen_layout = self._detect_keys(root, layout["keyboard_frame"])
+        _, screen_layout = self._detect_keys(root, keyboard_frame=layout["keyboard_frame"], current_layout="lowercase")
         layout["lowercase"] = screen_layout
 
         # Finally, access the symbols keyboard and get characters positions
         self.tap(layout["lowercase"]["numbers"], layout["keyboard_frame"])
-        _, screen_layout = self._detect_keys(root, layout["keyboard_frame"])
+        _, screen_layout = self._detect_keys(root, keyboard_frame=layout["keyboard_frame"], current_layout="numbers")
         layout["numbers"] = screen_layout
 
         # Reset out keyboard to the original layer
         self.tap(layout["numbers"]["letters"], layout["keyboard_frame"])
 
         # Fix the keys' offset compared to the keyboard frame
-        self.layout = self._offset_keys(layout)
+        if self.android:
+            self.layout = self._offset_keys(layout)
+        else:
+            self.layout = layout
 
     def get_suggestions(self) -> List[str]:
         """Method to retrieve the keyboard suggestions from the XML tree.
@@ -744,7 +753,9 @@ class LayoutDetector:
         """
         raise NotImplementedError
 
-    def _detect_keys(self, root: WebElement, keyboard_frame: List[int] = None) -> Tuple[List[int], Dict]:
+    def _detect_keys(
+        self, root: WebElement, current_layout: str, keyboard_frame: List[int] = None
+    ) -> Tuple[List[int], Dict]:
         """This method detects all keys currently on screen.
 
         If no keyboard_frame is given, it will also detects the keyboard frame.
@@ -752,6 +763,7 @@ class LayoutDetector:
         Args:
             root (WebElement): Root element in the XML tree that represents the
                 keyboard (with all its keys).
+            current_layout (str): Name of the current layout.
             keyboard_frame (List[int], optional): Optionally, the keyboard
                 frame (so we don't need to re-detect it everytime).
 
@@ -761,16 +773,19 @@ class LayoutDetector:
         """
         layout = {}
         if keyboard_frame is None:
-            # Detect the keyboard frame
-            kb = root.find_element(By.ID, "android:id/inputArea")
-            keyboard_frame = self._get_frame(kb)
+            if self.android:
+                # Detect the keyboard frame
+                kb = root.find_element(By.ID, "android:id/inputArea")
+                keyboard_frame = self._get_frame(kb)
 
-            # Offset the position of the keyboard frame because of the status bar
-            sb_bounds = self._get_status_bar_bounds()
-            keyboard_frame[1] -= sb_bounds[3]
+                # Offset the position of the keyboard frame because of the status bar
+                sb_bounds = self._get_status_bar_bounds()
+                keyboard_frame[1] -= sb_bounds[3]
+            else:
+                keyboard_frame = self._get_frame(root)
 
         for key_elem in root.find_elements(By.XPATH, self.xpath_keys):
-            label = self._get_label(key_elem)
+            label = self._get_label(key_elem, current_layout=current_layout)
             if label is not None:
                 layout[label] = self._get_frame(key_elem)
 
@@ -791,12 +806,16 @@ class LayoutDetector:
         Returns:
             Bounds of this key.
         """
-        m = re.match(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]", element.get_attribute("bounds"))
-        if m:
-            bounds = [int(g) for g in m.groups()]
-            return [bounds[0], bounds[1], bounds[2] - bounds[0], bounds[3] - bounds[1]]
+        if self.android:
+            m = re.match(r"\[(\d+),(\d+)\]\[(\d+),(\d+)\]", element.get_attribute("bounds"))
+            if m:
+                bounds = [int(g) for g in m.groups()]
+                return [bounds[0], bounds[1], bounds[2] - bounds[0], bounds[3] - bounds[1]]
+        else:
+            r = json.loads(element.get_attribute("rect"))
+            return [r["x"], r["y"], r["width"], r["height"]]
 
-    def _get_label(self, element: WebElement, is_suggestion: bool = False) -> str:
+    def _get_label(self, element: WebElement, current_layout: str, is_suggestion: bool = False) -> str:
         """For layout detection, this method returns the content of the given
         element.
 
@@ -806,13 +825,14 @@ class LayoutDetector:
 
         Args:
             element (WebElement): XML Element describing a key.
+            current_layout (str): Name of the current layout.
             is_suggestion (bool, optional): If we are retrieving the content of
                 a suggestion, the content shouldn't be translated.
 
         Returns:
             Content of the key, or None if it's a key we should ignore.
         """
-        content = element.get_attribute("content-desc")
+        content = element.get_attribute("content-desc") if self.android else element.get_attribute("name")
 
         if is_suggestion:
             # If we are getting the content of the suggestion, return the content directly
@@ -820,6 +840,11 @@ class LayoutDetector:
 
         if content in CONTENT_TO_IGNORE:
             return None
+        elif not self.android and content == "more":
+            if current_layout == "uppercase" or current_layout == "lowercase":
+                return "numbers"
+            else:
+                return "letters"
         elif content in CONTENT_TO_RENAME:
             return CONTENT_TO_RENAME[content]
         else:
@@ -899,6 +924,47 @@ class GboardLayoutDetector(LayoutDetector):
                     # Deal with emojis
                     emoji = re.match(r"emoji (&[^;]+;)", content)
                     suggestions.append(html.unescape(emoji[1]) if emoji else content)
+
+        return suggestions
+
+
+class IosLayoutDetector(LayoutDetector):
+    """Layout detector for the iOS default keyboard. See `LayoutDetector` for
+    more information.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            *args,
+            xpath_root=".//XCUIElementTypeKeyboard",
+            xpath_keys="(.//XCUIElementTypeKey|.//XCUIElementTypeButton)",
+            android=False,
+            **kwargs,
+        )
+
+    def get_suggestions(self) -> List[str]:
+        """Method to retrieve the keyboard suggestions from the XML tree.
+
+        Returns:
+            List of suggestions from the keyboard.
+        """
+        suggestions = []
+
+        sections = [
+            data for data in self.driver.page_source.split("<XCUIElementTypeOther") if "name=" in data.split(">")[0]
+        ]
+        is_typing_predictions_section = False
+        for section in sections:
+            m = re.search(r"name=\"([^\"]*)\"", section)
+            if m:
+                name = m.group(1)
+
+                if name == "Typing Predictions":
+                    is_typing_predictions_section = True
+                    continue
+
+                if is_typing_predictions_section:
+                    suggestions.append(name.replace("“", "").replace("”", ""))
 
         return suggestions
 
