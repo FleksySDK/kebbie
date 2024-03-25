@@ -66,6 +66,7 @@ CONTENT_TO_RENAME = {
     "Shift": "shift",
     "Delete": "backspace",
     "Space": "spacebar",
+    "space": "spacebar",
     "Emoji button": "smiley",
     "Emoji": "smiley",
     "Search": "enter",
@@ -261,7 +262,6 @@ class Emulator:
 
         # Access a typing field
         self.typing_field = None
-        print(">", capabilities["udid"])
         self._access_typing_field()
 
         # Keep track of the keyboard behavior
