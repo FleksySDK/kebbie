@@ -37,13 +37,13 @@ class BasicTokenizer:
         # Replace other punctuations
         sentence = sentence.replace("…", "...").replace("‚", ",").replace("․", ".")
 
-        # TODO: Dealing with punctuation (and tokenization) should be done inside
-        # the component being tested. But for now this is done outside.
-        # Later this should be removed, to be as close as possible to what a
-        # user type. For now, tokenize user input before passing it to the
-        # component being tested.
+        # TODO: Each keyboard has its own way to deal with punctuation
+        # (applying auto-correction or not, displaying next-word prediction or
+        # not, etc...). So for now we just get rid of the punctuations, it's a
+        # convenient shortcut and it's fair to all keyboards.
+        # Eventually we should find a better way to deal with that.
         sentence = re.sub(r"\s*\.+\s*", " ", sentence)
-        sentence = re.sub(r"\s*[,:;\(\)\"]\s*", " ", sentence)
+        sentence = re.sub(r"\s*[,:;\(\)\"!?\[\]\{\}~]\s*", " ", sentence)
 
         return sentence
 
