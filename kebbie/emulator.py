@@ -529,9 +529,6 @@ class Emulator:
     def show_keyboards(self):
         """Take a screenshot and overlay the given layout, for debugging the
         position of each keys.
-
-        Args:
-            keyboard_layer (str): Name of the keyboard layer to display.
         """
         # Type a character, in order to have some suggestions
         # Keyboard starts with uppercase letter by default (unless GBoard), and

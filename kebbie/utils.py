@@ -14,7 +14,7 @@ import datasets
 SEC_TO_NANOSEC = 10e9
 
 
-def profile_fn(fn: Callable, *args, **kwargs) -> Tuple[Any, int, int]:
+def profile_fn(fn: Callable, *args: Any, **kwargs: Any) -> Tuple[Any, int, int]:
     """Profile the runtime and memory usage of the given function.
 
     Note that it will only account for memory allocated by python (if you use

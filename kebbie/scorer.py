@@ -74,7 +74,7 @@ class Mistake:
     context: str = field(compare=False)
 
 
-def dd_x_layers(n_layers: int = 1):
+def dd_x_layers(n_layers: int = 1) -> defaultdict:
     """Helper function for creating a nested defaultdict, with a specified
     number of nest level. The end object is a Count.
 
