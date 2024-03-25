@@ -40,8 +40,6 @@ ANDROID_CAPABILITIES = {
 IOS_CAPABILITIES = {
     "platformName": "iOS",
     "automationName": "XCUITest",
-    "deviceName": "iPhone 15 Pro",
-    "platformVersion": "17.4",
     "udid": "auto",
     "xcodeOrgId": "8556JTA4X4",
     "xcodeSigningId": "iPhone Developer",
@@ -51,6 +49,8 @@ IOS_CAPABILITIES = {
     "bundleId": "com.apple.MobileSMS",
     "newCommandTimeout": 3600,
 }
+DEFAULT_IOS_NAME = "iPhone 15 Pro"
+DEFAULT_IOS_PLATFORM = "17.4"
 APP_PACKAGE = "com.google.android.apps.messaging"
 APP_ACTIVITY = "com.google.android.apps.messaging.ui.ConversationListActivity"
 ANDROID_TYPING_FIELD_ID = "com.google.android.apps.messaging:id/compose_message_text"
@@ -229,7 +229,16 @@ class Emulator:
         ValueError: Error raised if the given platform doesn't exist.
     """
 
-    def __init__(self, platform: str, keyboard: str, device: str = None, host: str = "127.0.0.1", port: str = "4723"):
+    def __init__(
+        self,
+        platform: str,
+        keyboard: str,
+        device: str = None,
+        host: str = "127.0.0.1",
+        port: str = "4723",
+        ios_name: str = DEFAULT_IOS_NAME,
+        ios_platform: str = DEFAULT_IOS_PLATFORM,
+    ):
         super().__init__()
 
         self.platform = platform.lower()
@@ -238,6 +247,9 @@ class Emulator:
 
         # Start appium
         capabilities = ANDROID_CAPABILITIES if self.platform == ANDROID else IOS_CAPABILITIES
+        if self.platform == IOS:
+            capabilities["deviceName"] = ios_name
+            capabilities["platformVersion"] = ios_platform
         if device is not None:
             capabilities["udid"] = device
         self.driver = webdriver.Remote(f"{host}:{port}", capabilities)
@@ -249,6 +261,7 @@ class Emulator:
 
         # Access a typing field
         self.typing_field = None
+        print(">", capabilities["udid"])
         self._access_typing_field()
 
         # Keep track of the keyboard behavior
@@ -549,10 +562,6 @@ class Emulator:
 
         cv2.waitKey(0)
         cv2.destroyAllWindows()
-
-        # Reset out keyboard to the original layer
-        self._tap(self.layout["numbers"]["letters"])
-        self.typing_field.clear()
 
     def _set_area_box(self, image, base_coords: Tuple[int], coords: Tuple[int], tag: str):
         """Add an area box on the given image (color is random).

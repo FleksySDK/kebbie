@@ -176,6 +176,8 @@ class EmulatorCorrector(Corrector):
         keyboard: str,
         device: str = None,
         fast_mode: bool = True,
+        ios_name: str = None,
+        ios_platform: str = None,
         instantiate_emulator: bool = True,
     ):
         super().__init__()
@@ -184,10 +186,18 @@ class EmulatorCorrector(Corrector):
         self.keyboard = keyboard
         self.device = device
         self.fast_mode = fast_mode
+        self.ios_name = ios_name
+        self.ios_platform = ios_platform
 
         self.emulator = None
         if instantiate_emulator:
-            self.emulator = Emulator(self.platform, self.keyboard, device=self.device)
+            self.emulator = Emulator(
+                self.platform,
+                self.keyboard,
+                device=self.device,
+                ios_name=self.ios_name,
+                ios_platform=self.ios_platform,
+            )
 
         # Typing on keyboard is slow. Because we go through several AC calls
         # in one sentence, keep track of the previously typed context, so we
@@ -200,7 +210,10 @@ class EmulatorCorrector(Corrector):
         Returns:
             Tuple of callable and arguments.
         """
-        return (self.__class__, (self.platform, self.keyboard, self.device, self.fast_mode))
+        return (
+            self.__class__,
+            (self.platform, self.keyboard, self.device, self.fast_mode, self.ios_name, self.ios_platform),
+        )
 
     def cached_type(self, context: str, word: str):
         """This class keeps track of the content of the context currently
