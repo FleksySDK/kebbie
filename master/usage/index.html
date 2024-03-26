@@ -12,11 +12,11 @@
         <link rel="prev" href="..">
       
       
-        <link rel="next" href="../code_ref/">
+        <link rel="next" href="../emulated_keyboard/">
       
       
-      <link rel="icon" href="../assets/flame.svg">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
+      <link rel="icon" href="../assets/keyboard.svg">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
     
     
       
@@ -111,7 +111,7 @@
   <nav class="md-header__inner md-grid" aria-label="Header">
     <a href=".." title="Kebbie" class="md-header__button md-logo" aria-label="Kebbie" data-md-component="logo">
       
-  <img src="../assets/flame.svg" alt="logo">
+  <img src="../assets/keyboard.svg" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -243,7 +243,7 @@
   <label class="md-nav__title" for="__drawer">
     <a href=".." title="Kebbie" class="md-nav__button md-logo" aria-label="Kebbie" data-md-component="logo">
       
-  <img src="../assets/flame.svg" alt="logo">
+  <img src="../assets/keyboard.svg" alt="logo">
 
     </a>
     Kebbie
@@ -299,6 +299,17 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Usage
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         
   
@@ -309,6 +320,192 @@
 
       </a>
       
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-your-own-corrector" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating your own Corrector
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calling-the-evaluate-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Calling the evaluate() function
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inspecting-the-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inspecting the results
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-note-about-multiprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      A note about multiprocessing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#leveraging-the-keystroke-coordinates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Leveraging the keystroke coordinates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom dataset
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-insights-on-most-common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get insights on most common mistakes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other arguments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../emulated_keyboard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Emulated keyboards
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how_testing_is_done/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How testing is done ?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../emu_setup/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Emulator setup
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -332,10 +529,10 @@
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -346,8 +543,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             Code reference
           </label>
@@ -360,11 +557,32 @@
   
   
     <li class="md-nav__item">
-      <a href="../code_ref/" class="md-nav__link">
+      <a href="../public_api/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
-    kebbie
+    Public API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internals
   </span>
   
 
@@ -401,6 +619,101 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#creating-your-own-corrector" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating your own Corrector
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#calling-the-evaluate-function" class="md-nav__link">
+    <span class="md-ellipsis">
+      Calling the evaluate() function
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inspecting-the-results" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inspecting the results
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#a-note-about-multiprocessing" class="md-nav__link">
+    <span class="md-ellipsis">
+      A note about multiprocessing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#advanced-usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced usage
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Advanced usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#leveraging-the-keystroke-coordinates" class="md-nav__link">
+    <span class="md-ellipsis">
+      Leveraging the keystroke coordinates
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#custom-dataset" class="md-nav__link">
+    <span class="md-ellipsis">
+      Custom dataset
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#get-insights-on-most-common-mistakes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Get insights on most common mistakes
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#other-arguments" class="md-nav__link">
+    <span class="md-ellipsis">
+      Other arguments
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -418,7 +731,598 @@
 
 
 <h1 id="usage">Usage</h1>
-<p>TODO</p>
+<p><code>kebbie</code> exposes a class <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector">Corrector</a> and a function <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a>.</p>
+<p>The user creates a custom class which inherits from <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector">Corrector</a>, over-write methods such as <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector.auto_correct">auto_correct()</a>, <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector.auto_complete">auto_complete()</a>, <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector.predict_next_word">predict_next_word()</a>, and <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector.resolve_swipe">resolve_swipe()</a>.<br />
+Then the user calls <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> with the custom <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector">Corrector</a>, which will run the benchmark and return the results as a <code>Dictionary</code> (it contains various metrics for each task).</p>
+<hr />
+<p>Let's see how to do that in details with a basic example : we will use <a href="https://github.com/barrust/pyspellchecker"><code>pyspellchecker</code></a>, a pure-Python spell-checking library, and test it using <code>kebbie</code> to see how well it performs.</p>
+<h2 id="creating-your-own-corrector">Creating your own <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector">Corrector</a></h2>
+<p>First, we define a subclass of <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector">Corrector</a>, and we implement the constructor.</p>
+<p>In our case, the constructor will simply initialize the <code>pyspellchecker</code> library :</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">spellchecker</span> <span class="kn">import</span> <span class="n">SpellChecker</span>
+<span class="kn">from</span> <span class="nn">kebbie</span> <span class="kn">import</span> <span class="n">Corrector</span>
+
+
+<span class="k">class</span> <span class="nc">ExampleCorrector</span><span class="p">(</span><span class="n">Corrector</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spellchecker</span> <span class="o">=</span> <span class="n">SpellChecker</span><span class="p">()</span>
+</code></pre></div>
+<hr />
+<p>For this example we are only interested in auto-correction (spell-checking). So we need to over-write the <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector.auto_correct">auto_correct()</a> method.</p>
+<p>The implementation is straightforward thanks to <code>pyspellchecker</code> :</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="kn">from</span> <span class="nn">spellchecker</span> <span class="kn">import</span> <span class="n">SpellChecker</span>
+<span class="kn">from</span> <span class="nn">kebbie</span> <span class="kn">import</span> <span class="n">Corrector</span>
+
+
+<span class="k">class</span> <span class="nc">ExampleCorrector</span><span class="p">(</span><span class="n">Corrector</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spellchecker</span> <span class="o">=</span> <span class="n">SpellChecker</span><span class="p">()</span>
+
+<span class="hll">    <span class="k">def</span> <span class="nf">auto_correct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">keystrokes</span><span class="p">,</span> <span class="n">word</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span class="hll">        <span class="n">cands</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spellchecker</span><span class="o">.</span><span class="n">candidates</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+</span><span class="hll">        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">cands</span><span class="p">)</span> <span class="k">if</span> <span class="n">cands</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+</span></code></pre></div>
+<hr />
+<p>Great ! We have a testable <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector">Corrector</a> class.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>We didn't overwrite the methods for the other tasks, and that's fine !<br />
+Other tasks' score will be set to 0, but we are just interested in auto-correction score anyway.</p>
+</div>
+<h2 id="calling-the-evaluate-function">Calling the <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> function</h2>
+<p>Once we have the <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector">Corrector</a> implemented, we can simply instantiate it and call the <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> function :</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">json</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+
+<span class="hll"><span class="kn">from</span> <span class="nn">spellchecker</span> <span class="kn">import</span> <span class="n">SpellChecker</span>
+</span><span class="kn">from</span> <span class="nn">kebbie</span> <span class="kn">import</span> <span class="n">Corrector</span><span class="p">,</span> <span class="n">evaluate</span>
+
+
+<span class="k">class</span> <span class="nc">ExampleCorrector</span><span class="p">(</span><span class="n">Corrector</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spellchecker</span> <span class="o">=</span> <span class="n">SpellChecker</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">auto_correct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">keystrokes</span><span class="p">,</span> <span class="n">word</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+        <span class="n">cands</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spellchecker</span><span class="o">.</span><span class="n">candidates</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">cands</span><span class="p">)</span> <span class="k">if</span> <span class="n">cands</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+
+
+<span class="hll"><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+</span><span class="hll">    <span class="n">corrector</span> <span class="o">=</span> <span class="n">ExampleCorrector</span><span class="p">()</span>
+</span>    <span class="n">results</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">corrector</span><span class="p">)</span>
+
+    <span class="c1"># Save the results in a local file for later inspection</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;results.json&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</code></pre></div>
+<p>And that's it !</p>
+<hr />
+<p>Now you can just run your script. It might take some time to go over the 2 000 sentences of the test set, but eventually it will end and you should see a file <code>results.json</code> in your working directory.</p>
+<h2 id="inspecting-the-results">Inspecting the results</h2>
+<p>Go ahead and open the file <code>results.json</code>.</p>
+<p>It contains the results of the test, with various metrics.</p>
+<details class="abstract">
+<summary>Results for <code>pyspellchecker==0.8.1</code> at the time of writing</summary>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;next_word_prediction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;score&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">46978</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;per_domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;narrative&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32044</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;dialogue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14934</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;performances&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;mean_memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;865.0 KB&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;min_memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;8.24 KB&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;max_memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.1 MB&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;mean_runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;5.91 μs&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;fastest_runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0 ns&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;slowest_runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2.13 ms&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;auto_completion&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;score&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">46910</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;per_domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;narrative&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32002</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;dialogue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">14908</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;per_completion_rate&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;&lt;25%&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1335</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;25%~50%&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">8891</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;50%~75%&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">25757</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;&gt;75%&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10927</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;per_other&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;without_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">43450</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;with_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3460</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;performances&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;mean_memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;865.0 KB&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;min_memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;424 B&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;max_memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.1 MB&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;mean_runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;9.57 μs&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;fastest_runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0 ns&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;slowest_runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;89.8 ms&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;auto_correction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;score&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.87</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.47</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.35</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.41</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.88</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.56</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.5</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.53</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6302</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">48864</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;per_domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;narrative&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.87</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.48</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.36</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.42</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.89</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.57</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.51</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.54</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4247</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">32948</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;dialogue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.86</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.44</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.34</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.39</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.88</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.53</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.48</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.51</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2055</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">15916</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;per_typo_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;DELETE_SPELLING_SYMBOL&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.83</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.15</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.07</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.099</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.84</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.26</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.14</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.19</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">129</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;DELETE_SPACE&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.83</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.11</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.051</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.074</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.83</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.11</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.051</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.074</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">137</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1062</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;DELETE_PUNCTUATION&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;DELETE_CHAR&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.86</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.42</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.29</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.35</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.88</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.55</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.48</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.52</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">559</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">4334</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;ADD_SPELLING_SYMBOL&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;ADD_SPACE&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;ADD_PUNCTUATION&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;ADD_CHAR&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.9</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.6</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.59</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.59</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.92</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.66</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.76</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">855</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6629</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;SUBSTITUTE_CHAR&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.86</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.47</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.35</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.4</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.88</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.55</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.49</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.53</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">863</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">6691</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;SIMPLIFY_ACCENT&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;SIMPLIFY_CASE&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.82</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.82</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">403</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">3125</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;TRANSPOSE_CHAR&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.89</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.58</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.54</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.56</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.91</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.64</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.7</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.66</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1313</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">10181</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;COMMON_TYPO&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.85</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.39</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.26</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.32</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.88</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.53</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.45</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.49</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">1725</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">13375</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;per_number_of_typos&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;1&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.87</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.47</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.36</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.41</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.89</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.56</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.51</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.54</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">5984</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">46397</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;2&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.86</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.43</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.29</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.35</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.87</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.47</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.36</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.41</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">292</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2264</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;3+&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.83</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.17</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.077</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.11</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.84</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_precision&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.23</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_recall&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.12</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_fscore&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.16</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n_typo&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">26</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">202</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;performances&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;mean_memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;866.0 KB&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;min_memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;7.05 KB&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;max_memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.1 MB&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;mean_runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;358.0 ms&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;fastest_runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;69.1 μs&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;slowest_runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;77.1 s&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;swipe_resolution&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">        </span><span class="nt">&quot;score&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">417</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;per_domain&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;narrative&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">313</span>
+<span class="w">            </span><span class="p">},</span>
+<span class="w">            </span><span class="nt">&quot;dialogue&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">                </span><span class="nt">&quot;accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;top3_accuracy&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">                </span><span class="nt">&quot;n&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">104</span>
+<span class="w">            </span><span class="p">}</span>
+<span class="w">        </span><span class="p">},</span>
+<span class="w">        </span><span class="nt">&quot;performances&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">            </span><span class="nt">&quot;mean_memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;860.0 KB&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;min_memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;96.0 KB&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;max_memory&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.1 MB&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;mean_runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;24.5 μs&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;fastest_runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;0 ns&quot;</span><span class="p">,</span>
+<span class="w">            </span><span class="nt">&quot;slowest_runtime&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;4.68 ms&quot;</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">    </span><span class="p">},</span>
+<span class="w">    </span><span class="nt">&quot;overall_score&quot;</span><span class="p">:</span><span class="w"> </span><span class="mf">0.164</span>
+<span class="p">}</span>
+</code></pre></div>
+</details>
+<p>Let's go over the content quickly.</p>
+<p>First, the metrics are divided into each tasks :</p>
+<ul>
+<li><code>next_word_prediction</code></li>
+<li><code>auto_completion</code></li>
+<li><code>auto_correction</code></li>
+<li><code>swipe_resolution</code></li>
+</ul>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>At the end of the file, there is also a field <code>overall_score</code>. This is just an aggregation of the scores of all tasks, to have an easy way to compare runs.</p>
+</div>
+<p>As expected, if you look at other tasks than <code>auto_correction</code>, their score is zero. That's expected, because we are interested only on auto-correction, and we didn't implement the code for the other tasks.</p>
+<p>Let's take a deeper look at the <code>auto_correction</code> results.</p>
+<hr />
+<p>First, we have a <code>score</code> field, which contains various overall metrics about the auto-correction capability : precision, recall, F-score, etc...</p>
+<p>There is also a value <code>n</code>, which shows the total number of words we tried to auto-correct, and <code>n_typo</code>, the number of words which contained a typo.</p>
+<p>For auto-correction, the metric we care about is the F-score, as it measure both the precision and the recall.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>For more information about the metrics and their meaning, check out the <a href="../how_testing_is_done/#metrics">Metrics</a> page.</p>
+</div>
+<hr />
+<p>Then we have a <code>per_domain</code> field, which also contains the same metrics, but divided into the various domains of our dataset. We can see that <code>pyspellchecker</code> is better at correcting <code>narrative</code> data than <code>dialogue</code> data, since the F-score is higher.</p>
+<p>We then have a <code>per_typo_type</code> field, which shows the metrics for each type of typo introduced.<br />
+Note that the <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> does not introduce all type of typos by default, so some of them are set to <code>0</code>.</p>
+<p>After we have a <code>per_number_of_typos</code> field, which gives the metrics depending on how many typos were introduced in that word.</p>
+<p>And finally we have a field <code>performances</code>, which show the memory consumption and runtime for the <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector.auto_correct">auto_correct()</a> method that we wrote.</p>
+<h2 id="a-note-about-multiprocessing">A note about multiprocessing</h2>
+<p>Under the hood, <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> uses multiprocessing to run faster.</p>
+<p>It means that your <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector">Corrector</a> should be pickable !</p>
+<div class="admonition success">
+<p class="admonition-title">Example</p>
+<p>In the example above, the implementation provided is already pickable, so there is nothing to do.</p>
+</div>
+<p>If you need to make your class pickable, just implement the <code>__reduce__()</code> magic method, like this :</p>
+<div class="highlight"><pre><span></span><code><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span>
+
+<span class="kn">from</span> <span class="nn">kebbie</span> <span class="kn">import</span> <span class="n">Corrector</span>
+
+
+<span class="k">class</span> <span class="nc">GreatCorrector</span><span class="p">(</span><span class="n">Corrector</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">model_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">m_path</span> <span class="o">=</span> <span class="n">model_path</span>
+
+        <span class="c1"># Because of this (imaginary) non-pickable attribute,</span>
+        <span class="c1"># the class `GreatCorrector` is not pickable as-is</span>
+<span class="hll">        <span class="bp">self</span><span class="o">.</span><span class="n">non_pickable_model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="n">model_path</span><span class="p">)</span>
+</span>
+<span class="hll">    <span class="k">def</span> <span class="nf">__reduce__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+</span><span class="hll">        <span class="c1"># But by implementing `__reduce__()`, we can make it pickable !</span>
+</span><span class="hll">        <span class="k">return</span> <span class="p">(</span><span class="n">GreatCorrector</span><span class="p">,</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">m_path</span><span class="p">,))</span>
+</span></code></pre></div>
+<h2 id="advanced-usage">Advanced usage</h2>
+<h3 id="leveraging-the-keystroke-coordinates">Leveraging the keystroke coordinates</h3>
+<p>Did you notice that in our <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector.auto_correct">auto_correct()</a> implementation, there is an argument <code>keystrokes</code> that we didn't use ?</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">ExampleCorrector</span><span class="p">(</span><span class="n">Corrector</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spellchecker</span> <span class="o">=</span> <span class="n">SpellChecker</span><span class="p">()</span>
+
+<span class="hll">    <span class="k">def</span> <span class="nf">auto_correct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">keystrokes</span><span class="p">,</span> <span class="n">word</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span>        <span class="n">cands</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">spellchecker</span><span class="o">.</span><span class="n">candidates</span><span class="p">(</span><span class="n">word</span><span class="p">)</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">cands</span><span class="p">)</span> <span class="k">if</span> <span class="n">cands</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="p">[]</span>
+</code></pre></div>
+<p>This <code>keystrokes</code> argument is a list of keystrokes coordinates (one per character of the typed <code>word</code>).</p>
+<p>These coordinates may hold useful information : for example on a QWERTY keyboard, if the word typed is <code>lovw</code> but the keystroke for <code>w</code> is very close to the border of the <code>e</code> key... There is a great chance that the word should be auto-corrected to <code>love</code>...</p>
+<hr />
+<p>These coordinates are defined in a layout file internally. To interact easily with the layout, you can use the <a class="autorefs autorefs-internal" href="../internals/#kebbie.layout.LayoutHelper">LayoutHelper</a> class.</p>
+<p>You can use the method <a class="autorefs autorefs-internal" href="../internals/#kebbie.layout.LayoutHelper.get_key_info">get_key_info()</a> to retrieve data about the key for the given character.</p>
+<p>For example, let's compute the distance between the first keystroke of the word, and the key for the character <code>w</code> :</p>
+<div class="highlight"><pre><span></span><code><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">kebbie.layout</span> <span class="kn">import</span> <span class="n">LayoutHelper</span>
+
+<span class="n">layout</span> <span class="o">=</span> <span class="n">LayoutHelper</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">auto_correct</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">keystrokes</span><span class="p">,</span> <span class="n">word</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">w_key_center_x</span><span class="p">,</span> <span class="n">w_key_center_y</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">layout</span><span class="o">.</span><span class="n">get_key_info</span><span class="p">(</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">keystrokes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">keystrokes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">dist</span><span class="p">(</span><span class="n">keystrokes</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">w_key_center_x</span><span class="p">,</span> <span class="n">w_key_center_y</span><span class="p">]))</span>
+</code></pre></div>
+<h3 id="custom-dataset">Custom dataset</h3>
+<p>The <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> function uses a good default dataset (see <a href="../how_testing_is_done/#test-data">Test data</a>) to run the evaluation.</p>
+<p>However, you might want to run the evaluation on your own dataset.</p>
+<p>You can do this by passing your custom dataset to the <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> function :</p>
+<div class="highlight"><pre><span></span><code><span class="hll"><span class="n">my_dataset</span> <span class="o">=</span> <span class="n">load_my_private_dataset</span><span class="p">()</span>
+</span><span class="n">corrector</span> <span class="o">=</span> <span class="n">ExampleCorrector</span><span class="p">()</span>
+<span class="hll"><span class="n">results</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">corrector</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="n">my_dataset</span><span class="p">)</span>
+</span></code></pre></div>
+<p>Your custom dataset should be a <code>Dict[str, List[str]]</code>, where each keys of the dictionary represents a specific domain, and the values are just the list of sentences.</p>
+<h3 id="get-insights-on-most-common-mistakes">Get insights on most common mistakes</h3>
+<p>When trying to improve your models, you might want to take a look at the most common mistakes your model is doing.</p>
+<p>You can achieve this simply by passing <code>track_mistakes=True</code> to the <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> function :</p>
+<div class="highlight"><pre><span></span><code><span class="n">corrector</span> <span class="o">=</span> <span class="n">ExampleCorrector</span><span class="p">()</span>
+<span class="hll"><span class="n">results</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">corrector</span><span class="p">,</span> <span class="n">track_mistakes</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span></code></pre></div>
+<p>It will record the most common mistakes your <a class="autorefs autorefs-internal" href="../public_api/#kebbie.correctors.Corrector">Corrector</a> is doing, and add them in a new field (<code>most_common_mistakes</code>) in the returned results.</p>
+<p>The mistakes are tracked for the following tasks : next-word prediction, auto-completion, and auto-correction.</p>
+<p>Let's look at the most common mistakes for our example with <code>pyspellchecker</code> :</p>
+<div class="highlight"><pre><span></span><code><span class="nt">&quot;auto_correction&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<span class="w">    </span><span class="p">[</span>
+<span class="w">        </span><span class="s2">&quot;Count&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Expected&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Predictions&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Context&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">266</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;I&#39;m&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;[ism, h&#39;m]&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Kolten beckoned Aida over wanting to hear what he had to say Aida I want to know what&#39;s on your mind Kolten said I&#39;m&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="p">[</span>
+<span class="w">        </span><span class="mi">157</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;to&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;[tho]&quot;</span><span class="p">,</span>
+<span class="w">        </span><span class="s2">&quot;Destanie was so angry that he felt like he might explode He felt the hot blood rushing to his head and his fists clenched tightly at his sides He took a deep breath and tried tho&quot;</span>
+<span class="w">    </span><span class="p">],</span>
+<span class="w">    </span><span class="err">...</span>
+</code></pre></div>
+<p>Here we can see that we track several thing for each mistake :</p>
+<ul>
+<li><code>Count</code> : The total number of times this mistake happened</li>
+<li><code>Expected</code> : The expected word</li>
+<li><code>Predictions</code> : The model's predictions</li>
+<li><code>Context</code> : An example of a sentence where the mistake happened</li>
+</ul>
+<p>So we can see that the most common mistake of <code>pyspellchecker</code> is to try to auto correct <code>I'm</code> into <code>ism</code>, even though it should not be corrected. This mistake was encountered 266 times during the evaluation.</p>
+<p>The second most common mistake is to not auto-correct <code>tho</code>, even though it should be corrected to <code>to</code>. This mistake was encountered 157 times during the evaluation.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>By default, the 1 000 most common mistakes will be saved. You can specify a different <code>n</code>, with the <code>n_most_common_mistakes</code> argument :</p>
+<div class="highlight"><pre><span></span><code><span class="n">corrector</span> <span class="o">=</span> <span class="n">ExampleCorrector</span><span class="p">()</span>
+<span class="hll"><span class="n">results</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">corrector</span><span class="p">,</span> <span class="n">track_mistakes</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">n_most_common_mistakes</span><span class="o">=</span><span class="mi">150</span><span class="p">)</span>
+</span></code></pre></div>
+</div>
+<h3 id="other-arguments">Other arguments</h3>
+<p>Specify the number of processes to be used for multiprocessing with the <code>n_proc</code> argument :</p>
+<div class="highlight"><pre><span></span><code><span class="n">corrector</span> <span class="o">=</span> <span class="n">ExampleCorrector</span><span class="p">()</span>
+<span class="hll"><span class="n">results</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">corrector</span><span class="p">,</span> <span class="n">n_proc</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+</span></code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>If <code>None</code> is given, <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> will use <code>os.cpu_count()</code> (the number of CPU of your machine). Defaults to <code>None</code>.</p>
+</div>
+<hr />
+<p>Specify a different seed with the <code>seed</code> argument :</p>
+<div class="highlight"><pre><span></span><code><span class="n">corrector</span> <span class="o">=</span> <span class="n">ExampleCorrector</span><span class="p">()</span>
+<span class="hll"><span class="n">results</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">corrector</span><span class="p">,</span> <span class="n">seed</span><span class="o">=</span><span class="mi">36</span><span class="p">)</span>
+</span></code></pre></div>
+<hr />
+<p>Specify a different Beta for the F-score calculation (see the <a href="../how_testing_is_done/#auto-correction">Metrics</a> section) with the <code>beta</code> argument :</p>
+<div class="highlight"><pre><span></span><code><span class="n">corrector</span> <span class="o">=</span> <span class="n">ExampleCorrector</span><span class="p">()</span>
+<span class="hll"><span class="n">results</span> <span class="o">=</span> <span class="n">evaluate</span><span class="p">(</span><span class="n">corrector</span><span class="p">,</span> <span class="n">beta</span><span class="o">=</span><span class="mf">1.2</span><span class="p">)</span>
+</span></code></pre></div>
 
 
 
@@ -460,10 +1364,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      <script src="../assets/javascripts/bundle.bd41221c.min.js"></script>
       
     
   </body>
