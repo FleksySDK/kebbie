@@ -1,6 +1,7 @@
 """Module containing the code necessary to interact with the emulators, using
 Appium.
 """
+
 import html
 import io
 import json

@@ -1,6 +1,7 @@
 """Module implementing `Scorer`, a class that keep track of how many errors
 the model is making, and output various corresponding metrics.
 """
+
 from __future__ import annotations
 
 import statistics as stats

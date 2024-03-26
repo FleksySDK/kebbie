@@ -1,6 +1,7 @@
 """Module defining `BasicTokenizer`, very basic tokenizer to separate a
 sentence into words.
 """
+
 import re
 from typing import List
 
