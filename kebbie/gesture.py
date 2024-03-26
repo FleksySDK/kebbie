@@ -1,6 +1,7 @@
 """Module containing the function `make_swipe_gesture`, which is used to create
 a natural-looking swipe gesture from a list of letter-points.
 """
+
 import random
 from typing import List, Tuple
 

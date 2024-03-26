@@ -2,6 +2,7 @@
 features of a mobile keyboard, as well as a command line to evaluate other
 keyboards running in an emulator.
 """
+
 from typing import Dict, List, Optional
 
 from .correctors import Corrector

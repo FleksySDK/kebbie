@@ -1,6 +1,7 @@
 """Module containing the helpers `LayoutHelper`, useful class to deal with the
 layout of a keyboard, access key positions, etc...
 """
+
 from collections import defaultdict
 from dataclasses import dataclass
 from typing import Dict, List, Optional, Tuple

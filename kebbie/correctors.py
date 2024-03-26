@@ -1,4 +1,5 @@
 """Module containing the base Corrector class."""
+
 from typing import List, Optional, Tuple
 
 from kebbie.emulator import Emulator

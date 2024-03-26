@@ -1,4 +1,5 @@
 """Module containing the implementation for the `kebbie` command line."""
+
 import argparse
 import json
 import sys
