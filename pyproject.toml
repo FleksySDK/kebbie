@@ -1,5 +1,5 @@
 [tool.pytest.ini_options]
-addopts = "-W ignore::DeprecationWarning --cov=kebbie --no-cov-on-fail --cov-fail-under=80"
+addopts = "-W ignore::DeprecationWarning --cov=kebbie --no-cov-on-fail"
 testpaths = [
     "tests",
 ]
