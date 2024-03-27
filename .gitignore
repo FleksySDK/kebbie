@@ -5,6 +5,7 @@ __pycache__/
 
 # Setup
 *.egg-info/
+build/
 
 # Coverage output
 .coverage
