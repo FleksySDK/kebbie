@@ -85,7 +85,7 @@ if __name__ == "__main__":
 ```
 
 > [!TIP]
-> Make sure to check the [full documentation](https://FleksySDK.github.io/kebbie/usage/) for a detailed explanations of how to use the code !
+> Make sure to check the [full documentation](https://FleksySDK.github.io/kebbie/latest/usage/) for a detailed explanations of how to use the code !
 
 ---
 
@@ -100,7 +100,7 @@ kebbie evaluate -K ios --all_tasks
 ```
 
 > [!TIP]
-> Make sure to check the [full documentation](https://FleksySDK.github.io/kebbie/emulated_keyboard/) for a detailed explanations of how to setup emulators and how to use the command line !
+> Make sure to check the [full documentation](https://FleksySDK.github.io/kebbie/latest/emulated_keyboard/) for a detailed explanations of how to setup emulators and how to use the command line !
 
 
 <h2 align="center">Contribute</h2>
@@ -111,27 +111,30 @@ To contribute, install the package locally, create your own branch, add your cod
 
 Pre-commit hooks are set to check the code added whenever you commit something.
 
-If you never ran the hooks before, install it with :
-
-```bash
-pre-commit install
-```
-
----
+> [!NOTE]
+> If you never ran the hooks before, install it with :
+> ```bash
+> pip install -e .[hook]
+> pre-commit install
+> ```
 
 Then you can just try to commit your code. If your code does not meet the quality required by linters, it will not be committed. You can just fix your code and try to commit again !
 
----
-
-You can manually run the pre-commit hooks with :
-
-```bash
-pre-commit run --all-files
-```
+> [!TIP]
+> You can manually run the pre-commit hooks with :
+> ```bash
+> pre-commit run --all-files
+> ```
 
 ### Tests
 
 When you contribute, you need to make sure all the unit-tests pass. You should also add tests if necessary !
+
+> [!NOTE]
+> Install the dependencies for testing with :
+> ```bash
+> pip install -e .[test]
+> ```
 
 You can run the tests with :
 
@@ -141,7 +144,7 @@ pytest
 
 ---
 
-Tests are not included in the pre-commit hooks, because running the tests might be slow, and for the sake of developpers we want the pre-commit hooks to be fast !
+Tests are not included in the pre-commit hooks, because running the tests might be slow, and for the sake of developers we want the pre-commit hooks to be fast !
 
 Pre-commit hooks will not run the tests, but it will automatically update the coverage badge !
 
@@ -152,3 +155,9 @@ The documentation should be kept up-to-date. You can visualize the documentation
 ```bash
 mkdocs serve
 ```
+
+> [!NOTE]
+> Before running this command, you need to install the documentation dependencies :
+> ```bash
+> pip install -e .[docs]
+> ```
