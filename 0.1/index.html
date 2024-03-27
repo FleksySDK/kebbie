@@ -824,7 +824,8 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <div class="admonition important">
 <p class="admonition-title">Important</p>
 <p>If you never ran the hooks before, install it with :
-<div class="highlight"><pre><span></span><code>pre-commit<span class="w"> </span>install
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>hook<span class="o">]</span>
+pre-commit<span class="w"> </span>install
 </code></pre></div></p>
 </div>
 <div class="admonition info">
@@ -835,12 +836,18 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 </div>
 <h3 id="unit-tests">Unit-tests</h3>
 <p>When you contribute, you need to make sure all the unit-tests pass. You should also add tests if necessary !</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Install the dependencies for testing with :
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>test<span class="o">]</span>
+</code></pre></div></p>
+</div>
 <p>You can run the tests with :</p>
 <div class="highlight"><pre><span></span><code>pytest
 </code></pre></div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>Tests are not included in the pre-commit hooks, because running the tests might be slow, and for the sake of developpers we want the pre-commit hooks to be fast !</p>
+<p>Tests are not included in the pre-commit hooks, because running the tests might be slow, and for the sake of developers we want the pre-commit hooks to be fast !</p>
 </div>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
@@ -851,6 +858,12 @@ pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </s
 <p>You can visualize the documentation locally by running :</p>
 <div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>serve
 </code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Before running this command, you need to install the documentation dependencies :
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.<span class="o">[</span>docs<span class="o">]</span>
+</code></pre></div></p>
+</div>
 
 
 
