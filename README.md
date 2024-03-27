@@ -111,24 +111,20 @@ To contribute, install the package locally, create your own branch, add your cod
 
 Pre-commit hooks are set to check the code added whenever you commit something.
 
-If you never ran the hooks before, install it with :
-
-```bash
-pip install -e .[hook]
-pre-commit install
-```
-
----
+> [!NOTE]
+> If you never ran the hooks before, install it with :
+> ```bash
+> pip install -e .[hook]
+> pre-commit install
+> ```
 
 Then you can just try to commit your code. If your code does not meet the quality required by linters, it will not be committed. You can just fix your code and try to commit again !
 
----
-
-You can manually run the pre-commit hooks with :
-
-```bash
-pre-commit run --all-files
-```
+> [!TIP]
+> You can manually run the pre-commit hooks with :
+> ```bash
+> pre-commit run --all-files
+> ```
 
 ### Tests
 
