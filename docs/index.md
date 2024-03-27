@@ -92,6 +92,7 @@ When you try to commit your code, hooks are automatically run, and if you code d
 !!! important
     If you never ran the hooks before, install it with :
     ```bash
+    pip install -e .[hook]
     pre-commit install
     ```
 
@@ -104,6 +105,12 @@ When you try to commit your code, hooks are automatically run, and if you code d
 ### Unit-tests
 
 When you contribute, you need to make sure all the unit-tests pass. You should also add tests if necessary !
+
+!!! info
+    Install the dependencies for testing with :
+    ```bash
+    pip install -e .[test]
+    ```
 
 You can run the tests with :
 
@@ -126,3 +133,9 @@ You can visualize the documentation locally by running :
 ```bash
 mkdocs serve
 ```
+
+!!! info
+    Before running this command, you need to install the documentation dependencies :
+    ```bash
+    pip install -e .[docs]
+    ```

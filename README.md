@@ -114,6 +114,7 @@ Pre-commit hooks are set to check the code added whenever you commit something.
 If you never ran the hooks before, install it with :
 
 ```bash
+pip install -e .[hook]
 pre-commit install
 ```
 
@@ -132,6 +133,12 @@ pre-commit run --all-files
 ### Tests
 
 When you contribute, you need to make sure all the unit-tests pass. You should also add tests if necessary !
+
+> [!NOTE]
+> Install the dependencies for testing with :
+> ```bash
+> pip install -e .[test]
+> ```
 
 You can run the tests with :
 
@@ -152,3 +159,9 @@ The documentation should be kept up-to-date. You can visualize the documentation
 ```bash
 mkdocs serve
 ```
+
+> [!NOTE]
+> Before running this command, you need to install the documentation dependencies :
+> ```bash
+> pip install -e .[docs]
+> ```
