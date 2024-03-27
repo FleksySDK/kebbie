@@ -37,6 +37,8 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     url="https://github.com/FleksySDK/kebbie",
     packages=setuptools.find_packages(),
+    package_data={"": ["layouts/*.json"]},
+    include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3.9",
         "Operating System :: OS Independent",
