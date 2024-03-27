@@ -85,7 +85,7 @@ if __name__ == "__main__":
 ```
 
 > [!TIP]
-> Make sure to check the [full documentation](https://FleksySDK.github.io/kebbie/usage/) for a detailed explanations of how to use the code !
+> Make sure to check the [full documentation](https://FleksySDK.github.io/kebbie/latest/usage/) for a detailed explanations of how to use the code !
 
 ---
 
@@ -100,7 +100,7 @@ kebbie evaluate -K ios --all_tasks
 ```
 
 > [!TIP]
-> Make sure to check the [full documentation](https://FleksySDK.github.io/kebbie/emulated_keyboard/) for a detailed explanations of how to setup emulators and how to use the command line !
+> Make sure to check the [full documentation](https://FleksySDK.github.io/kebbie/latest/emulated_keyboard/) for a detailed explanations of how to setup emulators and how to use the command line !
 
 
 <h2 align="center">Contribute</h2>
