@@ -8,6 +8,18 @@ Install Appium 2.0 by following [their official documentation](https://appium.io
 
 ---
 
+Then install the required drivers :
+
+```bash
+# For Android
+appium driver install uiautomator2
+
+# For iOS
+appium driver install xcuitest
+```
+
+---
+
 To start Appium, open a new terminal and type :
 
 ```bash
