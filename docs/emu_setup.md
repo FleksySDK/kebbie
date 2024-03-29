@@ -76,6 +76,11 @@ adb devices
     export PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH
     ```
 
+!!! info
+    In Android, to open the keyboard, we access a notepad website ([www.justnotepad.com](www.justnotepad.com)).
+
+    The reason we do that is because it's the easiest way to access a typing field, and it works across versions and emulators.
+
 ### Preparing GBoard
 
 GBoard is enabled by default on Android, so there is nothing to do.
