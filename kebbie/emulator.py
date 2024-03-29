@@ -22,7 +22,6 @@ from selenium.webdriver.common.actions import interaction
 from selenium.webdriver.common.actions.action_builder import ActionBuilder
 from selenium.webdriver.common.actions.pointer_input import PointerInput
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.remote.webelement import WebElement
 
 
@@ -52,11 +51,8 @@ IOS_CAPABILITIES = {
 }
 DEFAULT_IOS_NAME = "iPhone 15 Pro"
 DEFAULT_IOS_PLATFORM = "17.4"
-APP_PACKAGE = "com.google.android.apps.messaging"
-APP_ACTIVITY = "com.google.android.apps.messaging.ui.ConversationListActivity"
-ANDROID_TYPING_FIELD_ID = "com.google.android.apps.messaging:id/compose_message_text"
-ANDROID_START_CHAT_FIELD_ID = "com.google.android.apps.messaging:id/start_chat_fab"
-ANDROID_RECIPIENT_FIELD_ID = "com.google.android.apps.messaging:id/recipient_text_view"
+BROWSER_PAD_URL = "https://www.justnotepad.com"
+ANDROID_TYPING_FIELD_CLASS_NAME = "android.widget.EditText"
 DUMMY_RECIPIENT = "0"
 IOS_TYPING_FIELD_ID = "messageBodyField"
 IOS_START_CHAT_CLASS_NAME = "XCUIElementTypeCell"
@@ -295,13 +291,15 @@ class Emulator:
         will type our text.
         """
         if self.platform == ANDROID:
-            self.driver.start_activity(APP_PACKAGE, APP_ACTIVITY)
-            self.driver.find_element(By.ID, ANDROID_START_CHAT_FIELD_ID).click()
-            recipient = self.driver.find_element(By.ID, ANDROID_RECIPIENT_FIELD_ID)
-            recipient.click()
-            recipient.send_keys(DUMMY_RECIPIENT)
-            ActionChains(self.driver).send_keys(Keys.RETURN).perform()
-            self.typing_field = self.driver.find_element(By.ID, ANDROID_TYPING_FIELD_ID)
+            subprocess.run(
+                ["adb", "shell", "am", "start", "-a", "android.intent.action.VIEW", "-d", BROWSER_PAD_URL],
+                stdout=subprocess.PIPE,
+            )
+            typing_field_loaded = False
+            while not typing_field_loaded:
+                typing_fields = self.driver.find_elements(By.CLASS_NAME, ANDROID_TYPING_FIELD_CLASS_NAME)
+                typing_field_loaded = len(typing_fields) == 2
+            self.typing_field = typing_fields[0]
         else:
             self.driver.find_element(By.CLASS_NAME, IOS_START_CHAT_CLASS_NAME).click()
             self.typing_field = self.driver.find_element(By.ID, IOS_TYPING_FIELD_ID)

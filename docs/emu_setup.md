@@ -76,28 +76,10 @@ adb devices
     export PATH=$ANDROID_HOME/platform-tools:$ANDROID_HOME/emulator:$PATH
     ```
 
-### Preparing the emulator
+!!! info
+    In Android, to open the keyboard, we access a notepad website ([www.justnotepad.com](www.justnotepad.com)).
 
-When we run the tests on emulator, we need to access a typing field, and type the words there while monitoring the suggestions and the corrected words.
-
-But not all typing fields are equal ! Some typing fields (like URL field, or search field) have AC disabled by default.
-
-On Android, we access the Google Message app, and compose a new message (in this field, the AC is enabled by default).
-
-But the first time you access the app on Android, a pop-up appears, requiring user intervention. If you try to run the tests without closing this pop-pup, the layout detection will fails and the testing function will fail.
-
-So, before running any tests on a freshly installed emulator, open the Google Message app manually :
-
-![](assets/emu_setup_3.webp){ width="250" }
-
-And when the pop-up appears, discard it so it doesn't appear again :
-
-![](assets/emu_setup_4.webp){ width="300" }
-
-!!! info "Note"
-    Depending on your version of the Google Message app, the pop-up might be different.
-
-    Or there might be several pop-ups to close, when you open the app for the second or third time. Just make sure to close them all until they don't appear anymore upon starting the app.
+    The reason we do that is because it's the easiest way to access a typing field, and it works across versions and emulators.
 
 ### Preparing GBoard
 
