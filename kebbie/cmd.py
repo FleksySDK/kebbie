@@ -44,6 +44,7 @@ def instantiate_correctors(
         # iOS keyboards
         return [
             EmulatorCorrector(
+                device=i,
                 platform="ios",
                 keyboard=keyboard,
                 fast_mode=fast_mode,
@@ -51,7 +52,7 @@ def instantiate_correctors(
                 ios_name=ios_name,
                 ios_platform=ios_platform,
             )
-            for ios_platform, ios_name in Emulator.get_ios_devices()
+            for i, (ios_platform, ios_name) in enumerate(Emulator.get_ios_devices())
         ]
 
 

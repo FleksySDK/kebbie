@@ -77,7 +77,7 @@ adb devices
     ```
 
 !!! info
-    In Android, to open the keyboard, we access a notepad website ([www.justnotepad.com](www.justnotepad.com)).
+    In Android, to open the keyboard, we access a notepad website ([www.justnotepad.com](https://www.justnotepad.com)).
 
     The reason we do that is because it's the easiest way to access a typing field, and it works across versions and emulators.
 
@@ -198,9 +198,11 @@ However, predictions and auto-corrections are disabled by default. They should b
 
 ![](assets/ios_setup_7.png){ width="250" }
 
-## Parallel Android emulators
+## Parallel emulators
 
-In order to run tests faster, we can setup multiple Android emulators, and run the [evaluate()][kebbie.evaluate] function in parallel.
+In order to run tests faster, we can setup multiple emulators, and run the [evaluate()][kebbie.evaluate] function in parallel. Let's see how to set up multiple emulators for both Android and iOS.
+
+### Android
 
 First, follow the section above to [setup one Android emulator](#setting-up-android-emulator).
 
@@ -228,3 +230,102 @@ adb devices
 
 !!! tip
     Once you can see the emulators with the `adb devices` command, there is nothing else to do ! You can run the `kebbie` CLI just like you would do for a single emulator : the CLI will detect the running emulators with the `adb devices` command.
+
+### iOS
+
+First, follow the section above to [setup one iOS simulator](#setting-up-ios-emulator) and make sure everything works for a single device.
+
+Once it's done, you can list the device availables :
+
+```bash
+xcrun simctl list
+```
+
+Example of emulators listed :
+
+```
+-- iOS 17.4 --
+    iPhone SE (3rd generation) (96ADAD77-ECE6-420E-B56C-505E0C16231B) (Shutdown)
+    iPhone 15 (128F95FC-F499-4B09-A3B2-55937BF52B0B) (Shutdown)
+    iPhone 15 Plus (86591FC6-B3E7-43A2-9E9B-D4A2A90DAF31) (Shutdown)
+    iPhone 15 Pro (9D38F87D-273B-4D8F-8AD5-E901C1974C1E) (Shutdown)
+    iPhone 15 Pro Max (15EF57B4-69E6-4369-9534-70692A2023E5) (Shutdown)
+    iPad Air (5th generation) (252D522B-CEAA-4085-BE17-A453BC219755) (Shutdown)
+    iPad (10th generation) (39F2ADD2-2FCF-44C3-9DC9-4CC4D50875E9) (Shutdown)
+    iPad mini (6th generation) (59125B84-4ED1-40C1-8457-3CE824394385) (Shutdown)
+    iPad Pro (11-inch) (4th generation) (DB122D71-F358-48DA-B11C-D25305657E7F) (Shutdown)
+    iPad Pro (12.9-inch) (6th generation) (1100927A-B631-4678-AB19-02EA4F680537) (Shutdown)
+```
+
+Select the UUID of the device you would like to run in parallel, and clone it with :
+
+```bash
+xcrun simctl clone <UUID> <new_name>
+```
+
+So for example, to have 4 parallel `iPhone 15 Pro`, you should run :
+
+```bash
+xcrun simctl clone 9D38F87D-273B-4D8F-8AD5-E901C1974C1E iPhone_15_2
+xcrun simctl clone 9D38F87D-273B-4D8F-8AD5-E901C1974C1E iPhone_15_3
+xcrun simctl clone 9D38F87D-273B-4D8F-8AD5-E901C1974C1E iPhone_15_4
+```
+
+---
+
+Once this is done, you should see them listed when running :
+
+```bash
+xcrun simctl list
+```
+
+```
+-- iOS 17.4 --
+    iPhone SE (3rd generation) (96ADAD77-ECE6-420E-B56C-505E0C16231B) (Shutdown)
+    iPhone 15 (128F95FC-F499-4B09-A3B2-55937BF52B0B) (Shutdown)
+    iPhone 15 Plus (86591FC6-B3E7-43A2-9E9B-D4A2A90DAF31) (Shutdown)
+    iPhone 15 Pro (9D38F87D-273B-4D8F-8AD5-E901C1974C1E) (Booted)
+    iPhone_15_2 (C423F3BC-BC3A-4FFC-B264-C6075B60115F) (Shutdown)
+    iPhone_15_3 (2BEB33D0-8F33-4987-95FC-FD9B7C2BD54D) (Shutdown)
+    iPhone_15_4 (EE0719E9-FF3C-4539-9BCD-9F091B469F93) (Shutdown)
+    iPhone 15 Pro Max (15EF57B4-69E6-4369-9534-70692A2023E5) (Shutdown)
+    iPad Air (5th generation) (252D522B-CEAA-4085-BE17-A453BC219755) (Shutdown)
+    iPad (10th generation) (39F2ADD2-2FCF-44C3-9DC9-4CC4D50875E9) (Shutdown)
+    iPad mini (6th generation) (59125B84-4ED1-40C1-8457-3CE824394385) (Shutdown)
+    iPad Pro (11-inch) (4th generation) (DB122D71-F358-48DA-B11C-D25305657E7F) (Shutdown)
+    iPad Pro (12.9-inch) (6th generation) (1100927A-B631-4678-AB19-02EA4F680537) (Shutdown)
+```
+
+Then you can start each simulator with :
+
+```bash
+xcrun simctl boot <UUID>
+```
+
+For example, to start the 4 simulators we just created, you would run :
+
+```bash
+xcrun simctl boot 9D38F87D-273B-4D8F-8AD5-E901C1974C1E
+xcrun simctl boot C423F3BC-BC3A-4FFC-B264-C6075B60115F
+xcrun simctl boot 2BEB33D0-8F33-4987-95FC-FD9B7C2BD54D
+xcrun simctl boot EE0719E9-FF3C-4539-9BCD-9F091B469F93
+```
+
+!!! tip
+    Once the simulators started, there is nothing else to do ! You can run the `kebbie` CLI just like you would do for a single emulator : the CLI will automatically detect the running emulators with the `xcrun simctl list` command.
+
+    However, make sure to enable auto-correction and predictive suggestions in each of the simulator (see [Preparing the iOS Keyboard](#preparing-ios-keyboard) for more information)
+
+!!! warning
+    The `xcrun simctl boot` command only launch the simulator background service, to launch the foreground GUI, run :
+
+    ```bash
+    open -a Simulator
+    ```
+
+!!! note
+    To shutdown a simulator, run :
+
+    ```bash
+    xcrun simctl shutdown <UUID>
+    ```
