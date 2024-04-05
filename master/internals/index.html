@@ -7221,7 +7221,11 @@ screen. See <code>Emulator._tap()</code>.</p>
 <span class="normal">811</span>
 <span class="normal">812</span>
 <span class="normal">813</span>
-<span class="normal">814</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">LayoutDetector</span><span class="p">:</span>
+<span class="normal">814</span>
+<span class="normal">815</span>
+<span class="normal">816</span>
+<span class="normal">817</span>
+<span class="normal">818</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">LayoutDetector</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Base class for auto-detection of the keyboard layout.</span>
 
 <span class="sd">    To auto-detect a new keyboard, create a new sub-class, and overwite</span>
@@ -7272,7 +7276,7 @@ screen. See <code>Emulator._tap()</code>.</p>
 
         <span class="c1"># Fix the keys&#39; offset compared to the keyboard frame</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">android</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_offset_keys</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_status_bar_offset</span><span class="p">(</span><span class="n">layout</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">layout</span> <span class="o">=</span> <span class="n">layout</span>
 
@@ -7316,10 +7320,6 @@ screen. See <code>Emulator._tap()</code>.</p>
                 <span class="c1"># Detect the keyboard frame</span>
                 <span class="n">kb</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s2">&quot;android:id/inputArea&quot;</span><span class="p">)</span>
                 <span class="n">keyboard_frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_frame</span><span class="p">(</span><span class="n">kb</span><span class="p">)</span>
-
-                <span class="c1"># Offset the position of the keyboard frame because of the status bar</span>
-                <span class="n">sb_bounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_status_bar_bounds</span><span class="p">()</span>
-                <span class="n">keyboard_frame</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">sb_bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">keyboard_frame</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_frame</span><span class="p">(</span><span class="n">root</span><span class="p">)</span>
 
@@ -7399,13 +7399,13 @@ screen. See <code>Emulator._tap()</code>.</p>
         <span class="n">sb</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">find_element</span><span class="p">(</span><span class="n">By</span><span class="o">.</span><span class="n">ID</span><span class="p">,</span> <span class="s2">&quot;com.android.systemui:id/status_bar&quot;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_frame</span><span class="p">(</span><span class="n">sb</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">_offset_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method offsetting the keys of a given layout to fit in the keyboard</span>
-<span class="sd">        frame.</span>
+    <span class="k">def</span> <span class="nf">_apply_status_bar_offset</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">layout</span><span class="p">:</span> <span class="n">Dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Method offsetting the given layout to match the screen.</span>
 
-<span class="sd">        After auto-detecting the keys of a layout, the keys are still offset on</span>
-<span class="sd">        Y-axis by some amount. So just find by how much they are beyond the</span>
-<span class="sd">        keyboard frame, and then update them accordingly.</span>
+<span class="sd">        On Android, somehow the detected positions for the keys aren&#39;t matching</span>
+<span class="sd">        what we see on screen. This is because of the status bar, which shift</span>
+<span class="sd">        everything. So, detect the status bar, and shift back the keys to the</span>
+<span class="sd">        right position.</span>
 
 <span class="sd">        Args:</span>
 <span class="sd">            layout (Dict): Layout to fix.</span>
@@ -7413,17 +7413,25 @@ screen. See <code>Emulator._tap()</code>.</p>
 <span class="sd">        Returns:</span>
 <span class="sd">            Fixed layout.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># Find the offset between the keyboard frame and the keys</span>
-        <span class="n">keyboard_max_y</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="s2">&quot;keyboard_frame&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">layout</span><span class="p">[</span><span class="s2">&quot;keyboard_frame&quot;</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
-        <span class="n">keys_max_y</span> <span class="o">=</span> <span class="mi">0</span>
-        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">layout</span><span class="p">[</span><span class="s2">&quot;lowercase&quot;</span><span class="p">]:</span>
-            <span class="n">keys_max_y</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">keys_max_y</span><span class="p">,</span> <span class="n">layout</span><span class="p">[</span><span class="s2">&quot;lowercase&quot;</span><span class="p">][</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">layout</span><span class="p">[</span><span class="s2">&quot;lowercase&quot;</span><span class="p">][</span><span class="n">k</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span>
-        <span class="n">offset</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="s2">&quot;keyboard_frame&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">keys_max_y</span> <span class="o">-</span> <span class="n">keyboard_max_y</span>
+        <span class="n">sb_bounds</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_status_bar_bounds</span><span class="p">()</span>
+        <span class="n">dy</span> <span class="o">=</span> <span class="n">sb_bounds</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+        <span class="n">screen_size</span> <span class="o">=</span> <span class="n">layout</span><span class="p">[</span><span class="s2">&quot;keyboard_frame&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">layout</span><span class="p">[</span><span class="s2">&quot;keyboard_frame&quot;</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span>
 
-        <span class="c1"># Update the layout considering the offset</span>
+        <span class="c1"># First of all, offset the keyboard frame</span>
+        <span class="n">frame_dy1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dy</span> <span class="o">*</span> <span class="p">(</span><span class="n">layout</span><span class="p">[</span><span class="s2">&quot;keyboard_frame&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">/</span> <span class="n">screen_size</span><span class="p">))</span>
+        <span class="n">frame_dy2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dy</span> <span class="o">*</span> <span class="p">((</span><span class="n">layout</span><span class="p">[</span><span class="s2">&quot;keyboard_frame&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">layout</span><span class="p">[</span><span class="s2">&quot;keyboard_frame&quot;</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span> <span class="o">/</span> <span class="n">screen_size</span><span class="p">))</span>
+        <span class="n">layout</span><span class="p">[</span><span class="s2">&quot;keyboard_frame&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">frame_dy1</span>
+        <span class="n">layout</span><span class="p">[</span><span class="s2">&quot;keyboard_frame&quot;</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">-=</span> <span class="n">frame_dy2</span> <span class="o">-</span> <span class="n">frame_dy1</span>
+
+        <span class="c1"># Then do the same for each keys of each layouts</span>
         <span class="k">for</span> <span class="n">layer</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;lowercase&quot;</span><span class="p">,</span> <span class="s2">&quot;uppercase&quot;</span><span class="p">,</span> <span class="s2">&quot;numbers&quot;</span><span class="p">]:</span>
             <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">layout</span><span class="p">[</span><span class="n">layer</span><span class="p">]:</span>
-                <span class="n">layout</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">offset</span>
+                <span class="n">dy1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">dy</span> <span class="o">*</span> <span class="p">((</span><span class="n">layout</span><span class="p">[</span><span class="s2">&quot;keyboard_frame&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">layout</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">])</span> <span class="o">/</span> <span class="n">screen_size</span><span class="p">))</span>
+                <span class="n">dy2</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span>
+                    <span class="n">dy</span> <span class="o">*</span> <span class="p">((</span><span class="n">layout</span><span class="p">[</span><span class="s2">&quot;keyboard_frame&quot;</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">layout</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">layout</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="n">k</span><span class="p">][</span><span class="mi">3</span><span class="p">])</span> <span class="o">/</span> <span class="n">screen_size</span><span class="p">)</span>
+                <span class="p">)</span>
+                <span class="n">layout</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="n">k</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">-=</span> <span class="n">dy1</span> <span class="o">-</span> <span class="n">frame_dy1</span>
+                <span class="n">layout</span><span class="p">[</span><span class="n">layer</span><span class="p">][</span><span class="n">k</span><span class="p">][</span><span class="mi">3</span><span class="p">]</span> <span class="o">-=</span> <span class="n">dy2</span> <span class="o">-</span> <span class="n">dy1</span>
 
         <span class="k">return</span> <span class="n">layout</span>
 </code></pre></div></td></tr></table></div>
@@ -7575,11 +7583,7 @@ information.</p>
 
             <details class="quote">
               <summary>Source code in <code>kebbie/emulator.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">817</span>
-<span class="normal">818</span>
-<span class="normal">819</span>
-<span class="normal">820</span>
-<span class="normal">821</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">821</span>
 <span class="normal">822</span>
 <span class="normal">823</span>
 <span class="normal">824</span>
@@ -7611,7 +7615,11 @@ information.</p>
 <span class="normal">850</span>
 <span class="normal">851</span>
 <span class="normal">852</span>
-<span class="normal">853</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">GboardLayoutDetector</span><span class="p">(</span><span class="n">LayoutDetector</span><span class="p">):</span>
+<span class="normal">853</span>
+<span class="normal">854</span>
+<span class="normal">855</span>
+<span class="normal">856</span>
+<span class="normal">857</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">GboardLayoutDetector</span><span class="p">(</span><span class="n">LayoutDetector</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Layout detector for the Gboard keyboard. See `LayoutDetector` for more</span>
 <span class="sd">    information.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -7704,11 +7712,7 @@ information.</p>
 
           <details class="quote">
             <summary>Source code in <code>kebbie/emulator.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">830</span>
-<span class="normal">831</span>
-<span class="normal">832</span>
-<span class="normal">833</span>
-<span class="normal">834</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">834</span>
 <span class="normal">835</span>
 <span class="normal">836</span>
 <span class="normal">837</span>
@@ -7727,7 +7731,11 @@ information.</p>
 <span class="normal">850</span>
 <span class="normal">851</span>
 <span class="normal">852</span>
-<span class="normal">853</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_suggestions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="normal">853</span>
+<span class="normal">854</span>
+<span class="normal">855</span>
+<span class="normal">856</span>
+<span class="normal">857</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_suggestions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Method to retrieve the keyboard suggestions from the XML tree.</span>
 
 <span class="sd">    Returns:</span>
@@ -7787,11 +7795,7 @@ more information.</p>
 
             <details class="quote">
               <summary>Source code in <code>kebbie/emulator.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">856</span>
-<span class="normal">857</span>
-<span class="normal">858</span>
-<span class="normal">859</span>
-<span class="normal">860</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">860</span>
 <span class="normal">861</span>
 <span class="normal">862</span>
 <span class="normal">863</span>
@@ -7825,7 +7829,11 @@ more information.</p>
 <span class="normal">891</span>
 <span class="normal">892</span>
 <span class="normal">893</span>
-<span class="normal">894</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">IosLayoutDetector</span><span class="p">(</span><span class="n">LayoutDetector</span><span class="p">):</span>
+<span class="normal">894</span>
+<span class="normal">895</span>
+<span class="normal">896</span>
+<span class="normal">897</span>
+<span class="normal">898</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">IosLayoutDetector</span><span class="p">(</span><span class="n">LayoutDetector</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Layout detector for the iOS default keyboard. See `LayoutDetector` for</span>
 <span class="sd">    more information.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -7920,11 +7928,7 @@ more information.</p>
 
           <details class="quote">
             <summary>Source code in <code>kebbie/emulator.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">870</span>
-<span class="normal">871</span>
-<span class="normal">872</span>
-<span class="normal">873</span>
-<span class="normal">874</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">874</span>
 <span class="normal">875</span>
 <span class="normal">876</span>
 <span class="normal">877</span>
@@ -7944,7 +7948,11 @@ more information.</p>
 <span class="normal">891</span>
 <span class="normal">892</span>
 <span class="normal">893</span>
-<span class="normal">894</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_suggestions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="normal">894</span>
+<span class="normal">895</span>
+<span class="normal">896</span>
+<span class="normal">897</span>
+<span class="normal">898</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_suggestions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Method to retrieve the keyboard suggestions from the XML tree.</span>
 
 <span class="sd">    Returns:</span>
@@ -8005,11 +8013,7 @@ information.</p>
 
             <details class="quote">
               <summary>Source code in <code>kebbie/emulator.py</code></summary>
-              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">897</span>
-<span class="normal">898</span>
-<span class="normal">899</span>
-<span class="normal">900</span>
-<span class="normal">901</span>
+              <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">901</span>
 <span class="normal">902</span>
 <span class="normal">903</span>
 <span class="normal">904</span>
@@ -8037,7 +8041,11 @@ information.</p>
 <span class="normal">926</span>
 <span class="normal">927</span>
 <span class="normal">928</span>
-<span class="normal">929</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">TappaLayoutDetector</span><span class="p">(</span><span class="n">LayoutDetector</span><span class="p">):</span>
+<span class="normal">929</span>
+<span class="normal">930</span>
+<span class="normal">931</span>
+<span class="normal">932</span>
+<span class="normal">933</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span> <span class="nc">TappaLayoutDetector</span><span class="p">(</span><span class="n">LayoutDetector</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Layout detector for the Tappa keyboard. See `LayoutDetector` for more</span>
 <span class="sd">    information.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -8126,11 +8134,7 @@ information.</p>
 
           <details class="quote">
             <summary>Source code in <code>kebbie/emulator.py</code></summary>
-            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">910</span>
-<span class="normal">911</span>
-<span class="normal">912</span>
-<span class="normal">913</span>
-<span class="normal">914</span>
+            <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">914</span>
 <span class="normal">915</span>
 <span class="normal">916</span>
 <span class="normal">917</span>
@@ -8145,7 +8149,11 @@ information.</p>
 <span class="normal">926</span>
 <span class="normal">927</span>
 <span class="normal">928</span>
-<span class="normal">929</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_suggestions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+<span class="normal">929</span>
+<span class="normal">930</span>
+<span class="normal">931</span>
+<span class="normal">932</span>
+<span class="normal">933</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span> <span class="nf">get_suggestions</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Method to retrieve the keyboard suggestions from the XML tree.</span>
 
 <span class="sd">    Returns:</span>
