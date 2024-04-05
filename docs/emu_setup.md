@@ -124,19 +124,6 @@ Now, make sure you can properly build the `WebDriverAgentRunner` target : select
 
 If all the stars are aligned, it should start the emulator !
 
-!!! warning "Important"
-    Once the emulator started, take note of the device name and the platform version.
-
-    ![](assets/ios_setup_3.png)
-
-    When running the `kebbie` CLI, you need to specify both, with the arguments `--ios_name` and `ios_platform`. For example :
-
-    ```bash
-    kebbie evaluate -K ios --all_tasks --ios_name "iPhone 15 Pro" --ios_platform "17.4"
-    ```
-
-    *(The default values are `iPhone 15 Pro` and `17.4`)*
-
 ### Preparing iOS Keyboard
 
 iOS Keyboard is the default keyboard on iOS, so there is nothing to do to enable it.
