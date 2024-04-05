@@ -509,11 +509,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#parallel-android-emulators" class="md-nav__link">
+  <a href="#parallel-emulators" class="md-nav__link">
     <span class="md-ellipsis">
-      Parallel Android emulators
+      Parallel emulators
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Parallel emulators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#android" class="md-nav__link">
+    <span class="md-ellipsis">
+      Android
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ios" class="md-nav__link">
+    <span class="md-ellipsis">
+      iOS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -734,11 +758,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#parallel-android-emulators" class="md-nav__link">
+  <a href="#parallel-emulators" class="md-nav__link">
     <span class="md-ellipsis">
-      Parallel Android emulators
+      Parallel emulators
     </span>
   </a>
+  
+    <nav class="md-nav" aria-label="Parallel emulators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#android" class="md-nav__link">
+    <span class="md-ellipsis">
+      Android
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ios" class="md-nav__link">
+    <span class="md-ellipsis">
+      iOS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -816,7 +864,7 @@ Appium needs to run in order for Python to communicate with the emulators.</p>
 </details>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>In Android, to open the keyboard, we access a notepad website (<a href="www.justnotepad.com">www.justnotepad.com</a>).</p>
+<p>In Android, to open the keyboard, we access a notepad website (<a href="https://www.justnotepad.com">www.justnotepad.com</a>).</p>
 <p>The reason we do that is because it's the easiest way to access a typing field, and it works across versions and emulators.</p>
 </div>
 <h3 id="preparing-gboard">Preparing GBoard</h3>
@@ -904,8 +952,9 @@ Appium needs to run in order for Python to communicate with the emulators.</p>
 <li>Then enable <code>Auto-Correction</code> and <code>Predictive Text</code> :</li>
 </ul>
 <p><img alt="" src="../assets/ios_setup_7.png" width="250" /></p>
-<h2 id="parallel-android-emulators">Parallel Android emulators</h2>
-<p>In order to run tests faster, we can setup multiple Android emulators, and run the <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> function in parallel.</p>
+<h2 id="parallel-emulators">Parallel emulators</h2>
+<p>In order to run tests faster, we can setup multiple emulators, and run the <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> function in parallel. Let's see how to set up multiple emulators for both Android and iOS.</p>
+<h3 id="android">Android</h3>
 <p>First, follow the section above to <a href="#setting-up-android-emulator">setup one Android emulator</a>.</p>
 <p>Once it's done, you can simply clone it from Android Studio :</p>
 <p><img alt="" src="../assets/emu_setup_2.png" /></p>
@@ -921,6 +970,77 @@ Appium needs to run in order for Python to communicate with the emulators.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Once you can see the emulators with the <code>adb devices</code> command, there is nothing else to do ! You can run the <code>kebbie</code> CLI just like you would do for a single emulator : the CLI will detect the running emulators with the <code>adb devices</code> command.</p>
+</div>
+<h3 id="ios">iOS</h3>
+<p>First, follow the section above to <a href="#setting-up-ios-emulator">setup one iOS simulator</a> and make sure everything works for a single device.</p>
+<p>Once it's done, you can list the device availables :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>list
+</code></pre></div>
+<p>Example of emulators listed :</p>
+<div class="highlight"><pre><span></span><code>-- iOS 17.4 --
+    iPhone SE (3rd generation) (96ADAD77-ECE6-420E-B56C-505E0C16231B) (Shutdown)
+    iPhone 15 (128F95FC-F499-4B09-A3B2-55937BF52B0B) (Shutdown)
+    iPhone 15 Plus (86591FC6-B3E7-43A2-9E9B-D4A2A90DAF31) (Shutdown)
+    iPhone 15 Pro (9D38F87D-273B-4D8F-8AD5-E901C1974C1E) (Shutdown)
+    iPhone 15 Pro Max (15EF57B4-69E6-4369-9534-70692A2023E5) (Shutdown)
+    iPad Air (5th generation) (252D522B-CEAA-4085-BE17-A453BC219755) (Shutdown)
+    iPad (10th generation) (39F2ADD2-2FCF-44C3-9DC9-4CC4D50875E9) (Shutdown)
+    iPad mini (6th generation) (59125B84-4ED1-40C1-8457-3CE824394385) (Shutdown)
+    iPad Pro (11-inch) (4th generation) (DB122D71-F358-48DA-B11C-D25305657E7F) (Shutdown)
+    iPad Pro (12.9-inch) (6th generation) (1100927A-B631-4678-AB19-02EA4F680537) (Shutdown)
+</code></pre></div>
+<p>Select the UUID of the device you would like to run in parallel, and clone it with :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>clone<span class="w"> </span>&lt;UUID&gt;<span class="w"> </span>&lt;new_name&gt;
+</code></pre></div>
+<p>So for example, to have 4 parallel <code>iPhone 15 Pro</code>, you should run :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>clone<span class="w"> </span>9D38F87D-273B-4D8F-8AD5-E901C1974C1E<span class="w"> </span>iPhone_15_2
+xcrun<span class="w"> </span>simctl<span class="w"> </span>clone<span class="w"> </span>9D38F87D-273B-4D8F-8AD5-E901C1974C1E<span class="w"> </span>iPhone_15_3
+xcrun<span class="w"> </span>simctl<span class="w"> </span>clone<span class="w"> </span>9D38F87D-273B-4D8F-8AD5-E901C1974C1E<span class="w"> </span>iPhone_15_4
+</code></pre></div>
+<hr />
+<p>Once this is done, you should see them listed when running :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>list
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>-- iOS 17.4 --
+    iPhone SE (3rd generation) (96ADAD77-ECE6-420E-B56C-505E0C16231B) (Shutdown)
+    iPhone 15 (128F95FC-F499-4B09-A3B2-55937BF52B0B) (Shutdown)
+    iPhone 15 Plus (86591FC6-B3E7-43A2-9E9B-D4A2A90DAF31) (Shutdown)
+    iPhone 15 Pro (9D38F87D-273B-4D8F-8AD5-E901C1974C1E) (Booted)
+    iPhone_15_2 (C423F3BC-BC3A-4FFC-B264-C6075B60115F) (Shutdown)
+    iPhone_15_3 (2BEB33D0-8F33-4987-95FC-FD9B7C2BD54D) (Shutdown)
+    iPhone_15_4 (EE0719E9-FF3C-4539-9BCD-9F091B469F93) (Shutdown)
+    iPhone 15 Pro Max (15EF57B4-69E6-4369-9534-70692A2023E5) (Shutdown)
+    iPad Air (5th generation) (252D522B-CEAA-4085-BE17-A453BC219755) (Shutdown)
+    iPad (10th generation) (39F2ADD2-2FCF-44C3-9DC9-4CC4D50875E9) (Shutdown)
+    iPad mini (6th generation) (59125B84-4ED1-40C1-8457-3CE824394385) (Shutdown)
+    iPad Pro (11-inch) (4th generation) (DB122D71-F358-48DA-B11C-D25305657E7F) (Shutdown)
+    iPad Pro (12.9-inch) (6th generation) (1100927A-B631-4678-AB19-02EA4F680537) (Shutdown)
+</code></pre></div>
+<p>Then you can start each simulator with :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>boot<span class="w"> </span>&lt;UUID&gt;
+</code></pre></div>
+<p>For example, to start the 4 simulators we just created, you would run :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>boot<span class="w"> </span>9D38F87D-273B-4D8F-8AD5-E901C1974C1E
+xcrun<span class="w"> </span>simctl<span class="w"> </span>boot<span class="w"> </span>C423F3BC-BC3A-4FFC-B264-C6075B60115F
+xcrun<span class="w"> </span>simctl<span class="w"> </span>boot<span class="w"> </span>2BEB33D0-8F33-4987-95FC-FD9B7C2BD54D
+xcrun<span class="w"> </span>simctl<span class="w"> </span>boot<span class="w"> </span>EE0719E9-FF3C-4539-9BCD-9F091B469F93
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Once the simulators started, there is nothing else to do ! You can run the <code>kebbie</code> CLI just like you would do for a single emulator : the CLI will automatically detect the running emulators with the <code>xcrun simctl list</code> command.</p>
+<p>However, make sure to enable auto-correction and predictive suggestions in each of the simulator (see <a href="#preparing-ios-keyboard">Preparing the iOS Keyboard</a> for more information)</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code>xcrun simctl boot</code> command only launch the simulator background service, to launch the foreground GUI, run :</p>
+<div class="highlight"><pre><span></span><code>open<span class="w"> </span>-a<span class="w"> </span>Simulator
+</code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To shutdown a simulator, run :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>shutdown<span class="w"> </span>&lt;UUID&gt;
+</code></pre></div>
 </div>
 
 
