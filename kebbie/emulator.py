@@ -246,7 +246,8 @@ class Emulator:
         if self.platform == IOS:
             capabilities["deviceName"] = ios_name
             capabilities["platformVersion"] = ios_platform
-        if device is not None:
+            capabilities["wdaLocalPort"] = 8000 + device
+        if self.platform == ANDROID and device is not None:
             capabilities["udid"] = device
         self.driver = webdriver.Remote(f"{host}:{port}", capabilities)
         self.driver.implicitly_wait(20)
