@@ -7,20 +7,18 @@ from typing import List
 
 from kebbie import evaluate
 from kebbie.correctors import EmulatorCorrector
-from kebbie.emulator import DEFAULT_IOS_NAME, DEFAULT_IOS_PLATFORM, Emulator
+from kebbie.emulator import Emulator
 from kebbie.utils import get_soda_dataset
 
 
 def instantiate_correctors(
-    keyboard: str, ios_name: str, ios_platform: str, fast_mode: bool = True, instantiate_emulator: bool = True
+    keyboard: str, fast_mode: bool = True, instantiate_emulator: bool = True
 ) -> List[EmulatorCorrector]:
     """Create the right correctors (with the right platform, etc...) given the
     arguments from the command line.
 
     Args:
         keyboard (str): Name fo the keyboard to load.
-        ios_name (str): (For iOS emulator only) Name of the device.
-        ios_platform (str): (For iOS emulator only) Name of the iOS version.
         fast_mode (bool, optional): If `True`, the corrector will be
             instantiated in fast mode (only AC).
         instantiate_emulator (bool, optional): If `True`, the emulators are
@@ -31,7 +29,7 @@ def instantiate_correctors(
         The list of created Correctors.
     """
     if keyboard in ["gboard", "tappa"]:
-        # Android keyboards can be parallel & are detected automatically
+        # Android keyboards
         return [
             EmulatorCorrector(
                 device=d,
@@ -39,13 +37,11 @@ def instantiate_correctors(
                 keyboard=keyboard,
                 fast_mode=fast_mode,
                 instantiate_emulator=instantiate_emulator,
-                ios_name=ios_name,
-                ios_platform=ios_platform,
             )
-            for d in Emulator.get_devices()
+            for d in Emulator.get_android_devices()
         ]
     else:
-        # iOS keyboards need to specify the exact name & platform...
+        # iOS keyboards
         return [
             EmulatorCorrector(
                 platform="ios",
@@ -55,6 +51,7 @@ def instantiate_correctors(
                 ios_name=ios_name,
                 ios_platform=ios_platform,
             )
+            for ios_platform, ios_name in Emulator.get_ios_devices()
         ]
 
 
@@ -72,20 +69,6 @@ def common_args(parser: argparse.ArgumentParser):
         required=True,
         choices=["gboard", "ios", "tappa"],
         help="Which keyboard, to be tested, is currently installed on the emulator.",
-    )
-    parser.add_argument(
-        "--ios_name",
-        dest="ios_name",
-        type=str,
-        default=DEFAULT_IOS_NAME,
-        help="Name of the emulated device (only for iOS).",
-    )
-    parser.add_argument(
-        "--ios_platform",
-        dest="ios_platform",
-        type=str,
-        default=DEFAULT_IOS_PLATFORM,
-        help="Name of the emulated platform (only for iOS).",
     )
 
 
@@ -145,9 +128,7 @@ def cli():
         parser.print_help(sys.stderr)
         sys.exit(1)
     elif args.cmd == "evaluate":
-        correctors = instantiate_correctors(
-            args.keyboard, args.ios_name, args.ios_platform, fast_mode=not args.all_tasks, instantiate_emulator=False
-        )
+        correctors = instantiate_correctors(args.keyboard, fast_mode=not args.all_tasks, instantiate_emulator=False)
 
         # Get dataset, and filter it to keep only a small number of sentences
         dataset = get_soda_dataset(args.n_sentences)
@@ -162,7 +143,7 @@ def cli():
         print("Overall score : ", results["overall_score"])
 
     elif args.cmd == "show_layout":
-        correctors = instantiate_correctors(args.keyboard, args.ios_name, args.ios_platform)
+        correctors = instantiate_correctors(args.keyboard)
         for c in correctors:
             c.emulator.show_keyboards()
             print(f"Predictions : {c.emulator.get_predictions()}")

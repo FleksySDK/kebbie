@@ -124,18 +124,57 @@ Now, make sure you can properly build the `WebDriverAgentRunner` target : select
 
 If all the stars are aligned, it should start the emulator !
 
-!!! warning "Important"
-    Once the emulator started, take note of the device name and the platform version.
+### Starting the emulator
 
-    ![](assets/ios_setup_3.png)
+Once you have ensured the emulator runs properly, you should be able to start it from the command line (without Xcode open).
 
-    When running the `kebbie` CLI, you need to specify both, with the arguments `--ios_name` and `ios_platform`. For example :
+First, check the list of emulators available :
+
+```bash
+xcrun simctl list
+```
+
+Example of emulators listed :
+
+```
+-- iOS 17.4 --
+    iPhone SE (3rd generation) (96ADAD77-ECE6-420E-B56C-505E0C16231B) (Shutdown)
+    iPhone 15 (128F95FC-F499-4B09-A3B2-55937BF52B0B) (Shutdown)
+    iPhone 15 Plus (86591FC6-B3E7-43A2-9E9B-D4A2A90DAF31) (Shutdown)
+    iPhone 15 Pro (9D38F87D-273B-4D8F-8AD5-E901C1974C1E) (Shutdown)
+    iPhone 15 Pro Max (15EF57B4-69E6-4369-9534-70692A2023E5) (Shutdown)
+    iPad Air (5th generation) (252D522B-CEAA-4085-BE17-A453BC219755) (Shutdown)
+    iPad (10th generation) (39F2ADD2-2FCF-44C3-9DC9-4CC4D50875E9) (Shutdown)
+    iPad mini (6th generation) (59125B84-4ED1-40C1-8457-3CE824394385) (Shutdown)
+    iPad Pro (11-inch) (4th generation) (DB122D71-F358-48DA-B11C-D25305657E7F) (Shutdown)
+    iPad Pro (12.9-inch) (6th generation) (1100927A-B631-4678-AB19-02EA4F680537) (Shutdown)
+```
+
+Then you can start the device you want with :
+
+```bash
+xcrun simctl boot <UUID>
+```
+
+For example, to start `iPhone 15 Pro`, you should run :
+
+```bash
+xcrun simctl boot 9D38F87D-273B-4D8F-8AD5-E901C1974C1E
+```
+
+!!! warning
+    The `xcrun simctl boot` command only launch the simulator background service, to launch the foreground GUI, run :
 
     ```bash
-    kebbie evaluate -K ios --all_tasks --ios_name "iPhone 15 Pro" --ios_platform "17.4"
+    open -a Simulator
     ```
 
-    *(The default values are `iPhone 15 Pro` and `17.4`)*
+!!! note
+    To shutdown the simulator, run :
+
+    ```bash
+    xcrun simctl shutdown <UUID>
+    ```
 
 ### Preparing iOS Keyboard
 
