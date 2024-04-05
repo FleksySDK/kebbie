@@ -49,8 +49,6 @@ IOS_CAPABILITIES = {
     "bundleId": "com.apple.MobileSMS",
     "newCommandTimeout": 3600,
 }
-DEFAULT_IOS_NAME = "iPhone 15 Pro"
-DEFAULT_IOS_PLATFORM = "17.4"
 BROWSER_PAD_URL = "https://www.justnotepad.com"
 ANDROID_TYPING_FIELD_CLASS_NAME = "android.widget.EditText"
 DUMMY_RECIPIENT = "0"
@@ -234,8 +232,8 @@ class Emulator:
         device: str = None,
         host: str = "127.0.0.1",
         port: str = "4723",
-        ios_name: str = DEFAULT_IOS_NAME,
-        ios_platform: str = DEFAULT_IOS_PLATFORM,
+        ios_name: str = None,
+        ios_platform: str = None,
     ):
         super().__init__()
 
@@ -306,7 +304,7 @@ class Emulator:
         self.typing_field.click()
         self.typing_field.clear()
 
-    def get_devices() -> List[str]:
+    def get_android_devices() -> List[str]:
         """Static method that uses the `adb devices` command to retrieve the
         list of devices running.
 
@@ -316,6 +314,35 @@ class Emulator:
         result = subprocess.run(["adb", "devices"], stdout=subprocess.PIPE)
         devices = result.stdout.decode().split("\n")
         devices = [d.split()[0] for d in devices if not (d.startswith("List of devices attached") or len(d) == 0)]
+        return devices
+
+    def get_ios_devices() -> List[Tuple[str, str]]:
+        """Static method that uses the `xcrun simctl` command to retrieve the
+        list of booted devices.
+
+        Returns:
+            List of booted device platform and device name.
+        """
+        devices = []
+
+        result = subprocess.run(["xcrun", "simctl", "list", "devices"], stdout=subprocess.PIPE)
+        out = result.stdout.decode().split("\n")
+
+        curr_platform = ""
+        for line in out:
+            if line.startswith("== ") and line.endswith(" =="):
+                continue
+            elif line.startswith("-- ") and line.endswith(" --"):
+                curr_platform = line[3:-3]
+            else:
+                m = re.match(r"\s+([^\t]+)\s+\([A-Z0-9\-]+\)\s+\((Booted|Shutdown)\)", line)
+                if m:
+                    device_name = m.group(1)
+                    status = m.group(2)
+
+                    if status == "Booted" and curr_platform.startswith("iOS "):
+                        devices.append((curr_platform[4:], device_name))
+
         return devices
 
     def _paste(self, text: str):
