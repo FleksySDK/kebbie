@@ -16,7 +16,7 @@
       
       
       <link rel="icon" href="../assets/keyboard.svg">
-      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.15">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.17">
     
     
       
@@ -24,7 +24,7 @@
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.7e359304.min.css">
+      <link rel="stylesheet" href="../assets/stylesheets/main.bcfcd587.min.css">
       
         
         <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
@@ -486,6 +486,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#starting-the-emulator_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starting the emulator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#preparing-ios-keyboard" class="md-nav__link">
     <span class="md-ellipsis">
       Preparing iOS Keyboard
@@ -702,6 +711,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#starting-the-emulator_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starting the emulator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#preparing-ios-keyboard" class="md-nav__link">
     <span class="md-ellipsis">
       Preparing iOS Keyboard
@@ -831,14 +849,41 @@ Appium needs to run in order for Python to communicate with the emulators.</p>
 <p>Now, make sure you can properly build the <code>WebDriverAgentRunner</code> target : select it in the top bar and run it (button "play") :</p>
 <p><img alt="" src="../assets/ios_setup_2.png" /></p>
 <p>If all the stars are aligned, it should start the emulator !</p>
-<div class="admonition warning">
-<p class="admonition-title">Important</p>
-<p>Once the emulator started, take note of the device name and the platform version.</p>
-<p><img alt="" src="../assets/ios_setup_3.png" /></p>
-<p>When running the <code>kebbie</code> CLI, you need to specify both, with the arguments <code>--ios_name</code> and <code>ios_platform</code>. For example :</p>
-<div class="highlight"><pre><span></span><code>kebbie<span class="w"> </span>evaluate<span class="w"> </span>-K<span class="w"> </span>ios<span class="w"> </span>--all_tasks<span class="w"> </span>--ios_name<span class="w"> </span><span class="s2">&quot;iPhone 15 Pro&quot;</span><span class="w"> </span>--ios_platform<span class="w"> </span><span class="s2">&quot;17.4&quot;</span>
+<h3 id="starting-the-emulator_1">Starting the emulator</h3>
+<p>Once you have ensured the emulator runs properly, you should be able to start it from the command line (without Xcode open).</p>
+<p>First, check the list of emulators available :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>list
 </code></pre></div>
-<p><em>(The default values are <code>iPhone 15 Pro</code> and <code>17.4</code>)</em></p>
+<p>Example of emulators listed :</p>
+<div class="highlight"><pre><span></span><code>-- iOS 17.4 --
+    iPhone SE (3rd generation) (96ADAD77-ECE6-420E-B56C-505E0C16231B) (Shutdown)
+    iPhone 15 (128F95FC-F499-4B09-A3B2-55937BF52B0B) (Shutdown)
+    iPhone 15 Plus (86591FC6-B3E7-43A2-9E9B-D4A2A90DAF31) (Shutdown)
+    iPhone 15 Pro (9D38F87D-273B-4D8F-8AD5-E901C1974C1E) (Shutdown)
+    iPhone 15 Pro Max (15EF57B4-69E6-4369-9534-70692A2023E5) (Shutdown)
+    iPad Air (5th generation) (252D522B-CEAA-4085-BE17-A453BC219755) (Shutdown)
+    iPad (10th generation) (39F2ADD2-2FCF-44C3-9DC9-4CC4D50875E9) (Shutdown)
+    iPad mini (6th generation) (59125B84-4ED1-40C1-8457-3CE824394385) (Shutdown)
+    iPad Pro (11-inch) (4th generation) (DB122D71-F358-48DA-B11C-D25305657E7F) (Shutdown)
+    iPad Pro (12.9-inch) (6th generation) (1100927A-B631-4678-AB19-02EA4F680537) (Shutdown)
+</code></pre></div>
+<p>Then you can start the device you want with :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>boot<span class="w"> </span>&lt;UUID&gt;
+</code></pre></div>
+<p>For example, to start <code>iPhone 15 Pro</code>, you should run :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>boot<span class="w"> </span>9D38F87D-273B-4D8F-8AD5-E901C1974C1E
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code>xcrun simctl boot</code> command only launch the simulator background service, to launch the foreground GUI, run :</p>
+<div class="highlight"><pre><span></span><code>open<span class="w"> </span>-a<span class="w"> </span>Simulator
+</code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To shutdown the simulator, run :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>shutdown<span class="w"> </span>&lt;UUID&gt;
+</code></pre></div>
 </div>
 <h3 id="preparing-ios-keyboard">Preparing iOS Keyboard</h3>
 <p>iOS Keyboard is the default keyboard on iOS, so there is nothing to do to enable it.</p>
@@ -921,7 +966,7 @@ Appium needs to run in order for Python to communicate with the emulators.</p>
     <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.bd41221c.min.js"></script>
+      <script src="../assets/javascripts/bundle.1e8ae164.min.js"></script>
       
     
   </body>
