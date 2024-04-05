@@ -658,7 +658,7 @@ class LayoutDetector:
 
         # Fix the keys' offset compared to the keyboard frame
         if self.android:
-            self.layout = self._offset_keys(layout)
+            self.layout = self._apply_status_bar_offset(layout)
         else:
             self.layout = layout
 
@@ -702,10 +702,6 @@ class LayoutDetector:
                 # Detect the keyboard frame
                 kb = root.find_element(By.ID, "android:id/inputArea")
                 keyboard_frame = self._get_frame(kb)
-
-                # Offset the position of the keyboard frame because of the status bar
-                sb_bounds = self._get_status_bar_bounds()
-                keyboard_frame[1] -= sb_bounds[3]
             else:
                 keyboard_frame = self._get_frame(root)
 
@@ -785,13 +781,13 @@ class LayoutDetector:
         sb = self.driver.find_element(By.ID, "com.android.systemui:id/status_bar")
         return self._get_frame(sb)
 
-    def _offset_keys(self, layout: Dict) -> Dict:
-        """Method offsetting the keys of a given layout to fit in the keyboard
-        frame.
+    def _apply_status_bar_offset(self, layout: Dict) -> Dict:
+        """Method offsetting the given layout to match the screen.
 
-        After auto-detecting the keys of a layout, the keys are still offset on
-        Y-axis by some amount. So just find by how much they are beyond the
-        keyboard frame, and then update them accordingly.
+        On Android, somehow the detected positions for the keys aren't matching
+        what we see on screen. This is because of the status bar, which shift
+        everything. So, detect the status bar, and shift back the keys to the
+        right position.
 
         Args:
             layout (Dict): Layout to fix.
@@ -799,17 +795,25 @@ class LayoutDetector:
         Returns:
             Fixed layout.
         """
-        # Find the offset between the keyboard frame and the keys
-        keyboard_max_y = layout["keyboard_frame"][1] + layout["keyboard_frame"][3]
-        keys_max_y = 0
-        for k in layout["lowercase"]:
-            keys_max_y = max(keys_max_y, layout["lowercase"][k][1] + layout["lowercase"][k][3])
-        offset = layout["keyboard_frame"][1] + keys_max_y - keyboard_max_y
+        sb_bounds = self._get_status_bar_bounds()
+        dy = sb_bounds[3]
+        screen_size = layout["keyboard_frame"][1] + layout["keyboard_frame"][3]
 
-        # Update the layout considering the offset
+        # First of all, offset the keyboard frame
+        frame_dy1 = int(dy * (layout["keyboard_frame"][1] / screen_size))
+        frame_dy2 = int(dy * ((layout["keyboard_frame"][1] + layout["keyboard_frame"][3]) / screen_size))
+        layout["keyboard_frame"][1] -= frame_dy1
+        layout["keyboard_frame"][3] -= frame_dy2 - frame_dy1
+
+        # Then do the same for each keys of each layouts
         for layer in ["lowercase", "uppercase", "numbers"]:
             for k in layout[layer]:
-                layout[layer][k][1] -= offset
+                dy1 = int(dy * ((layout["keyboard_frame"][1] + layout[layer][k][1]) / screen_size))
+                dy2 = int(
+                    dy * ((layout["keyboard_frame"][1] + layout[layer][k][1] + layout[layer][k][3]) / screen_size)
+                )
+                layout[layer][k][1] -= dy1 - frame_dy1
+                layout[layer][k][3] -= dy2 - dy1
 
         return layout
 
