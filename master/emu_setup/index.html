@@ -879,6 +879,10 @@ Appium needs to run in order for Python to communicate with the emulators.</p>
 <p><img alt="" src="../assets/emu_setup_6.png" width="300" /></p>
 <p>Make sure to disable the clipboard :</p>
 <p><img alt="" src="../assets/emu_setup_7.png" width="300" /></p>
+<div class="admonition failure">
+<p class="admonition-title">Layout</p>
+<p>For now, the only layout supported is <code>english US</code>. Make sure this is the layout GBoard is using.</p>
+</div>
 <h2 id="setting-up-ios-emulator">Setting up iOS emulator</h2>
 <h3 id="creating-the-emulator_1">Creating the emulator</h3>
 <ul>
@@ -952,6 +956,10 @@ Appium needs to run in order for Python to communicate with the emulators.</p>
 <li>Then enable <code>Auto-Correction</code> and <code>Predictive Text</code> :</li>
 </ul>
 <p><img alt="" src="../assets/ios_setup_7.png" width="250" /></p>
+<div class="admonition failure">
+<p class="admonition-title">Layout</p>
+<p>For now, the only layout supported is <code>english US</code>. Make sure this is the layout iOS keyboard is using.</p>
+</div>
 <h2 id="parallel-emulators">Parallel emulators</h2>
 <p>In order to run tests faster, we can setup multiple emulators, and run the <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> function in parallel. Let's see how to set up multiple emulators for both Android and iOS.</p>
 <h3 id="android">Android</h3>
