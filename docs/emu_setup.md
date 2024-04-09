@@ -100,6 +100,9 @@ Make sure to disable the clipboard :
 
 ![](assets/emu_setup_7.png){ width="300" }
 
+!!! failure "Layout"
+    For now, the only layout supported is `english US`. Make sure this is the layout GBoard is using.
+
 ## Setting up iOS emulator
 
 ### Creating the emulator
@@ -197,6 +200,9 @@ However, predictions and auto-corrections are disabled by default. They should b
 * Then enable `Auto-Correction` and `Predictive Text` :
 
 ![](assets/ios_setup_7.png){ width="250" }
+
+!!! failure "Layout"
+    For now, the only layout supported is `english US`. Make sure this is the layout iOS keyboard is using.
 
 ## Parallel emulators
 
