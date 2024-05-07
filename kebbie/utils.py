@@ -262,10 +262,10 @@ def human_readable_memory(x: int) -> str:
     x = round_to_n(x, n=3)
     for unit in ["B", "KB", "MB", "GB"]:
         if x < 1000:
-            return f"{x} {unit}"
+            return f"{x:g} {unit}"
 
         x /= 1000
-    return f"{x} TB"
+    return f"{x:g} TB"
 
 
 def human_readable_runtime(x: int) -> str:
@@ -281,10 +281,10 @@ def human_readable_runtime(x: int) -> str:
     x = round_to_n(x, n=3)
     for unit in ["ns", "μs", "ms"]:
         if x < 1000:
-            return f"{x} {unit}"
+            return f"{x:g} {unit}"
 
         x /= 1000
-    return f"{x} s"
+    return f"{x:g} s"
 
 
 def get_soda_dataset(max_sentences: int = 2_000, seed: int = 31) -> Dict[str, List[str]]:

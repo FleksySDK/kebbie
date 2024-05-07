@@ -8,6 +8,8 @@ from kebbie.utils import (
     accuracy,
     euclidian_dist,
     fbeta,
+    human_readable_memory,
+    human_readable_runtime,
     load_keyboard,
     precision,
     profile_fn,
@@ -155,3 +157,36 @@ def test_profile_fn():
     assert result == 10
     assert memory > 0
     assert runtime > 0
+
+
+@pytest.mark.parametrize(
+    "mem, s",
+    [
+        (35, "35 B"),
+        (1_200, "1.2 KB"),
+        (6_000_000, "6 MB"),
+        (6_356_754, "6.36 MB"),
+        (132_000_000_000, "132 GB"),
+        (45_000_000_000_000, "45 TB"),
+        (45_555_000_000_000_000, "45600 TB"),
+    ],
+)
+def test_human_readable_memory(mem, s):
+    assert human_readable_memory(mem) == s
+
+
+@pytest.mark.parametrize(
+    "runtime, s",
+    [
+        (3, "3 ns"),
+        (5_000, "5 μs"),
+        (6_000_000, "6 ms"),
+        (6_882_987, "6.88 ms"),
+        (66_882_987, "66.9 ms"),
+        (665_482_987, "665 ms"),
+        (132_000_000_000, "132 s"),
+        (132_222_000_000_000, "132000 s"),
+    ],
+)
+def test_human_readable_runtime(runtime, s):
+    assert human_readable_runtime(runtime) == s
