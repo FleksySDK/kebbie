@@ -10,6 +10,7 @@ from kebbie.utils import (
     fbeta,
     load_keyboard,
     precision,
+    profile_fn,
     recall,
     round_to_n,
     sample,
@@ -146,3 +147,11 @@ def test_fbeta_score(p, r, beta, score):
 @pytest.mark.parametrize("inp, n, out", [(0.473568, 2, 0.47), (0.476568, 2, 0.48), (0.5, 2, 0.5), (0.5, 0, 0)])
 def test_round_to_n(inp, n, out):
     assert round_to_n(inp, n) == out
+
+
+def test_profile_fn():
+    result, memory, runtime = profile_fn(lambda x: 2 * x, 5)
+
+    assert result == 10
+    assert memory > 0
+    assert runtime > 0
