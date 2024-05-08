@@ -204,6 +204,56 @@ However, predictions and auto-corrections are disabled by default. They should b
 !!! failure "Layout"
     For now, the only layout supported is `english US`. Make sure this is the layout iOS keyboard is using.
 
+### Preparing KeyboardKit
+
+[KeyboardKit](https://keyboardkit.com/) is an open-source SDK that lets you create a custom keyboard. They provide a demo keyboard that we can use to test its performance.
+
+Before being able to run `kebbie evaluate` to benchmark KeyboardKit, you need to install the demo keyboard on your simulator.
+
+First, clone the repository and open the project in Xcode :
+
+```bash
+git clone https://github.com/KeyboardKit/KeyboardKit.git
+cd KeyboardKit
+open Demo/Demo.xcodeproj
+```
+
+Then, from Xcode, select the `Demo` project, select the right simulator, and press the play button :
+
+![](assets/kbkit_setup_1.png)
+
+It should start the simulator, with KeyboardKit installed.
+
+---
+
+Once the simulator started, you need to enable the KeyboardKit keyboard and allow full access :
+
+![](assets/kbkit_setup_2.png){ width="250" }
+
+![](assets/kbkit_setup_3.png){ width="250" }
+
+![](assets/kbkit_setup_4.png){ width="250" }
+
+---
+
+And similarly to the default iOS keyboard, you should enable predictions and auto-corrections :
+
+* Go to `Settings` :
+
+![](assets/ios_setup_4.png){ width="250" }
+
+* Then go to `General` :
+
+![](assets/ios_setup_5.png){ width="250" }
+
+* Then go to `Keyboard` :
+
+![](assets/ios_setup_6.png){ width="250" }
+
+* Then enable `Auto-Correction` and `Predictive Text` :
+
+![](assets/ios_setup_7.png){ width="250" }
+
 ## Parallel emulators
 
 In order to run tests faster, we can setup multiple emulators, and run the [evaluate()][kebbie.evaluate] function in parallel. Let's see how to set up multiple emulators for both Android and iOS.
