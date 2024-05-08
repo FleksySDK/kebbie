@@ -30,6 +30,7 @@ IOS = "ios"
 GBOARD = "gboard"
 TAPPA = "tappa"
 FLEKSY = "fleksy"
+KBKIT = "kbkit"
 ANDROID_CAPABILITIES = {
     "platformName": "android",
     "automationName": "UiAutomator2",
@@ -56,17 +57,48 @@ IOS_TYPING_FIELD_ID = "messageBodyField"
 IOS_START_CHAT_CLASS_NAME = "XCUIElementTypeCell"
 TESSERACT_CONFIG = "-c tessedit_char_blacklist=0123456789”:!@·$%&/()=.¿?"
 PREDICTION_DELAY = 0.4
-CONTENT_TO_IGNORE = ["Sticker", "GIF", "Clipboard", "Settings", "Back", "Switch input method", "Paste item"]
+CONTENT_TO_IGNORE = [
+    "Sticker",
+    "GIF",
+    "Clipboard",
+    "Settings",
+    "Back",
+    "Switch input method",
+    "Paste item",
+    "Close",
+    "paintpalette",
+    "Search Document",
+    "Microphone",
+    "gearshape",
+    "Next Locale",
+    "paintpalette",
+    "EmojiCategories/smileysAndPeople",
+    "EmojiCategories/animalsAndNature",
+    "EmojiCategories/foodAndDrink",
+    "EmojiCategories/activity",
+    "EmojiCategories/travelAndPlaces",
+    "EmojiCategories/objects",
+    "EmojiCategories/symbols",
+    "EmojiCategories/flags",
+    "Add",
+    "And",
+    "Are",
+    "“A”",
+]
 CONTENT_TO_RENAME = {
     "Shift": "shift",
     "Delete": "backspace",
+    "Backspace": "backspace",
     "Space": "spacebar",
     "space": "spacebar",
     "Emoji button": "smiley",
     "Emoji": "smiley",
+    "Keyboard Type - emojis": "smiley",
     "Search": "enter",
+    "return": "enter",
     "Symbol keyboard": "numbers",
     "Symbols": "numbers",
+    "Keyboard Type - numeric": "numbers",
     "Voice input": "mic",
     "Close features menu": "magic",
     "Open features menu": "magic",
@@ -85,8 +117,10 @@ CONTENT_TO_RENAME = {
     "Question mark": "?",
     "Letter keyboard": "letters",
     "Letters": "letters",
+    "Keyboard Type - auto": "letters",
     "Digit keyboard": "numbers",
     "More symbols": "shift",
+    "Keyboard Type - symbolic": "shift",
     "Capital I": "I",
 }
 FLEKSY_LAYOUT = {
@@ -270,9 +304,13 @@ class Emulator:
         elif self.keyboard == IOS:
             self.detected = IosLayoutDetector(self.driver, self._tap)
             self.layout = self.detected.layout
+        elif self.keyboard == KBKIT:
+            self.detected = KbkitLayoutDetector(self.driver, self._tap)
+            self.layout = self.detected.layout
         else:
             raise ValueError(
-                f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, " f"`{FLEKSY}` or `{IOS}`."
+                f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, `{FLEKSY}`, `{KBKIT}` "
+                f" or `{IOS}`."
             )
 
         self.typing_field.clear()
@@ -353,7 +391,7 @@ class Emulator:
         else:
             # Note : on Android, pasting content in the field will erase the previous content
             # (which is what we want). On iOS it will not, we need to do it "manually"
-            if self.keyboard == IOS:
+            if self.platform == IOS:
                 self.typing_field.clear()
             self.typing_field.send_keys(text)
             self.kb_is_upper = len(text) > 1 and self._is_eos(text[-2]) and text.endswith(" ")
@@ -886,6 +924,43 @@ class IosLayoutDetector(LayoutDetector):
 
                 if is_typing_predictions_section:
                     suggestions.append(name.replace("“", "").replace("”", ""))
+
+        return suggestions
+
+
+class KbkitLayoutDetector(LayoutDetector):
+    """Layout detector for the KeyboardKit demo keyboard. See `LayoutDetector`
+    for more information.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            *args,
+            xpath_root=".//XCUIElementTypeOther[XCUIElementTypeButton and XCUIElementTypeTextField]",
+            xpath_keys=".//XCUIElementTypeButton",
+            android=False,
+            **kwargs,
+        )
+
+    def get_suggestions(self) -> List[str]:
+        """Method to retrieve the keyboard suggestions from the XML tree.
+
+        Returns:
+            List of suggestions from the keyboard.
+        """
+        suggestions = []
+
+        for data in self.driver.page_source.split("<XCUIElementTypeOther"):
+            if "<XCUIElementTypeTextField" in data:
+                pred_part = data.split("<XCUIElementTypeTextField")[0]
+                if "<XCUIElementTypeButton" in pred_part and 'name="Add"' in pred_part:
+                    for elem in pred_part.split(">")[2:]:
+                        if "<XCUIElementTypeTextField" in elem:
+                            break
+                        m = re.search(r"name=\"([^\"]*)\"", elem)
+                        if m:
+                            name = m.group(1)
+                            suggestions.append(name.replace("“", "").replace("”", ""))
 
         return suggestions
 

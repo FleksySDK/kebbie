@@ -60,6 +60,7 @@ Here is the list of keyboards for which the layout auto-detection is supported :
 
 * **GBoard**, with the `-K gboard` argument
 * **iOS keyboard**, with the `-K ios` argument
+* **KeyboardKit**, with the `-K kbkit` argument
 * **Tappa keyboard**, with the `-K tappa` argument
 
 ## Testing the keyboard
