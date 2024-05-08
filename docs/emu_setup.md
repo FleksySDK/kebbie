@@ -201,6 +201,12 @@ However, predictions and auto-corrections are disabled by default. They should b
 
 ![](assets/ios_setup_7.png){ width="250" }
 
+---
+
+Also, inline predictions are enabled by default, and it may interfere with `kebbie`. Make sure to turn it off (also in the keyboard settings) :
+
+![](assets/ios_setup_8.png){ width="250" }
+
 !!! failure "Layout"
     For now, the only layout supported is `english US`. Make sure this is the layout iOS keyboard is using.
 
