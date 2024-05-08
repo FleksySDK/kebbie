@@ -503,6 +503,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#preparing-keyboardkit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing KeyboardKit
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -752,6 +761,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#preparing-keyboardkit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing KeyboardKit
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -956,10 +974,47 @@ Appium needs to run in order for Python to communicate with the emulators.</p>
 <li>Then enable <code>Auto-Correction</code> and <code>Predictive Text</code> :</li>
 </ul>
 <p><img alt="" src="../assets/ios_setup_7.png" width="250" /></p>
+<hr />
+<p>Also, inline predictions are enabled by default, and it may interfere with <code>kebbie</code>. Make sure to turn it off (also in the keyboard settings) :</p>
+<p><img alt="" src="../assets/ios_setup_8.png" width="250" /></p>
 <div class="admonition failure">
 <p class="admonition-title">Layout</p>
 <p>For now, the only layout supported is <code>english US</code>. Make sure this is the layout iOS keyboard is using.</p>
 </div>
+<h3 id="preparing-keyboardkit">Preparing KeyboardKit</h3>
+<p><a href="https://keyboardkit.com/">KeyboardKit</a> is an open-source SDK that lets you create a custom keyboard. They provide a demo keyboard that we can use to test its performance.</p>
+<p>Before being able to run <code>kebbie evaluate</code> to benchmark KeyboardKit, you need to install the demo keyboard on your simulator.</p>
+<p>First, clone the repository and open the project in Xcode :</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/KeyboardKit/KeyboardKit.git
+<span class="nb">cd</span><span class="w"> </span>KeyboardKit
+open<span class="w"> </span>Demo/Demo.xcodeproj
+</code></pre></div>
+<p>Then, from Xcode, select the <code>Demo</code> project, select the right simulator, and press the play button :</p>
+<p><img alt="" src="../assets/kbkit_setup_1.png" /></p>
+<p>It should start the simulator, with KeyboardKit installed.</p>
+<hr />
+<p>Once the simulator started, you need to enable the KeyboardKit keyboard and allow full access :</p>
+<p><img alt="" src="../assets/kbkit_setup_2.png" width="250" /></p>
+<p><img alt="" src="../assets/kbkit_setup_3.png" width="250" /></p>
+<p><img alt="" src="../assets/kbkit_setup_4.png" width="250" /></p>
+<hr />
+<p>And similarly to the default iOS keyboard, you should enable predictions and auto-corrections :</p>
+<ul>
+<li>Go to <code>Settings</code> :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_4.png" width="250" /></p>
+<ul>
+<li>Then go to <code>General</code> :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_5.png" width="250" /></p>
+<ul>
+<li>Then go to <code>Keyboard</code> :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_6.png" width="250" /></p>
+<ul>
+<li>Then enable <code>Auto-Correction</code> and <code>Predictive Text</code> :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_7.png" width="250" /></p>
 <h2 id="parallel-emulators">Parallel emulators</h2>
 <p>In order to run tests faster, we can setup multiple emulators, and run the <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> function in parallel. Let's see how to set up multiple emulators for both Android and iOS.</p>
 <h3 id="android">Android</h3>
