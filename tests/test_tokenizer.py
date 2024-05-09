@@ -23,17 +23,31 @@ def test_normalization_of_dash(tokenizer, x):
     assert tokenizer.preprocess(x) == "in-depth"
 
 
-@pytest.mark.parametrize("x, out", [("this.", "this "), ("this․", "this "), ("this...", "this "), ("this…", "this "), ("this,", "this "), ("this‚", "this ")])
+@pytest.mark.parametrize(
+    "x, out",
+    [
+        ("this.", "this "),
+        ("this․", "this "),
+        ("this...", "this "),
+        ("this…", "this "),
+        ("this,", "this "),
+        ("this‚", "this "),
+    ],
+)
 def test_normalization_of_other_symbols(tokenizer, x, out):
     assert tokenizer.preprocess(x) == out
 
 
-@pytest.mark.parametrize("x", ["a,b", "a, b", "a ,b", "a , b", "a . b", "a ... b", "a. b", "a... b", "a?  b", "a  !b", "a  :    b"])
+@pytest.mark.parametrize(
+    "x", ["a,b", "a, b", "a ,b", "a , b", "a . b", "a ... b", "a. b", "a... b", "a?  b", "a  !b", "a  :    b"]
+)
 def test_punctuations_removal(tokenizer, x):
     assert tokenizer.preprocess(x) == "a b"
 
 
-@pytest.mark.parametrize("inp, out", [("Several words", ["Several", "words"]), (" Several words ", ["Several", "words"])])
+@pytest.mark.parametrize(
+    "inp, out", [("Several words", ["Several", "words"]), (" Several words ", ["Several", "words"])]
+)
 def test_word_split(tokenizer, inp, out):
     assert tokenizer.word_split(inp) == out
 

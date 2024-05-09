@@ -1,7 +1,4 @@
-import random
-import pytest
-
-from kebbie.gesture import make_swipe_gesture, MIN_N_POINTS_PER_DIST, MAX_N_POINTS_PER_DIST
+from kebbie.gesture import MAX_N_POINTS_PER_DIST, MIN_N_POINTS_PER_DIST, make_swipe_gesture
 from kebbie.utils import euclidian_dist
 
 

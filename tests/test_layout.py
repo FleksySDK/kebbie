@@ -1,7 +1,6 @@
 import pytest
 
 from kebbie.layout import LayoutHelper
-from kebbie.utils import load_keyboard 
 
 
 @pytest.fixture
