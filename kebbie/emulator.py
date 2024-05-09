@@ -393,6 +393,11 @@ class Emulator:
             # (which is what we want). On iOS it will not, we need to do it "manually"
             if self.platform == IOS:
                 self.typing_field.clear()
+            if self.keyboard == KBKIT:
+                # In the case of KeyboardKit, after pasting the content, typing a space
+                # trigger a punctuation (because previous context may end with a space)
+                # To avoid this behavior, break the cycle by typing a backspace
+                self._tap(self.layout["lowercase"]["backspace"])
             self.typing_field.send_keys(text)
             self.kb_is_upper = len(text) > 1 and self._is_eos(text[-2]) and text.endswith(" ")
             self.last_char_is_space = text.endswith(" ")
