@@ -30,7 +30,8 @@ IOS = "ios"
 GBOARD = "gboard"
 TAPPA = "tappa"
 FLEKSY = "fleksy"
-KBKIT = "kbkit"
+KBKITPRO = "kbkitpro"
+KBKITOSS = "kbkitoss"
 ANDROID_CAPABILITIES = {
     "platformName": "android",
     "automationName": "UiAutomator2",
@@ -84,6 +85,7 @@ CONTENT_TO_IGNORE = [
     "And",
     "Are",
     "“A”",
+    "🚀",
 ]
 CONTENT_TO_RENAME = {
     "Shift": "shift",
@@ -304,13 +306,16 @@ class Emulator:
         elif self.keyboard == IOS:
             self.detected = IosLayoutDetector(self.driver, self._tap)
             self.layout = self.detected.layout
-        elif self.keyboard == KBKIT:
-            self.detected = KbkitLayoutDetector(self.driver, self._tap)
+        elif self.keyboard == KBKITPRO:
+            self.detected = KbkitproLayoutDetector(self.driver, self._tap)
+            self.layout = self.detected.layout
+        elif self.keyboard == KBKITOSS:
+            self.detected = KbkitossLayoutDetector(self.driver, self._tap)
             self.layout = self.detected.layout
         else:
             raise ValueError(
-                f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, `{FLEKSY}`, `{KBKIT}` "
-                f" or `{IOS}`."
+                f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, `{FLEKSY}`, `{KBKITPRO}`, "
+                f"`{KBKITOSS}` or `{IOS}`."
             )
 
         self.typing_field.clear()
@@ -393,7 +398,7 @@ class Emulator:
             # (which is what we want). On iOS it will not, we need to do it "manually"
             if self.platform == IOS:
                 self.typing_field.clear()
-            if self.keyboard == KBKIT:
+            if self.keyboard == KBKITPRO or self.keyboard == KBKITOSS:
                 # In the case of KeyboardKit, after pasting the content, typing a space
                 # trigger a punctuation (because previous context may end with a space)
                 # To avoid this behavior, break the cycle by typing a backspace
@@ -933,9 +938,9 @@ class IosLayoutDetector(LayoutDetector):
         return suggestions
 
 
-class KbkitLayoutDetector(LayoutDetector):
-    """Layout detector for the KeyboardKit demo keyboard. See `LayoutDetector`
-    for more information.
+class KbkitproLayoutDetector(LayoutDetector):
+    """Layout detector for the KeyboardKit Pro demo keyboard. See
+    `LayoutDetector` for more information.
     """
 
     def __init__(self, *args, **kwargs):
@@ -966,6 +971,40 @@ class KbkitLayoutDetector(LayoutDetector):
                         if m:
                             name = m.group(1)
                             suggestions.append(name.replace("“", "").replace("”", ""))
+
+        return suggestions
+
+
+class KbkitossLayoutDetector(LayoutDetector):
+    """Layout detector for the KeyboardKit OSS demo keyboard. See
+    `LayoutDetector` for more information.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            *args,
+            xpath_root=".//XCUIElementTypeOther[XCUIElementTypeButton and XCUIElementTypeStaticText]",
+            xpath_keys=".//XCUIElementTypeButton",
+            android=False,
+            **kwargs,
+        )
+
+    def get_suggestions(self) -> List[str]:
+        """Method to retrieve the keyboard suggestions from the XML tree.
+
+        Returns:
+            List of suggestions from the keyboard.
+        """
+        suggestions = []
+
+        for data in self.driver.page_source.split("<XCUIElementTypeOther"):
+            if ", Subtitle" in data:
+                pred_part = data.split(", Subtitle")[0]
+                for elem in pred_part.split(">")[1:]:
+                    m = re.search(r"name=\"([^\"]*)\"?", elem)
+                    if m:
+                        name = m.group(1)
+                        suggestions.append(name.replace("“", "").replace("”", ""))
 
         return suggestions
 
