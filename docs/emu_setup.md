@@ -242,6 +242,12 @@ Once the simulator started, you need to enable the KeyboardKit keyboard and allo
 
 ---
 
+Once enabled, you still need to select the right keyboard ! Open the keyboard using any text field, and hold the switch keyboard key. You can then select the keyboard you want to test :
+
+![](assets/kbkit_setup_5.png){ width="250" }
+
+---
+
 And similarly to the default iOS keyboard, you should enable predictions and auto-corrections :
 
 * Go to `Settings` :
