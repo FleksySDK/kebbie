@@ -124,7 +124,10 @@ class LayoutHelper:
                         pass
                     else:
                         # Other special characters are ignored
-                        continue
+                        char = None
+
+                if char is None:
+                    continue
 
                 # Save the character and its key information
                 # Save it only if it's not already in a previous klayer
