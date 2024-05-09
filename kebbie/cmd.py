@@ -68,7 +68,7 @@ def common_args(parser: argparse.ArgumentParser):
         dest="keyboard",
         type=str,
         required=True,
-        choices=["gboard", "ios", "kbkit", "tappa", "fleksy"],
+        choices=["gboard", "ios", "kbkitpro", "kbkitoss", "tappa", "fleksy"],
         help="Which keyboard, to be tested, is currently installed on the emulator.",
     )
 
