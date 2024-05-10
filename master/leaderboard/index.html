@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../usage/">
+        <link rel="prev" href="../architecture/">
       
       
-        <link rel="next" href="../emu_setup/">
+        <link rel="next" href="../public_api/">
       
       
       <link rel="icon" href="../assets/keyboard.svg">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Emulated keyboards - Kebbie</title>
+        <title>Leaderboard - Kebbie</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#emulated-keyboards" class="md-skip">
+        <a href="#leaderboard" class="md-skip">
           Skip to content
         </a>
       
@@ -128,7 +128,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Emulated keyboards
+              Leaderboard
             
           </span>
         </div>
@@ -307,30 +307,10 @@
       
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Emulated keyboards
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../emulated_keyboard/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -339,77 +319,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Setup
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#layout-detection" class="md-nav__link">
-    <span class="md-ellipsis">
-      Layout detection
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Layout detection">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#showing-the-layout" class="md-nav__link">
-    <span class="md-ellipsis">
-      Showing the layout
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#list-of-supported-keyboards" class="md-nav__link">
-    <span class="md-ellipsis">
-      List of supported keyboards
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#testing-the-keyboard" class="md-nav__link">
-    <span class="md-ellipsis">
-      Testing the keyboard
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -478,10 +387,19 @@
       
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../leaderboard/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -490,6 +408,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -603,65 +522,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Setup
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#layout-detection" class="md-nav__link">
-    <span class="md-ellipsis">
-      Layout detection
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Layout detection">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#showing-the-layout" class="md-nav__link">
-    <span class="md-ellipsis">
-      Showing the layout
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#list-of-supported-keyboards" class="md-nav__link">
-    <span class="md-ellipsis">
-      List of supported keyboards
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#testing-the-keyboard" class="md-nav__link">
-    <span class="md-ellipsis">
-      Testing the keyboard
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -678,90 +538,59 @@
   
 
 
-<h1 id="emulated-keyboards">Emulated keyboards</h1>
-<p>In <a href="../usage/">Usage</a>, we saw how to use the <code>kebbie</code> framework to test our code and get various metrics to understand how good our custom auto-correction was.</p>
-<p>Now, let's see how to use the <code>kebbie</code> CLI to run similar tests on an existing keyboard (within an emulator) such as GBoard.</p>
-<h2 id="setup">Setup</h2>
-<p>First, you need to install and setup Appium and the emulators.</p>
-<p>Follow the intructions in <a href="../emu_setup/">Emulator setup</a>.</p>
-<hr />
-<p>Once everything you need is installed, you should have the following running :</p>
-<ul>
-<li>Appium in a terminal</li>
-<li>At least one emulator</li>
-</ul>
-<h2 id="layout-detection">Layout detection</h2>
-<p><code>kebbie</code> tries to automatically detect the layout of the keyboard in use. It is working for GBoard or iOS keyboard for example.</p>
-<p>But some keyboards cannot be detected automatically. In this case we rely on a manual definition of the layout.</p>
-<p>But these manual definitions of the layout may not fit all devices.</p>
-<h3 id="showing-the-layout">Showing the layout</h3>
-<p><code>kebbie</code> provides a CLI to check the layout. To visualize the keyboard's layout, run the <code>show_layout</code> command. For example for GBoard :</p>
-<div class="highlight"><pre><span></span><code>kebbie<span class="w"> </span>show_layout<span class="w"> </span>-K<span class="w"> </span>gboard
-</code></pre></div>
-<p>It will display 3 images (one for each layer of the keyboard : <code>lowercase</code>, <code>uppercase</code>, <code>numbers</code>), so you can see if the layout (automatically detected or manually defined) fits the current keyboard. You can leave the images by pressing any key.</p>
+<h1 id="leaderboard">Leaderboard</h1>
+<table>
+<thead>
+<tr>
+<th style="text-align: right;">Keyboard</th>
+<th style="text-align: center;">Score</th>
+<th style="text-align: center;">Next-word prediction</th>
+<th style="text-align: center;">Auto-completion</th>
+<th style="text-align: center;">Auto-correction</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: right;">iOS keyboard</td>
+<td style="text-align: center;"><strong>0.46</strong></td>
+<td style="text-align: center;"><strong>0.43</strong></td>
+<td style="text-align: center;"><strong>0.8</strong></td>
+<td style="text-align: center;"><strong>0.6</strong></td>
+</tr>
+<tr>
+<td style="text-align: right;">Fleksy</td>
+<td style="text-align: center;">0.43</td>
+<td style="text-align: center;">0.27</td>
+<td style="text-align: center;">0.73</td>
+<td style="text-align: center;"><strong>0.6</strong></td>
+</tr>
+<tr>
+<td style="text-align: right;">KeyboardKit Pro</td>
+<td style="text-align: center;">0.31</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0.4</td>
+<td style="text-align: center;">0.58</td>
+</tr>
+<tr>
+<td style="text-align: right;">KeyboardKit Open-source</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0.01</td>
+</tr>
+</tbody>
+</table>
 <div class="admonition info">
 <p class="admonition-title">Info</p>
-<p>Before leaving, the command will also display in the terminal the detected suggestions of the keyboard. If they don't correspond to what's displayed in the emulator, something might be wrong !</p>
-<p>For auto-detected keyboards, these suggestions are retrieved directly from the XML tree (fast and accurate). For keyboards with manual layout, we use OCR to find the suggestions (slow and may be wrong).</p>
-</div>
-<div class="admonition tip">
-<p class="admonition-title">Tip</p>
-<p>If you have several emulators running, the <code>show_layout</code> command will find and display the layout for each emulator, one by one.</p>
-</div>
-<p>Example where the layout match the keys properly :</p>
-<p><img alt="" src="../assets/layout_right_match.png" width="300" /></p>
-<p>Example where the layout doesn't match the keyboard's keys :</p>
-<p><img alt="" src="../assets/layout_wrong_match.png" width="300" /></p>
-<div class="admonition experiment">
-<p class="admonition-title">If it doesn't match...</p>
-<p>You need to modify the definition of the layout (in <a href="../internals/#emulatorpy">emulator.py</a>), and experiment with new coordinates until it matches well...</p>
-</div>
-<h3 id="list-of-supported-keyboards">List of supported keyboards</h3>
-<p>Here is the list of keyboards for which the layout auto-detection is supported :</p>
+<p>The metrics used in this leaderboard are :</p>
 <ul>
-<li><strong>GBoard</strong>, with the <code>-K gboard</code> argument</li>
-<li><strong>iOS keyboard</strong>, with the <code>-K ios</code> argument</li>
-<li><strong>KeyboardKit Pro</strong>, with the <code>-K kbkitpro</code> argument</li>
-<li><strong>KeyboardKit Open-source</strong>, with the <code>-K kbkitoss</code> argument</li>
-<li><strong>Tappa keyboard</strong>, with the <code>-K tappa</code> argument</li>
+<li>For next-word prediction : top-3 accuracy</li>
+<li>For auto-completion : top-3 accuracy</li>
+<li>For auto-correction : F-score</li>
 </ul>
-<h2 id="testing-the-keyboard">Testing the keyboard</h2>
-<p>After you made sure the layout is properly detected / defined, it's time to run the tests !</p>
-<p>Simply run :</p>
-<div class="highlight"><pre><span></span><code><span class="c1"># For GBoard on Android emulator</span>
-kebbie<span class="w"> </span>evaluate<span class="w"> </span>-K<span class="w"> </span>gboard<span class="w"> </span>--all_tasks
-
-<span class="c1"># For iOS keyboard on iOS emulator</span>
-kebbie<span class="w"> </span>evaluate<span class="w"> </span>-K<span class="w"> </span>ios<span class="w"> </span>--all_tasks
-</code></pre></div>
-<p>After a while, you should see the emulator start typing sentences !</p>
-<p>The command line will type the sentences from the test data, and record the suggestions and the auto-corrections from the keyboard.</p>
-<p>Once all sentences are tested, the results will be saved in a file <code>results.json</code>.</p>
-<div class="admonition info">
-<p class="admonition-title">Info</p>
-<p>The <code>evaluate</code> CLI will use only 100 sentences of the test data (versus 2 000 by default for the <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> function, see <a href="../usage/">Usage</a>).</p>
-<p>This is because typing on an emulated keyboard is significantly slower. 100 sentences is enough to get some good, comparable metrics.</p>
+<p>See <a href="../how_testing_is_done/#understanding-the-metrics">Understanding the metrics</a> for more details.</p>
+<p>The overall score is a <em>weighted sum</em> of each task's score.</p>
 </div>
-<hr />
-<p>Note that we specified the option <code>--all_tasks</code>. With this option, we are computing the results for all of the tasks supported by the emulator : <em>auto-correction</em>, <em>auto-completion</em>, and <em>next-word prediction</em>.</p>
-<div class="admonition failure">
-<p class="admonition-title">Unsupported</p>
-<p>For now, <em>swipe gesture recognition</em> is not supported for the emulated keyboards.</p>
-</div>
-<p>The default behavior (when <code>--all_tasks</code> is not specified) is to run only the <em>auto-correction</em> task. It is significantly faster, specially for keyboards with a layout defined manually, because they require OCR, which is quite slow.</p>
-<hr />
-<p>If you want to change the number of sentences the CLI run on, just use the option <code>--n_sentences</code> :</p>
-<div class="highlight"><pre><span></span><code>kebbie<span class="w"> </span>evaluate<span class="w"> </span>-K<span class="w"> </span>gboard<span class="w"> </span>--all_tasks<span class="w"> </span>--n_sentences<span class="w"> </span><span class="m">10</span>
-</code></pre></div>
-<hr />
-<p>You can change the destination file for the results with the option <code>--result_file</code> :</p>
-<div class="highlight"><pre><span></span><code>kebbie<span class="w"> </span>evaluate<span class="w"> </span>-K<span class="w"> </span>gboard<span class="w"> </span>--all_tasks<span class="w"> </span>--result_file<span class="w"> </span>my/folder/evaluation_results.json
-</code></pre></div>
-<hr />
-<p>You can track the most common mistakes with the option <code>--track_mistakes</code> :</p>
-<div class="highlight"><pre><span></span><code>kebbie<span class="w"> </span>evaluate<span class="w"> </span>-K<span class="w"> </span>gboard<span class="w"> </span>--all_tasks<span class="w"> </span>--track_mistakes
-</code></pre></div>
-<p>It will save the most common mistakes in the result file.</p>
 
 
 
