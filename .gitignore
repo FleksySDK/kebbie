@@ -10,5 +10,6 @@ build/
 # Coverage output
 .coverage
 
-# Results file
+# Results file, except in the docs
 *.json
+!docs/**/*.json

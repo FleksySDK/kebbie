@@ -39,12 +39,16 @@ nav:
   - Welcome: "index.md"
   - "usage.md"
   - "emulated_keyboard.md"
+  - "emu_setup.md"
   - "how_testing_is_done.md"
   - "architecture.md"
-  - "emu_setup.md"
+  - "leaderboard.md"
   - Code reference:
     - "public_api.md"
     - "internals.md"
+
+hooks:
+  - docs/hooks.py
 
 plugins:
   - search
@@ -64,3 +68,7 @@ extra:
 
 extra_css:
   - css/mkdocstrings.css
+
+extra_javascript:
+  - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+  - javascripts/tablesort.js
