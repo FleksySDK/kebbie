@@ -518,10 +518,13 @@ class Scorer:
             "slowest_runtime": max(runtimes) if runtimes else 0,
         }
 
-        return {
-            name: human_readable_memory(x) if name.endswith("memory") else human_readable_runtime(x)
-            for name, x in perf.items()
-        }
+        if self.human_readable:
+            perf = {
+                name: human_readable_memory(x) if name.endswith("memory") else human_readable_runtime(x)
+                for name, x in perf.items()
+            }
+
+        return perf
 
     def score(self, beta: float = DEFAULT_BETA) -> Dict:  # noqa: C901
         """Method that computes the final scores (as well as some alternative
