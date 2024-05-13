@@ -116,7 +116,7 @@ open ~/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriver
 
 ![](assets/ios_setup_1.png)
 
-* Then click `Team` and select your Apple ID
+* Then click "Team" and select your Apple ID
 * You should do this for the three following targets : `WebDriverAgentLib`, `WebDriverAgentRunner`, `IntegrationApp`.
 
 ---
@@ -185,19 +185,19 @@ iOS Keyboard is the default keyboard on iOS, so there is nothing to do to enable
 
 However, predictions and auto-corrections are disabled by default. They should be enabled :
 
-* Go to `Settings` :
+* Go to "Settings" :
 
 ![](assets/ios_setup_4.png){ width="250" }
 
-* Then go to `General` :
+* Then go to "General" :
 
 ![](assets/ios_setup_5.png){ width="250" }
 
-* Then go to `Keyboard` :
+* Then go to "Keyboard" :
 
 ![](assets/ios_setup_6.png){ width="250" }
 
-* Then enable `Auto-Correction` and `Predictive Text` :
+* Then enable "Auto-Correction" and "Predictive Text" :
 
 ![](assets/ios_setup_7.png){ width="250" }
 
@@ -209,6 +209,84 @@ Also, inline predictions are enabled by default, and it may interfere with `kebb
 
 !!! failure "Layout"
     For now, the only layout supported is `english US`. Make sure this is the layout iOS keyboard is using.
+
+### Preparing Fleksy keyboard
+
+[Fleksy](https://www.fleksy.com/) is a fully-featured keyboard SDK. A demo keyboard is provided, allowing anyone to test its performance.
+
+You first need to install the keyboard in your simulator. To do this, start your simulator (see [Starting the emulator](#starting-the-emulator_1)), and then run :
+
+```bash
+wget https://github.com/FleksySDK/kebbie/files/15290354/Fleksy.zip
+unzip Fleksy.zip
+xcrun simctl install <UUID> Fleksy.app
+```
+
+!!! tip
+    You can find the UUID of your simulator by running : `xcrun simctl list` and finding which one is `Booted`.
+
+Once the app is installed, start it :
+
+![](assets/fleksy_setup_1.png)
+
+Click "Add Keyboard" :
+
+![](assets/fleksy_setup_2.png){ width="250" }
+
+Then go to "General" :
+
+![](assets/ios_setup_5.png){ width="250" }
+
+Then go to "Keyboard" :
+
+![](assets/ios_setup_6.png){ width="250" }
+
+Then go to "Keyboards" :
+
+![](assets/fleksy_setup_3.png){ width="250" }
+
+Then click "Add New Keyboard" :
+
+![](assets/fleksy_setup_4.png){ width="250" }
+
+And select "Fleksy For Research" :
+
+![](assets/fleksy_setup_5.png){ width="250" }
+
+Then select the Fleksy keyboard you just installed :
+
+![](assets/fleksy_setup_6.png){ width="250" }
+
+And enable "Full Access" :
+
+![](assets/fleksy_setup_7.png){ width="250" }
+
+---
+
+Once enabled, you still need to select the right keyboard ! Open the keyboard using any text field, and hold the switch keyboard key. You can then select the keyboard you want to test :
+
+![](assets/fleksy_setup_8.png){ width="250" }
+
+---
+
+And similarly to the default iOS keyboard, you should enable predictions and auto-corrections :
+
+* Go to "Settings" :
+
+![](assets/ios_setup_4.png){ width="250" }
+
+* Then go to "General" :
+
+![](assets/ios_setup_5.png){ width="250" }
+
+* Then go to "Keyboard" :
+
+![](assets/ios_setup_6.png){ width="250" }
+
+* Then enable "Auto-Correction" and "Predictive Text" :
+
+![](assets/ios_setup_7.png){ width="250" }
+
 
 ### Preparing KeyboardKit
 
@@ -250,19 +328,19 @@ Once enabled, you still need to select the right keyboard ! Open the keyboard us
 
 And similarly to the default iOS keyboard, you should enable predictions and auto-corrections :
 
-* Go to `Settings` :
+* Go to "Settings" :
 
 ![](assets/ios_setup_4.png){ width="250" }
 
-* Then go to `General` :
+* Then go to "General" :
 
 ![](assets/ios_setup_5.png){ width="250" }
 
-* Then go to `Keyboard` :
+* Then go to "Keyboard" :
 
 ![](assets/ios_setup_6.png){ width="250" }
 
-* Then enable `Auto-Correction` and `Predictive Text` :
+* Then enable "Auto-Correction" and "Predictive Text" :
 
 ![](assets/ios_setup_7.png){ width="250" }
 
