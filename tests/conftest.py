@@ -1,6 +1,7 @@
 import random
 import shutil
 
+import datasets
 import pytest
 import requests
 
@@ -65,6 +66,42 @@ def noisy(monkeypatch_session, tmp_cache):
         # Note that we initialize it with all typo probabilities set to 0, and
         # each test will individually change these probabilities
         return NoiseModel(lang="en-US", typo_probs={t: 0.0 for t in Typo}, x_ratio=float("inf"), y_ratio=float("inf"))
+
+
+class MockDataset:
+    def __init__(self):
+        self.n = 0
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        self.n += 1
+
+        if self.n > 20:
+            raise StopIteration
+
+        # A dummy dataset of 20 similar sentences
+        return {
+            "narrative": f"He, in fact, didn't have {self.n} wooden sticks.",
+            "dialogue": [
+                f"I have {self.n} wooden sticks.",
+                "Yes, I'm sure.",
+                "No way !",
+            ],
+        }
+
+    def shuffle(self, seed: int = 0):
+        return self
+
+
+@pytest.fixture
+def mock_load_dataset(monkeypatch):
+    # Mock dataset to avoid downloading a full-fledge dataset
+    def mock_load_dataset(*args, **kwargs):
+        return MockDataset()
+
+    monkeypatch.setattr(datasets, "load_dataset", mock_load_dataset)
 
 
 @pytest.fixture
