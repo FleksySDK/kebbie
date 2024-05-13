@@ -464,6 +464,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#preparing-fleksy-keyboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing Fleksy keyboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#preparing-keyboardkit" class="md-nav__link">
     <span class="md-ellipsis">
       Preparing KeyboardKit
@@ -782,6 +791,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#preparing-fleksy-keyboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing Fleksy keyboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#preparing-keyboardkit" class="md-nav__link">
     <span class="md-ellipsis">
       Preparing KeyboardKit
@@ -932,7 +950,7 @@ Appium needs to run in order for Python to communicate with the emulators.</p>
 </ul>
 <p><img alt="" src="../assets/ios_setup_1.png" /></p>
 <ul>
-<li>Then click <code>Team</code> and select your Apple ID</li>
+<li>Then click "Team" and select your Apple ID</li>
 <li>You should do this for the three following targets : <code>WebDriverAgentLib</code>, <code>WebDriverAgentRunner</code>, <code>IntegrationApp</code>.</li>
 </ul>
 <hr />
@@ -979,19 +997,19 @@ Appium needs to run in order for Python to communicate with the emulators.</p>
 <p>iOS Keyboard is the default keyboard on iOS, so there is nothing to do to enable it.</p>
 <p>However, predictions and auto-corrections are disabled by default. They should be enabled :</p>
 <ul>
-<li>Go to <code>Settings</code> :</li>
+<li>Go to "Settings" :</li>
 </ul>
 <p><img alt="" src="../assets/ios_setup_4.png" width="250" /></p>
 <ul>
-<li>Then go to <code>General</code> :</li>
+<li>Then go to "General" :</li>
 </ul>
 <p><img alt="" src="../assets/ios_setup_5.png" width="250" /></p>
 <ul>
-<li>Then go to <code>Keyboard</code> :</li>
+<li>Then go to "Keyboard" :</li>
 </ul>
 <p><img alt="" src="../assets/ios_setup_6.png" width="250" /></p>
 <ul>
-<li>Then enable <code>Auto-Correction</code> and <code>Predictive Text</code> :</li>
+<li>Then enable "Auto-Correction" and "Predictive Text" :</li>
 </ul>
 <p><img alt="" src="../assets/ios_setup_7.png" width="250" /></p>
 <hr />
@@ -1001,6 +1019,56 @@ Appium needs to run in order for Python to communicate with the emulators.</p>
 <p class="admonition-title">Layout</p>
 <p>For now, the only layout supported is <code>english US</code>. Make sure this is the layout iOS keyboard is using.</p>
 </div>
+<h3 id="preparing-fleksy-keyboard">Preparing Fleksy keyboard</h3>
+<p><a href="https://www.fleksy.com/">Fleksy</a> is a fully-featured keyboard SDK. A demo keyboard is provided, allowing anyone to test its performance.</p>
+<p>You first need to install the keyboard in your simulator. To do this, start your simulator (see <a href="#starting-the-emulator_1">Starting the emulator</a>), and then run :</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://github.com/FleksySDK/kebbie/files/15290354/Fleksy.zip
+unzip<span class="w"> </span>Fleksy.zip
+xcrun<span class="w"> </span>simctl<span class="w"> </span>install<span class="w"> </span>&lt;UUID&gt;<span class="w"> </span>Fleksy.app
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can find the UUID of your simulator by running : <code>xcrun simctl list</code> and finding which one is <code>Booted</code>.</p>
+</div>
+<p>Once the app is installed, start it :</p>
+<p><img alt="" src="../assets/fleksy_setup_1.png" /></p>
+<p>Click "Add Keyboard" :</p>
+<p><img alt="" src="../assets/fleksy_setup_2.png" width="250" /></p>
+<p>Then go to "General" :</p>
+<p><img alt="" src="../assets/ios_setup_5.png" width="250" /></p>
+<p>Then go to "Keyboard" :</p>
+<p><img alt="" src="../assets/ios_setup_6.png" width="250" /></p>
+<p>Then go to "Keyboards" :</p>
+<p><img alt="" src="../assets/fleksy_setup_3.png" width="250" /></p>
+<p>Then click "Add New Keyboard" :</p>
+<p><img alt="" src="../assets/fleksy_setup_4.png" width="250" /></p>
+<p>And select "Fleksy For Research" :</p>
+<p><img alt="" src="../assets/fleksy_setup_5.png" width="250" /></p>
+<p>Then select the Fleksy keyboard you just installed :</p>
+<p><img alt="" src="../assets/fleksy_setup_6.png" width="250" /></p>
+<p>And enable "Full Access" :</p>
+<p><img alt="" src="../assets/fleksy_setup_7.png" width="250" /></p>
+<hr />
+<p>Once enabled, you still need to select the right keyboard ! Open the keyboard using any text field, and hold the switch keyboard key. You can then select the keyboard you want to test :</p>
+<p><img alt="" src="../assets/fleksy_setup_8.png" width="250" /></p>
+<hr />
+<p>And similarly to the default iOS keyboard, you should enable predictions and auto-corrections :</p>
+<ul>
+<li>Go to "Settings" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_4.png" width="250" /></p>
+<ul>
+<li>Then go to "General" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_5.png" width="250" /></p>
+<ul>
+<li>Then go to "Keyboard" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_6.png" width="250" /></p>
+<ul>
+<li>Then enable "Auto-Correction" and "Predictive Text" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_7.png" width="250" /></p>
 <h3 id="preparing-keyboardkit">Preparing KeyboardKit</h3>
 <p><a href="https://keyboardkit.com/">KeyboardKit</a> is an open-source SDK that lets you create a custom keyboard. They provide a demo keyboard that we can use to test its performance.</p>
 <p>Before being able to run <code>kebbie evaluate</code> to benchmark KeyboardKit, you need to install the demo keyboard on your simulator.</p>
@@ -1023,19 +1091,19 @@ open<span class="w"> </span>Demo/Demo.xcodeproj
 <hr />
 <p>And similarly to the default iOS keyboard, you should enable predictions and auto-corrections :</p>
 <ul>
-<li>Go to <code>Settings</code> :</li>
+<li>Go to "Settings" :</li>
 </ul>
 <p><img alt="" src="../assets/ios_setup_4.png" width="250" /></p>
 <ul>
-<li>Then go to <code>General</code> :</li>
+<li>Then go to "General" :</li>
 </ul>
 <p><img alt="" src="../assets/ios_setup_5.png" width="250" /></p>
 <ul>
-<li>Then go to <code>Keyboard</code> :</li>
+<li>Then go to "Keyboard" :</li>
 </ul>
 <p><img alt="" src="../assets/ios_setup_6.png" width="250" /></p>
 <ul>
-<li>Then enable <code>Auto-Correction</code> and <code>Predictive Text</code> :</li>
+<li>Then enable "Auto-Correction" and "Predictive Text" :</li>
 </ul>
 <p><img alt="" src="../assets/ios_setup_7.png" width="250" /></p>
 <h2 id="parallel-emulators">Parallel emulators</h2>
