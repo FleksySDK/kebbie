@@ -39,7 +39,7 @@ def mock_emulator(monkeypatch):
     monkeypatch.setattr(kebbie.correctors, "Emulator", MockEmulator)
 
 
-def test_emulator_corrector_is_pickable(mock_emulator):
+def test_corrector_with_emulator_is_pickable(mock_emulator):
     corrector = EmulatorCorrector("gboard", "android")
 
     # Will crash if not pickable
