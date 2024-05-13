@@ -29,7 +29,7 @@ extras_require["dev"] = (
 
 setuptools.setup(
     name="kebbie",
-    version="1.0.0.dev0",
+    version="0.2.0",
     author="Nicolas REMOND",
     author_email="nicolas.remond@thingthing.co",
     description="A small framework to test and compare mobile keyboards",
