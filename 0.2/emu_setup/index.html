@@ -1,0 +1,1251 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../emulated_keyboard/">
+      
+      
+        <link rel="next" href="../how_testing_is_done/">
+      
+      
+      <link rel="icon" href="../assets/keyboard.svg">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.22">
+    
+    
+      
+        <title>Emulator setup - Kebbie</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.732c4fb1.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/_mkdocstrings.css">
+    
+      <link rel="stylesheet" href="../css/mkdocstrings.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#emulator-setup" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <div data-md-color-scheme="default" data-md-component="outdated" hidden>
+        
+          <aside class="md-banner md-banner--warning">
+            <div class="md-banner__inner md-grid md-typeset">
+              
+  You're not viewing the latest stable version.
+  <a href="../..">
+
+    <strong>Go to latest stable version.</strong>
+  </a>
+
+            </div>
+            <script>var el=document.querySelector("[data-md-component=outdated]"),outdated=__md_get("__outdated",sessionStorage);!0===outdated&&el&&(el.hidden=!1)</script>
+          </aside>
+        
+      </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Kebbie" class="md-header__button md-logo" aria-label="Kebbie" data-md-component="logo">
+      
+  <img src="../assets/keyboard.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Kebbie
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Emulator setup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3 3.19.09m3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95 2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31Z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="teal" data-md-color-accent="amber"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5c-.84 0-1.65.15-2.39.42L12 2M3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29L3.34 7m.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14L3.36 17M20.65 7l-1.77 3.79a7.023 7.023 0 0 0-2.38-4.15l4.15.36m-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29L20.64 17M12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44L12 22Z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var media,input,key,value,palette=__md_get("__palette");if(palette&&palette.color){"(prefers-color-scheme)"===palette.color.media&&(media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']"),palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent"));for([key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/FleksySDK/kebbie" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FleksySDK/kebbie
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Kebbie" class="md-nav__button md-logo" aria-label="Kebbie" data-md-component="logo">
+      
+  <img src="../assets/keyboard.svg" alt="logo">
+
+    </a>
+    Kebbie
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/FleksySDK/kebbie" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    FleksySDK/kebbie
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Welcome
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Usage
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../emulated_keyboard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Emulated keyboards
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Emulator setup
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Emulator setup
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-appium-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Appium 2.0
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-android-emulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up Android emulator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up Android emulator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-emulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating the emulator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starting-the-emulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starting the emulator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparing-gboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing GBoard
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-ios-emulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up iOS emulator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up iOS emulator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-emulator_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating the emulator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starting-the-emulator_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starting the emulator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparing-ios-keyboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing iOS Keyboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparing-fleksy-keyboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing Fleksy keyboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparing-keyboardkit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing KeyboardKit
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-emulators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallel emulators
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parallel emulators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#android" class="md-nav__link">
+    <span class="md-ellipsis">
+      Android
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ios" class="md-nav__link">
+    <span class="md-ellipsis">
+      iOS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how_testing_is_done/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    How testing is done ?
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Architecture
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../leaderboard/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Leaderboard
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    Code reference
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            Code reference
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../public_api/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Public API
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../internals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Internals
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#installing-appium-20" class="md-nav__link">
+    <span class="md-ellipsis">
+      Installing Appium 2.0
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-android-emulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up Android emulator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up Android emulator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-emulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating the emulator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starting-the-emulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starting the emulator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparing-gboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing GBoard
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#setting-up-ios-emulator" class="md-nav__link">
+    <span class="md-ellipsis">
+      Setting up iOS emulator
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Setting up iOS emulator">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#creating-the-emulator_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Creating the emulator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#starting-the-emulator_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      Starting the emulator
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparing-ios-keyboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing iOS Keyboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparing-fleksy-keyboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing Fleksy keyboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#preparing-keyboardkit" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing KeyboardKit
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parallel-emulators" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallel emulators
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Parallel emulators">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#android" class="md-nav__link">
+    <span class="md-ellipsis">
+      Android
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ios" class="md-nav__link">
+    <span class="md-ellipsis">
+      iOS
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+  
+  
+
+
+<h1 id="emulator-setup">Emulator setup</h1>
+<h2 id="installing-appium-20">Installing Appium 2.0</h2>
+<p>Appium is required to communicate between Python and the emulators.</p>
+<p>Install Appium 2.0 by following <a href="https://appium.io/docs/en/latest/quickstart/install/">their official documentation</a>.</p>
+<hr />
+<p>Then install the required drivers :</p>
+<div class="highlight"><pre><span></span><code><span class="c1"># For Android</span>
+appium<span class="w"> </span>driver<span class="w"> </span>install<span class="w"> </span>uiautomator2
+
+<span class="c1"># For iOS</span>
+appium<span class="w"> </span>driver<span class="w"> </span>install<span class="w"> </span>xcuitest
+</code></pre></div>
+<hr />
+<p>To start Appium, open a new terminal and type :</p>
+<div class="highlight"><pre><span></span><code>appium
+</code></pre></div>
+<div class="admonition info">
+<p class="admonition-title">Note</p>
+<p>Once it's running, don't close the terminal.<br />
+Appium needs to run in order for Python to communicate with the emulators.</p>
+</div>
+<h2 id="setting-up-android-emulator">Setting up Android emulator</h2>
+<h3 id="creating-the-emulator">Creating the emulator</h3>
+<ul>
+<li>Install <a href="https://developer.android.com/studio">Android Studio</a></li>
+<li>Create a new virtual device
+<img alt="" src="../assets/emu_setup_1.png" /></li>
+<li>Select the phone (<code>Pixel 2</code> for example) and the system image (<code>Tiramisu - Android 13.0</code> for example)</li>
+</ul>
+<h3 id="starting-the-emulator">Starting the emulator</h3>
+<p>Once you have created the emulator, you should be able to see its name from the command line :</p>
+<div class="highlight"><pre><span></span><code>emulator<span class="w"> </span>-list-avds
+</code></pre></div>
+<details class="failure">
+<summary>If you encounter <code>command not found: emulator</code></summary>
+<p>If the command fails with <code>command not found: emulator</code>, you need to update your path accordingly :</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">ANDROID_HOME</span><span class="o">=</span>/Users/&lt;username&gt;/Library/Android/sdk
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$ANDROID_HOME</span>/platform-tools:<span class="nv">$ANDROID_HOME</span>/emulator:<span class="nv">$PATH</span>
+</code></pre></div>
+</details>
+<p>You can start the emulator directly from the command line with :<br />
+<em>(so you don't need to run Android Studio, which takes a lot of resources)</em></p>
+<div class="highlight"><pre><span></span><code>emulator<span class="w"> </span>-avd<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-no-snapshot-load
+</code></pre></div>
+<p>Once started, make sure you can see it. From another terminal, run :</p>
+<div class="highlight"><pre><span></span><code>adb<span class="w"> </span>devices
+</code></pre></div>
+<details class="failure">
+<summary>If you encounter <code>command not found: adb</code></summary>
+<p>If the command fails with <code>command not found: adb</code>, you need to update your path accordingly :</p>
+<div class="highlight"><pre><span></span><code><span class="nb">export</span><span class="w"> </span><span class="nv">ANDROID_HOME</span><span class="o">=</span>/Users/&lt;username&gt;/Library/Android/sdk
+<span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$ANDROID_HOME</span>/platform-tools:<span class="nv">$ANDROID_HOME</span>/emulator:<span class="nv">$PATH</span>
+</code></pre></div>
+</details>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>In Android, to open the keyboard, we access a notepad website (<a href="https://www.justnotepad.com">www.justnotepad.com</a>).</p>
+<p>The reason we do that is because it's the easiest way to access a typing field, and it works across versions and emulators.</p>
+</div>
+<h3 id="preparing-gboard">Preparing GBoard</h3>
+<p>GBoard is enabled by default on Android, so there is nothing to do.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can make sure GBoard is indeed the selected keyboard by going to the <code>Settings</code> -&gt; <code>System</code> -&gt; <code>Languages &amp; Input</code> -&gt; <code>On-screen keyboard</code>.</p>
+</div>
+<hr />
+<p>By default, GBoard has the clipboard enabled, and it may interfere with the layout detection. You can disable the clipboard in the settings of GBoard :</p>
+<p><img align="left" alt="" src="../assets/emu_setup_5.png" width="300" /></p>
+<p><img alt="" src="../assets/emu_setup_6.png" width="300" /></p>
+<p>Make sure to disable the clipboard :</p>
+<p><img alt="" src="../assets/emu_setup_7.png" width="300" /></p>
+<div class="admonition failure">
+<p class="admonition-title">Layout</p>
+<p>For now, the only layout supported is <code>english US</code>. Make sure this is the layout GBoard is using.</p>
+</div>
+<h2 id="setting-up-ios-emulator">Setting up iOS emulator</h2>
+<h3 id="creating-the-emulator_1">Creating the emulator</h3>
+<ul>
+<li>Install <a href="https://apps.apple.com/us/app/xcode/id497799835?mt=12">XCode</a></li>
+<li>Open WebDriverAgent in Xcode :
+<div class="highlight"><pre><span></span><code>open<span class="w"> </span>~/.appium/node_modules/appium-xcuitest-driver/node_modules/appium-webdriveragent/WebDriverAgent.xcodeproj
+</code></pre></div></li>
+<li>Go to <code>Signing &amp; Capabilities</code> of the project :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_1.png" /></p>
+<ul>
+<li>Then click "Team" and select your Apple ID</li>
+<li>You should do this for the three following targets : <code>WebDriverAgentLib</code>, <code>WebDriverAgentRunner</code>, <code>IntegrationApp</code>.</li>
+</ul>
+<hr />
+<p>Now, make sure you can properly build the <code>WebDriverAgentRunner</code> target : select it in the top bar and run it (button "play") :</p>
+<p><img alt="" src="../assets/ios_setup_2.png" /></p>
+<p>If all the stars are aligned, it should start the emulator !</p>
+<h3 id="starting-the-emulator_1">Starting the emulator</h3>
+<p>Once you have ensured the emulator runs properly, you should be able to start it from the command line (without Xcode open).</p>
+<p>First, check the list of emulators available :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>list
+</code></pre></div>
+<p>Example of emulators listed :</p>
+<div class="highlight"><pre><span></span><code>-- iOS 17.4 --
+    iPhone SE (3rd generation) (96ADAD77-ECE6-420E-B56C-505E0C16231B) (Shutdown)
+    iPhone 15 (128F95FC-F499-4B09-A3B2-55937BF52B0B) (Shutdown)
+    iPhone 15 Plus (86591FC6-B3E7-43A2-9E9B-D4A2A90DAF31) (Shutdown)
+    iPhone 15 Pro (9D38F87D-273B-4D8F-8AD5-E901C1974C1E) (Shutdown)
+    iPhone 15 Pro Max (15EF57B4-69E6-4369-9534-70692A2023E5) (Shutdown)
+    iPad Air (5th generation) (252D522B-CEAA-4085-BE17-A453BC219755) (Shutdown)
+    iPad (10th generation) (39F2ADD2-2FCF-44C3-9DC9-4CC4D50875E9) (Shutdown)
+    iPad mini (6th generation) (59125B84-4ED1-40C1-8457-3CE824394385) (Shutdown)
+    iPad Pro (11-inch) (4th generation) (DB122D71-F358-48DA-B11C-D25305657E7F) (Shutdown)
+    iPad Pro (12.9-inch) (6th generation) (1100927A-B631-4678-AB19-02EA4F680537) (Shutdown)
+</code></pre></div>
+<p>Then you can start the device you want with :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>boot<span class="w"> </span>&lt;UUID&gt;
+</code></pre></div>
+<p>For example, to start <code>iPhone 15 Pro</code>, you should run :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>boot<span class="w"> </span>9D38F87D-273B-4D8F-8AD5-E901C1974C1E
+</code></pre></div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code>xcrun simctl boot</code> command only launch the simulator background service, to launch the foreground GUI, run :</p>
+<div class="highlight"><pre><span></span><code>open<span class="w"> </span>-a<span class="w"> </span>Simulator
+</code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To shutdown the simulator, run :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>shutdown<span class="w"> </span>&lt;UUID&gt;
+</code></pre></div>
+</div>
+<h3 id="preparing-ios-keyboard">Preparing iOS Keyboard</h3>
+<p>iOS Keyboard is the default keyboard on iOS, so there is nothing to do to enable it.</p>
+<p>However, predictions and auto-corrections are disabled by default. They should be enabled :</p>
+<ul>
+<li>Go to "Settings" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_4.png" width="250" /></p>
+<ul>
+<li>Then go to "General" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_5.png" width="250" /></p>
+<ul>
+<li>Then go to "Keyboard" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_6.png" width="250" /></p>
+<ul>
+<li>Then enable "Auto-Correction" and "Predictive Text" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_7.png" width="250" /></p>
+<hr />
+<p>Also, inline predictions are enabled by default, and it may interfere with <code>kebbie</code>. Make sure to turn it off (also in the keyboard settings) :</p>
+<p><img alt="" src="../assets/ios_setup_8.png" width="250" /></p>
+<div class="admonition failure">
+<p class="admonition-title">Layout</p>
+<p>For now, the only layout supported is <code>english US</code>. Make sure this is the layout iOS keyboard is using.</p>
+</div>
+<h3 id="preparing-fleksy-keyboard">Preparing Fleksy keyboard</h3>
+<p><a href="https://www.fleksy.com/">Fleksy</a> is a fully-featured keyboard SDK. A demo keyboard is provided, allowing anyone to test its performance.</p>
+<p>You first need to install the keyboard in your simulator. To do this, start your simulator (see <a href="#starting-the-emulator_1">Starting the emulator</a>), and then run :</p>
+<div class="highlight"><pre><span></span><code>wget<span class="w"> </span>https://github.com/FleksySDK/kebbie/files/15290354/Fleksy.zip
+unzip<span class="w"> </span>Fleksy.zip
+xcrun<span class="w"> </span>simctl<span class="w"> </span>install<span class="w"> </span>&lt;UUID&gt;<span class="w"> </span>Fleksy.app
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can find the UUID of your simulator by running : <code>xcrun simctl list</code> and finding which one is <code>Booted</code>.</p>
+</div>
+<p>Once the app is installed, start it :</p>
+<p><img alt="" src="../assets/fleksy_setup_1.png" /></p>
+<p>Click "Add Keyboard" :</p>
+<p><img alt="" src="../assets/fleksy_setup_2.png" width="250" /></p>
+<p>Then go to "General" :</p>
+<p><img alt="" src="../assets/ios_setup_5.png" width="250" /></p>
+<p>Then go to "Keyboard" :</p>
+<p><img alt="" src="../assets/ios_setup_6.png" width="250" /></p>
+<p>Then go to "Keyboards" :</p>
+<p><img alt="" src="../assets/fleksy_setup_3.png" width="250" /></p>
+<p>Then click "Add New Keyboard" :</p>
+<p><img alt="" src="../assets/fleksy_setup_4.png" width="250" /></p>
+<p>And select "Fleksy For Research" :</p>
+<p><img alt="" src="../assets/fleksy_setup_5.png" width="250" /></p>
+<p>Then select the Fleksy keyboard you just installed :</p>
+<p><img alt="" src="../assets/fleksy_setup_6.png" width="250" /></p>
+<p>And enable "Full Access" :</p>
+<p><img alt="" src="../assets/fleksy_setup_7.png" width="250" /></p>
+<hr />
+<p>Once enabled, you still need to select the right keyboard ! Open the keyboard using any text field, and hold the switch keyboard key. You can then select the keyboard you want to test :</p>
+<p><img alt="" src="../assets/fleksy_setup_8.png" width="250" /></p>
+<hr />
+<p>And similarly to the default iOS keyboard, you should enable predictions and auto-corrections :</p>
+<ul>
+<li>Go to "Settings" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_4.png" width="250" /></p>
+<ul>
+<li>Then go to "General" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_5.png" width="250" /></p>
+<ul>
+<li>Then go to "Keyboard" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_6.png" width="250" /></p>
+<ul>
+<li>Then enable "Auto-Correction" and "Predictive Text" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_7.png" width="250" /></p>
+<h3 id="preparing-keyboardkit">Preparing KeyboardKit</h3>
+<p><a href="https://keyboardkit.com/">KeyboardKit</a> is an open-source SDK that lets you create a custom keyboard. They provide a demo keyboard that we can use to test its performance.</p>
+<p>Before being able to run <code>kebbie evaluate</code> to benchmark KeyboardKit, you need to install the demo keyboard on your simulator.</p>
+<p>First, clone the repository and open the project in Xcode :</p>
+<div class="highlight"><pre><span></span><code>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/KeyboardKit/KeyboardKit.git
+<span class="nb">cd</span><span class="w"> </span>KeyboardKit
+open<span class="w"> </span>Demo/Demo.xcodeproj
+</code></pre></div>
+<p>Then, from Xcode, select the <code>Demo</code> project, select the right simulator, and press the play button :</p>
+<p><img alt="" src="../assets/kbkit_setup_1.png" /></p>
+<p>It should start the simulator, with KeyboardKit installed.</p>
+<hr />
+<p>Once the simulator started, you need to enable the KeyboardKit keyboard and allow full access :</p>
+<p><img alt="" src="../assets/kbkit_setup_2.png" width="250" /></p>
+<p><img alt="" src="../assets/kbkit_setup_3.png" width="250" /></p>
+<p><img alt="" src="../assets/kbkit_setup_4.png" width="250" /></p>
+<hr />
+<p>Once enabled, you still need to select the right keyboard ! Open the keyboard using any text field, and hold the switch keyboard key. You can then select the keyboard you want to test :</p>
+<p><img alt="" src="../assets/kbkit_setup_5.png" width="250" /></p>
+<hr />
+<p>And similarly to the default iOS keyboard, you should enable predictions and auto-corrections :</p>
+<ul>
+<li>Go to "Settings" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_4.png" width="250" /></p>
+<ul>
+<li>Then go to "General" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_5.png" width="250" /></p>
+<ul>
+<li>Then go to "Keyboard" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_6.png" width="250" /></p>
+<ul>
+<li>Then enable "Auto-Correction" and "Predictive Text" :</li>
+</ul>
+<p><img alt="" src="../assets/ios_setup_7.png" width="250" /></p>
+<h2 id="parallel-emulators">Parallel emulators</h2>
+<p>In order to run tests faster, we can setup multiple emulators, and run the <a class="autorefs autorefs-internal" href="../public_api/#kebbie.evaluate">evaluate()</a> function in parallel. Let's see how to set up multiple emulators for both Android and iOS.</p>
+<h3 id="android">Android</h3>
+<p>First, follow the section above to <a href="#setting-up-android-emulator">setup one Android emulator</a>.</p>
+<p>Once it's done, you can simply clone it from Android Studio :</p>
+<p><img alt="" src="../assets/emu_setup_2.png" /></p>
+<p>Clone it several times. Once the emulators are created, you should be able to list them from the command line :</p>
+<div class="highlight"><pre><span></span><code>emulator<span class="w"> </span>-list-avds
+</code></pre></div>
+<p>Then open several terminal, and in each terminal open one emulator :</p>
+<div class="highlight"><pre><span></span><code>emulator<span class="w"> </span>-avd<span class="w"> </span>&lt;name&gt;<span class="w"> </span>-no-snapshot-load
+</code></pre></div>
+<p>After they started, you should be able to see them with :</p>
+<div class="highlight"><pre><span></span><code>adb<span class="w"> </span>devices
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Once you can see the emulators with the <code>adb devices</code> command, there is nothing else to do ! You can run the <code>kebbie</code> CLI just like you would do for a single emulator : the CLI will detect the running emulators with the <code>adb devices</code> command.</p>
+</div>
+<h3 id="ios">iOS</h3>
+<p>First, follow the section above to <a href="#setting-up-ios-emulator">setup one iOS simulator</a> and make sure everything works for a single device.</p>
+<p>Once it's done, you can list the device availables :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>list
+</code></pre></div>
+<p>Example of emulators listed :</p>
+<div class="highlight"><pre><span></span><code>-- iOS 17.4 --
+    iPhone SE (3rd generation) (96ADAD77-ECE6-420E-B56C-505E0C16231B) (Shutdown)
+    iPhone 15 (128F95FC-F499-4B09-A3B2-55937BF52B0B) (Shutdown)
+    iPhone 15 Plus (86591FC6-B3E7-43A2-9E9B-D4A2A90DAF31) (Shutdown)
+    iPhone 15 Pro (9D38F87D-273B-4D8F-8AD5-E901C1974C1E) (Shutdown)
+    iPhone 15 Pro Max (15EF57B4-69E6-4369-9534-70692A2023E5) (Shutdown)
+    iPad Air (5th generation) (252D522B-CEAA-4085-BE17-A453BC219755) (Shutdown)
+    iPad (10th generation) (39F2ADD2-2FCF-44C3-9DC9-4CC4D50875E9) (Shutdown)
+    iPad mini (6th generation) (59125B84-4ED1-40C1-8457-3CE824394385) (Shutdown)
+    iPad Pro (11-inch) (4th generation) (DB122D71-F358-48DA-B11C-D25305657E7F) (Shutdown)
+    iPad Pro (12.9-inch) (6th generation) (1100927A-B631-4678-AB19-02EA4F680537) (Shutdown)
+</code></pre></div>
+<p>Select the UUID of the device you would like to run in parallel, and clone it with :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>clone<span class="w"> </span>&lt;UUID&gt;<span class="w"> </span>&lt;new_name&gt;
+</code></pre></div>
+<p>So for example, to have 4 parallel <code>iPhone 15 Pro</code>, you should run :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>clone<span class="w"> </span>9D38F87D-273B-4D8F-8AD5-E901C1974C1E<span class="w"> </span>iPhone_15_2
+xcrun<span class="w"> </span>simctl<span class="w"> </span>clone<span class="w"> </span>9D38F87D-273B-4D8F-8AD5-E901C1974C1E<span class="w"> </span>iPhone_15_3
+xcrun<span class="w"> </span>simctl<span class="w"> </span>clone<span class="w"> </span>9D38F87D-273B-4D8F-8AD5-E901C1974C1E<span class="w"> </span>iPhone_15_4
+</code></pre></div>
+<hr />
+<p>Once this is done, you should see them listed when running :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>list
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>-- iOS 17.4 --
+    iPhone SE (3rd generation) (96ADAD77-ECE6-420E-B56C-505E0C16231B) (Shutdown)
+    iPhone 15 (128F95FC-F499-4B09-A3B2-55937BF52B0B) (Shutdown)
+    iPhone 15 Plus (86591FC6-B3E7-43A2-9E9B-D4A2A90DAF31) (Shutdown)
+    iPhone 15 Pro (9D38F87D-273B-4D8F-8AD5-E901C1974C1E) (Booted)
+    iPhone_15_2 (C423F3BC-BC3A-4FFC-B264-C6075B60115F) (Shutdown)
+    iPhone_15_3 (2BEB33D0-8F33-4987-95FC-FD9B7C2BD54D) (Shutdown)
+    iPhone_15_4 (EE0719E9-FF3C-4539-9BCD-9F091B469F93) (Shutdown)
+    iPhone 15 Pro Max (15EF57B4-69E6-4369-9534-70692A2023E5) (Shutdown)
+    iPad Air (5th generation) (252D522B-CEAA-4085-BE17-A453BC219755) (Shutdown)
+    iPad (10th generation) (39F2ADD2-2FCF-44C3-9DC9-4CC4D50875E9) (Shutdown)
+    iPad mini (6th generation) (59125B84-4ED1-40C1-8457-3CE824394385) (Shutdown)
+    iPad Pro (11-inch) (4th generation) (DB122D71-F358-48DA-B11C-D25305657E7F) (Shutdown)
+    iPad Pro (12.9-inch) (6th generation) (1100927A-B631-4678-AB19-02EA4F680537) (Shutdown)
+</code></pre></div>
+<p>Then you can start each simulator with :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>boot<span class="w"> </span>&lt;UUID&gt;
+</code></pre></div>
+<p>For example, to start the 4 simulators we just created, you would run :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>boot<span class="w"> </span>9D38F87D-273B-4D8F-8AD5-E901C1974C1E
+xcrun<span class="w"> </span>simctl<span class="w"> </span>boot<span class="w"> </span>C423F3BC-BC3A-4FFC-B264-C6075B60115F
+xcrun<span class="w"> </span>simctl<span class="w"> </span>boot<span class="w"> </span>2BEB33D0-8F33-4987-95FC-FD9B7C2BD54D
+xcrun<span class="w"> </span>simctl<span class="w"> </span>boot<span class="w"> </span>EE0719E9-FF3C-4539-9BCD-9F091B469F93
+</code></pre></div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Once the simulators started, there is nothing else to do ! You can run the <code>kebbie</code> CLI just like you would do for a single emulator : the CLI will automatically detect the running emulators with the <code>xcrun simctl list</code> command.</p>
+<p>However, make sure to enable auto-correction and predictive suggestions in each of the simulator (see <a href="#preparing-ios-keyboard">Preparing the iOS Keyboard</a> for more information)</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>The <code>xcrun simctl boot</code> command only launch the simulator background service, to launch the foreground GUI, run :</p>
+<div class="highlight"><pre><span></span><code>open<span class="w"> </span>-a<span class="w"> </span>Simulator
+</code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To shutdown a simulator, run :</p>
+<div class="highlight"><pre><span></span><code>xcrun<span class="w"> </span>simctl<span class="w"> </span>shutdown<span class="w"> </span>&lt;UUID&gt;
+</code></pre></div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.sections", "content.code.copy"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.5cfa9459.min.js"></script>
+      
+        <script src="https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js"></script>
+      
+        <script src="../javascripts/tablesort.js"></script>
+      
+    
+  </body>
+</html>

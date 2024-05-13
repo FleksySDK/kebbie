@@ -1,0 +1,362 @@
+{
+    "next_word_prediction": {
+        "score": {
+            "accuracy": 0.075,
+            "top3_accuracy": 0.33,
+            "n": 2436
+        },
+        "per_domain": {
+            "narrative": {
+                "accuracy": 0.068,
+                "top3_accuracy": 0.31,
+                "n": 1556
+            },
+            "dialogue": {
+                "accuracy": 0.087,
+                "top3_accuracy": 0.38,
+                "n": 880
+            }
+        },
+        "performances": {
+            "mean_memory": "900 KB",
+            "min_memory": "642 KB",
+            "max_memory": "929 KB",
+            "mean_runtime": "1.44 s",
+            "fastest_runtime": "496 ms",
+            "slowest_runtime": "16.5 s"
+        }
+    },
+    "auto_completion": {
+        "score": {
+            "accuracy": 0,
+            "top3_accuracy": 0.79,
+            "n": 2426
+        },
+        "per_domain": {
+            "narrative": {
+                "accuracy": 0,
+                "top3_accuracy": 0.76,
+                "n": 1557
+            },
+            "dialogue": {
+                "accuracy": 0,
+                "top3_accuracy": 0.85,
+                "n": 869
+            }
+        },
+        "per_completion_rate": {
+            "<25%": {
+                "accuracy": 0,
+                "top3_accuracy": 0.36,
+                "n": 73
+            },
+            "25%~50%": {
+                "accuracy": 0,
+                "top3_accuracy": 0.61,
+                "n": 435
+            },
+            "50%~75%": {
+                "accuracy": 0,
+                "top3_accuracy": 0.83,
+                "n": 1363
+            },
+            ">75%": {
+                "accuracy": 0,
+                "top3_accuracy": 0.89,
+                "n": 555
+            }
+        },
+        "per_other": {
+            "without_typo": {
+                "accuracy": 0,
+                "top3_accuracy": 0.82,
+                "n": 2247
+            },
+            "with_typo": {
+                "accuracy": 0,
+                "top3_accuracy": 0.44,
+                "n": 179
+            }
+        },
+        "performances": {
+            "mean_memory": "899 KB",
+            "min_memory": "621 KB",
+            "max_memory": "929 KB",
+            "mean_runtime": "17 s",
+            "fastest_runtime": "9.96 s",
+            "slowest_runtime": "59.9 s"
+        }
+    },
+    "auto_correction": {
+        "score": {
+            "accuracy": 0.96,
+            "precision": 0.92,
+            "recall": 0.72,
+            "fscore": 0.82,
+            "top3_accuracy": 0.97,
+            "top3_precision": 0.93,
+            "top3_recall": 0.83,
+            "top3_fscore": 0.88,
+            "n_typo": 328,
+            "n": 2531
+        },
+        "per_domain": {
+            "narrative": {
+                "accuracy": 0.95,
+                "precision": 0.89,
+                "recall": 0.66,
+                "fscore": 0.77,
+                "top3_accuracy": 0.96,
+                "top3_precision": 0.91,
+                "top3_recall": 0.79,
+                "top3_fscore": 0.85,
+                "n_typo": 204,
+                "n": 1601
+            },
+            "dialogue": {
+                "accuracy": 0.97,
+                "precision": 0.96,
+                "recall": 0.82,
+                "fscore": 0.89,
+                "top3_accuracy": 0.98,
+                "top3_precision": 0.97,
+                "top3_recall": 0.9,
+                "top3_fscore": 0.93,
+                "n_typo": 124,
+                "n": 930
+            }
+        },
+        "per_typo_type": {
+            "DELETE_SPELLING_SYMBOL": {
+                "accuracy": 0.96,
+                "precision": 0.9,
+                "recall": 0.82,
+                "fscore": 0.86,
+                "top3_accuracy": 0.96,
+                "top3_precision": 0.9,
+                "top3_recall": 0.82,
+                "top3_fscore": 0.86,
+                "n_typo": 11,
+                "n": 85
+            },
+            "DELETE_SPACE": {
+                "accuracy": 0.99,
+                "precision": 1.0,
+                "recall": 0.89,
+                "fscore": 0.95,
+                "top3_accuracy": 1.0,
+                "top3_precision": 1.0,
+                "top3_recall": 1.0,
+                "top3_fscore": 1.0,
+                "n_typo": 9,
+                "n": 69
+            },
+            "DELETE_PUNCTUATION": {
+                "accuracy": 0,
+                "precision": 0,
+                "recall": 0,
+                "fscore": 0,
+                "top3_accuracy": 0,
+                "top3_precision": 0,
+                "top3_recall": 0,
+                "top3_fscore": 0,
+                "n_typo": 0,
+                "n": 0
+            },
+            "DELETE_CHAR": {
+                "accuracy": 0.95,
+                "precision": 0.89,
+                "recall": 0.73,
+                "fscore": 0.81,
+                "top3_accuracy": 0.96,
+                "top3_precision": 0.89,
+                "top3_recall": 0.77,
+                "top3_fscore": 0.84,
+                "n_typo": 22,
+                "n": 170
+            },
+            "ADD_SPELLING_SYMBOL": {
+                "accuracy": 0,
+                "precision": 0,
+                "recall": 0,
+                "fscore": 0,
+                "top3_accuracy": 0,
+                "top3_precision": 0,
+                "top3_recall": 0,
+                "top3_fscore": 0,
+                "n_typo": 0,
+                "n": 0
+            },
+            "ADD_SPACE": {
+                "accuracy": 0,
+                "precision": 0,
+                "recall": 0,
+                "fscore": 0,
+                "top3_accuracy": 0,
+                "top3_precision": 0,
+                "top3_recall": 0,
+                "top3_fscore": 0,
+                "n_typo": 0,
+                "n": 0
+            },
+            "ADD_PUNCTUATION": {
+                "accuracy": 0,
+                "precision": 0,
+                "recall": 0,
+                "fscore": 0,
+                "top3_accuracy": 0,
+                "top3_precision": 0,
+                "top3_recall": 0,
+                "top3_fscore": 0,
+                "n_typo": 0,
+                "n": 0
+            },
+            "ADD_CHAR": {
+                "accuracy": 0.97,
+                "precision": 0.91,
+                "recall": 0.86,
+                "fscore": 0.89,
+                "top3_accuracy": 0.98,
+                "top3_precision": 0.92,
+                "top3_recall": 0.92,
+                "top3_fscore": 0.92,
+                "n_typo": 37,
+                "n": 286
+            },
+            "SUBSTITUTE_CHAR": {
+                "accuracy": 0.96,
+                "precision": 0.93,
+                "recall": 0.77,
+                "fscore": 0.85,
+                "top3_accuracy": 0.98,
+                "top3_precision": 0.94,
+                "top3_recall": 0.87,
+                "top3_fscore": 0.91,
+                "n_typo": 53,
+                "n": 409
+            },
+            "SIMPLIFY_ACCENT": {
+                "accuracy": 0,
+                "precision": 0,
+                "recall": 0,
+                "fscore": 0,
+                "top3_accuracy": 0,
+                "top3_precision": 0,
+                "top3_recall": 0,
+                "top3_fscore": 0,
+                "n_typo": 0,
+                "n": 0
+            },
+            "SIMPLIFY_CASE": {
+                "accuracy": 0.88,
+                "precision": 0.6,
+                "recall": 0.16,
+                "fscore": 0.27,
+                "top3_accuracy": 0.95,
+                "top3_precision": 0.87,
+                "top3_recall": 0.68,
+                "top3_fscore": 0.77,
+                "n_typo": 19,
+                "n": 147
+            },
+            "TRANSPOSE_CHAR": {
+                "accuracy": 0.97,
+                "precision": 0.92,
+                "recall": 0.81,
+                "fscore": 0.87,
+                "top3_accuracy": 0.97,
+                "top3_precision": 0.93,
+                "top3_recall": 0.87,
+                "top3_fscore": 0.9,
+                "n_typo": 75,
+                "n": 579
+            },
+            "COMMON_TYPO": {
+                "accuracy": 0.95,
+                "precision": 0.92,
+                "recall": 0.67,
+                "fscore": 0.79,
+                "top3_accuracy": 0.97,
+                "top3_precision": 0.93,
+                "top3_recall": 0.83,
+                "top3_fscore": 0.88,
+                "n_typo": 83,
+                "n": 640
+            }
+        },
+        "per_number_of_typos": {
+            "1": {
+                "accuracy": 0.96,
+                "precision": 0.91,
+                "recall": 0.73,
+                "fscore": 0.82,
+                "top3_accuracy": 0.97,
+                "top3_precision": 0.93,
+                "top3_recall": 0.85,
+                "top3_fscore": 0.89,
+                "n_typo": 309,
+                "n": 2385
+            },
+            "2": {
+                "accuracy": 0.94,
+                "precision": 0.91,
+                "recall": 0.62,
+                "fscore": 0.76,
+                "top3_accuracy": 0.94,
+                "top3_precision": 0.91,
+                "top3_recall": 0.62,
+                "top3_fscore": 0.76,
+                "n_typo": 16,
+                "n": 123
+            },
+            "3+": {
+                "accuracy": 0.87,
+                "precision": 0,
+                "recall": 0,
+                "fscore": 0,
+                "top3_accuracy": 0.91,
+                "top3_precision": 1.0,
+                "top3_recall": 0.33,
+                "top3_fscore": 0.53,
+                "n_typo": 3,
+                "n": 23
+            }
+        },
+        "performances": {
+            "mean_memory": "900 KB",
+            "min_memory": "639 KB",
+            "max_memory": "929 KB",
+            "mean_runtime": "23.8 s",
+            "fastest_runtime": "19.1 s",
+            "slowest_runtime": "63.6 s"
+        }
+    },
+    "swipe_resolution": {
+        "score": {
+            "accuracy": 0,
+            "top3_accuracy": 0,
+            "n": 19
+        },
+        "per_domain": {
+            "narrative": {
+                "accuracy": 0,
+                "top3_accuracy": 0,
+                "n": 13
+            },
+            "dialogue": {
+                "accuracy": 0,
+                "top3_accuracy": 0,
+                "n": 6
+            }
+        },
+        "performances": {
+            "mean_memory": "894 KB",
+            "min_memory": "688 KB",
+            "max_memory": "929 KB",
+            "mean_runtime": "20.5 μs",
+            "fastest_runtime": "9.54 μs",
+            "slowest_runtime": "47.7 μs"
+        }
+    },
+    "overall_score": 0.5355000000000001
+}
