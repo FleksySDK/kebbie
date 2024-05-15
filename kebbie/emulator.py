@@ -32,6 +32,7 @@ TAPPA = "tappa"
 FLEKSY = "fleksy"
 KBKITPRO = "kbkitpro"
 KBKITOSS = "kbkitoss"
+SWIFTKEY = "swiftkey"
 ANDROID_CAPABILITIES = {
     "platformName": "android",
     "automationName": "UiAutomator2",
@@ -312,10 +313,13 @@ class Emulator:
         elif self.keyboard == KBKITOSS:
             self.detected = KbkitossLayoutDetector(self.driver, self._tap)
             self.layout = self.detected.layout
+        elif self.keyboard == SWIFTKEY:
+            self.detected = SwiftkeyLayoutDetector(self.driver, self._tap)
+            self.layout = self.detected.layout
         else:
             raise ValueError(
-                f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, `{FLEKSY}`, `{KBKITPRO}`, "
-                f"`{KBKITOSS}` or `{IOS}`."
+                f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, `{FLEKSY}`, "
+                f"`{SWIFTKEY}`, `{KBKITPRO}`, `{KBKITOSS}` or `{IOS}`."
             )
 
         self.typing_field.clear()
@@ -1008,6 +1012,38 @@ class KbkitossLayoutDetector(LayoutDetector):
 
         return suggestions
 
+class SwiftkeyLayoutDetector(LayoutDetector):
+    """Layout detector for the Swiftkey keyboard. See `LayoutDetector` for more
+    information.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            *args,
+            xpath_root="./*/*[@package='com.touchtype.swiftkey']",
+            xpath_keys=".//*[@class='android.view.View'][@content-desc]",
+            **kwargs,
+        )
+
+    def get_suggestions(self) -> List[str]:
+        """Method to retrieve the keyboard suggestions from the XML tree.
+
+        Returns:
+            List of suggestions from the keyboard.
+        """
+        suggestions = []
+
+        # Get the raw content as text, weed out useless elements
+        for data in self.driver.page_source.split("<android.widget.FrameLayout"):
+            if "com.touchtype.swiftkey" in data:
+                sections = data.split("<android.view.View")
+                if len(sections) == 3:
+                    for section in sections:
+                        m = re.search(r"content-desc=\"([^\"]*)\"", section)
+                        if m:
+                            suggestions.append(html.unescape(m.group(1)))
+
+        return suggestions
 
 class TappaLayoutDetector(LayoutDetector):
     """Layout detector for the Tappa keyboard. See `LayoutDetector` for more
