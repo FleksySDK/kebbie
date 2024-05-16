@@ -267,7 +267,7 @@ class Emulator:
         port: str = "4723",
         ios_name: str = None,
         ios_platform: str = None,
-    ): # noqa: C901
+    ):  # noqa: C901
         super().__init__()
 
         self.platform = platform.lower()
@@ -366,17 +366,24 @@ class Emulator:
         return devices
 
     def select_keyboard(self, keyboard):
-        ime_list = subprocess.check_output(['adb', 'shell', 'ime', 'list', '-s'], universal_newlines=True)
+        """Searches the IME of the desired keyboard and selects it, only for Android.
+
+        Args:
+            keyboard (str): Keyboard to searc
+        """
+        ime_list = subprocess.check_output(["adb", "shell", "ime", "list", "-s"], universal_newlines=True)
         ime_name = None
-        for ime in ime_list.strip().split('\n'):
+        for ime in ime_list.strip().split("\n"):
             if KEYBOARD_PACKAGE[keyboard] in ime:
                 ime_name = ime
                 break
         if ime_name:
-            subprocess.run(['adb', 'shell', 'settings', 'put', 'secure', 'show_ime_with_hard_keyboard', '1'],
-                           stdout=subprocess.PIPE)
-            subprocess.run(['adb', 'shell', 'ime', 'enable', ime_name], stdout=subprocess.PIPE)
-            subprocess.run(['adb', 'shell', 'ime', 'set', ime_name], stdout=subprocess.PIPE)
+            subprocess.run(
+                ["adb", "shell", "settings", "put", "secure", "show_ime_with_hard_keyboard", "1"],
+                stdout=subprocess.PIPE,
+            )
+            subprocess.run(["adb", "shell", "ime", "enable", ime_name], stdout=subprocess.PIPE)
+            subprocess.run(["adb", "shell", "ime", "set", ime_name], stdout=subprocess.PIPE)
 
     def get_ios_devices() -> List[Tuple[str, str]]:
         """Static method that uses the `xcrun simctl` command to retrieve the
@@ -1034,6 +1041,7 @@ class KbkitossLayoutDetector(LayoutDetector):
 
         return suggestions
 
+
 class SwiftkeyLayoutDetector(LayoutDetector):
     """Layout detector for the Swiftkey keyboard. See `LayoutDetector` for more
     information.
@@ -1066,6 +1074,7 @@ class SwiftkeyLayoutDetector(LayoutDetector):
                             suggestions.append(html.unescape(m.group(1)))
 
         return suggestions
+
 
 class TappaLayoutDetector(LayoutDetector):
     """Layout detector for the Tappa keyboard. See `LayoutDetector` for more
