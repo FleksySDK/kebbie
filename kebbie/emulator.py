@@ -33,6 +33,11 @@ FLEKSY = "fleksy"
 KBKITPRO = "kbkitpro"
 KBKITOSS = "kbkitoss"
 SWIFTKEY = "swiftkey"
+KEYBOARD_PACKAGE = {
+    GBOARD: "com.google.android.inputmethod.latin",
+    SWIFTKEY: "com.touchtype.swiftkey",
+    TAPPA: "com.tappa.keyboard",
+}
 ANDROID_CAPABILITIES = {
     "platformName": "android",
     "automationName": "UiAutomator2",
@@ -294,6 +299,10 @@ class Emulator:
         self.last_char_is_space = False
         self.last_char_is_eos = False
 
+        # Set the keyboard as default
+        if self.platform == ANDROID:
+            self.select_keyboard(keyboard)
+
         # Get the right layout
         if self.keyboard == GBOARD:
             self.detected = GboardLayoutDetector(self.driver, self._tap)
@@ -355,6 +364,19 @@ class Emulator:
         devices = result.stdout.decode().split("\n")
         devices = [d.split()[0] for d in devices if not (d.startswith("List of devices attached") or len(d) == 0)]
         return devices
+
+    def select_keyboard(self, keyboard):
+        ime_list = subprocess.check_output(['adb', 'shell', 'ime', 'list', '-s'], universal_newlines=True)
+        ime_name = None
+        for ime in ime_list.strip().split('\n'):
+            if KEYBOARD_PACKAGE[keyboard] in ime:
+                ime_name = ime
+                break
+        if ime_name:
+            subprocess.run(['adb', 'shell', 'settings', 'put', 'secure', 'show_ime_with_hard_keyboard', '1'],
+                           stdout=subprocess.PIPE)
+            subprocess.run(['adb', 'shell', 'ime', 'enable', ime_name], stdout=subprocess.PIPE)
+            subprocess.run(['adb', 'shell', 'ime', 'set', ime_name], stdout=subprocess.PIPE)
 
     def get_ios_devices() -> List[Tuple[str, str]]:
         """Static method that uses the `xcrun simctl` command to retrieve the
@@ -870,7 +892,7 @@ class GboardLayoutDetector(LayoutDetector):
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
-            xpath_root="./*/*[@package='com.google.android.inputmethod.latin']",
+            xpath_root="./*/*[@package='" + KEYBOARD_PACKAGE[GBOARD] + "']",
             xpath_keys=".//*[@resource-id][@content-desc]",
             **kwargs,
         )
@@ -1020,7 +1042,7 @@ class SwiftkeyLayoutDetector(LayoutDetector):
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
-            xpath_root="./*/*[@package='com.touchtype.swiftkey']",
+            xpath_root="./*/*[@package='" + KEYBOARD_PACKAGE[SWIFTKEY] + "']",
             xpath_keys=".//*[@class='android.view.View'][@content-desc]",
             **kwargs,
         )
@@ -1053,7 +1075,7 @@ class TappaLayoutDetector(LayoutDetector):
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
-            xpath_root="./*/*[@package='com.tappa.keyboard']",
+            xpath_root="./*/*[@package='" + KEYBOARD_PACKAGE[TAPPA] + "']",
             xpath_keys=".//com.mocha.keyboard.inputmethod.keyboard.Key",
             **kwargs,
         )
@@ -1067,7 +1089,7 @@ class TappaLayoutDetector(LayoutDetector):
         suggestions = []
 
         # Get the raw content as text, weed out useless elements
-        section = self.driver.page_source.split("com.tappa.keyboard:id/toolbar")[1].split(
+        section = self.driver.page_source.split(KEYBOARD_PACKAGE[TAPPA] + ":id/toolbar")[1].split(
             "</android.widget.FrameLayout>"
         )[0]
 
