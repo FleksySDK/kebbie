@@ -267,7 +267,7 @@ class Emulator:
         port: str = "4723",
         ios_name: str = None,
         ios_platform: str = None,
-    ):
+    ): # noqa: C901
         super().__init__()
 
         self.platform = platform.lower()
