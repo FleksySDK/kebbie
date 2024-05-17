@@ -258,7 +258,7 @@ class Emulator:
         ValueError: Error raised if the given platform doesn't exist.
     """
 
-    def __init__(
+    def __init__(  # noqa: C901
         self,
         platform: str,
         keyboard: str,
@@ -267,7 +267,7 @@ class Emulator:
         port: str = "4723",
         ios_name: str = None,
         ios_platform: str = None,
-    ):  # noqa: C901
+    ):
         super().__init__()
 
         self.platform = platform.lower()
