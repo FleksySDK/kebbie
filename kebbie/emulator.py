@@ -32,6 +32,12 @@ TAPPA = "tappa"
 FLEKSY = "fleksy"
 KBKITPRO = "kbkitpro"
 KBKITOSS = "kbkitoss"
+SWIFTKEY = "swiftkey"
+KEYBOARD_PACKAGE = {
+    GBOARD: "com.google.android.inputmethod.latin",
+    SWIFTKEY: "com.touchtype.swiftkey",
+    TAPPA: "com.tappa.keyboard",
+}
 ANDROID_CAPABILITIES = {
     "platformName": "android",
     "automationName": "UiAutomator2",
@@ -98,10 +104,13 @@ CONTENT_TO_RENAME = {
     "Keyboard Type - emojis": "smiley",
     "Search": "enter",
     "return": "enter",
+    "Enter": "enter",
     "Symbol keyboard": "numbers",
     "Symbols": "numbers",
+    "Symbols and numbers": "numbers",
     "Keyboard Type - numeric": "numbers",
     "Voice input": "mic",
+    ",, alternatives available, Voice typing, long press to activate": "mic",
     "Close features menu": "magic",
     "Open features menu": "magic",
     "underline": "_",
@@ -123,7 +132,35 @@ CONTENT_TO_RENAME = {
     "Digit keyboard": "numbers",
     "More symbols": "shift",
     "Keyboard Type - symbolic": "shift",
+    "Double tap for uppercase": "shift",
+    "Double tap for caps lock": "shift",
+    "capital Q": "Q",
+    "capital W": "W",
+    "capital E": "E",
+    "capital R": "R",
+    "capital T": "T",
+    "capital Y": "Y",
+    "capital U": "U",
+    "capital I": "I",
     "Capital I": "I",
+    "capital O": "O",
+    "capital P": "P",
+    "capital A": "A",
+    "capital S": "S",
+    "capital D": "D",
+    "capital F": "F",
+    "capital G": "G",
+    "capital H": "H",
+    "capital J": "J",
+    "capital K": "K",
+    "capital L": "L",
+    "capital Z": "Z",
+    "capital X": "X",
+    "capital C": "C",
+    "capital V": "V",
+    "capital B": "B",
+    "capital N": "N",
+    "capital M": "M",
 }
 FLEKSY_LAYOUT = {
     "keyboard_frame": [0, 517, 393, 266],  # Only the keyboard frame is defined as absolute position
@@ -252,7 +289,7 @@ class Emulator:
         ValueError: Error raised if the given platform doesn't exist.
     """
 
-    def __init__(
+    def __init__(  # noqa: C901
         self,
         platform: str,
         keyboard: str,
@@ -293,6 +330,10 @@ class Emulator:
         self.last_char_is_space = False
         self.last_char_is_eos = False
 
+        # Set the keyboard as default
+        if self.platform == ANDROID:
+            self.select_keyboard(keyboard)
+
         # Get the right layout
         if self.keyboard == GBOARD:
             self.detected = GboardLayoutDetector(self.driver, self._tap)
@@ -312,10 +353,13 @@ class Emulator:
         elif self.keyboard == KBKITOSS:
             self.detected = KbkitossLayoutDetector(self.driver, self._tap)
             self.layout = self.detected.layout
+        elif self.keyboard == SWIFTKEY:
+            self.detected = SwiftkeyLayoutDetector(self.driver, self._tap)
+            self.layout = self.detected.layout
         else:
             raise ValueError(
-                f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, `{FLEKSY}`, `{KBKITPRO}`, "
-                f"`{KBKITOSS}` or `{IOS}`."
+                f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, `{FLEKSY}`, "
+                f"`{SWIFTKEY}`, `{KBKITPRO}`, `{KBKITOSS}` or `{IOS}`."
             )
 
         self.typing_field.clear()
@@ -351,6 +395,33 @@ class Emulator:
         devices = result.stdout.decode().split("\n")
         devices = [d.split()[0] for d in devices if not (d.startswith("List of devices attached") or len(d) == 0)]
         return devices
+
+    def select_keyboard(self, keyboard):
+        """Searches the IME of the desired keyboard and selects it, only for Android.
+
+        Args:
+            keyboard (str): Keyboard to search.
+        """
+        if keyboard not in KEYBOARD_PACKAGE:
+            print(
+                f"Warning ! {keyboard}'s IME isn't provided (in `KEYBOARD_PACKAGE`), can't automatically select the "
+                "keyboard."
+            )
+            return
+
+        ime_list = subprocess.check_output(["adb", "shell", "ime", "list", "-s"], universal_newlines=True)
+        ime_name = None
+        for ime in ime_list.strip().split("\n"):
+            if KEYBOARD_PACKAGE[keyboard] in ime:
+                ime_name = ime
+                break
+        if ime_name:
+            subprocess.run(
+                ["adb", "shell", "settings", "put", "secure", "show_ime_with_hard_keyboard", "1"],
+                stdout=subprocess.PIPE,
+            )
+            subprocess.run(["adb", "shell", "ime", "enable", ime_name], stdout=subprocess.PIPE)
+            subprocess.run(["adb", "shell", "ime", "set", ime_name], stdout=subprocess.PIPE)
 
     def get_ios_devices() -> List[Tuple[str, str]]:
         """Static method that uses the `xcrun simctl` command to retrieve the
@@ -453,6 +524,9 @@ class Emulator:
                 if self.kb_is_upper:
                     # If the keyboard is in uppercase mode, change it to lowercase
                     self._tap(self.layout["uppercase"]["shift"])
+                    if self.keyboard == SWIFTKEY:
+                        # Swiftkey needs double tap, otherwise we are capslocking
+                        self._tap(self.layout["uppercase"]["shift"])
                 self._tap(self.layout["lowercase"][c])
             elif c in self.layout["uppercase"]:
                 # The character is an uppercase character
@@ -470,9 +544,9 @@ class Emulator:
                     self._tap(self.layout["lowercase"]["numbers"])
                 self._tap(self.layout["numbers"][c])
 
-                if c != "'" or self.keyboard == GBOARD:
+                if c != "'" or self.keyboard in [GBOARD, SWIFTKEY]:
                     # For some reason, when `'` is typed, the keyboard automatically goes back
-                    # to lowercase, so no need to re-tap the button (unless the keyboard is GBoard).
+                    # to lowercase, so no need to re-tap the button (unless the keyboard is GBoard / Swiftkey).
                     # In all other cases, switch back to letters keyboard
                     self._tap(self.layout["numbers"]["letters"])
             else:
@@ -866,7 +940,7 @@ class GboardLayoutDetector(LayoutDetector):
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
-            xpath_root="./*/*[@package='com.google.android.inputmethod.latin']",
+            xpath_root=f"./*/*[@package='{KEYBOARD_PACKAGE[GBOARD]}']",
             xpath_keys=".//*[@resource-id][@content-desc]",
             **kwargs,
         )
@@ -1009,6 +1083,40 @@ class KbkitossLayoutDetector(LayoutDetector):
         return suggestions
 
 
+class SwiftkeyLayoutDetector(LayoutDetector):
+    """Layout detector for the Swiftkey keyboard. See `LayoutDetector` for more
+    information.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            *args,
+            xpath_root=f"./*/*[@package='{KEYBOARD_PACKAGE[SWIFTKEY]}']",
+            xpath_keys=".//*[@class='android.view.View'][@content-desc]",
+            **kwargs,
+        )
+
+    def get_suggestions(self) -> List[str]:
+        """Method to retrieve the keyboard suggestions from the XML tree.
+
+        Returns:
+            List of suggestions from the keyboard.
+        """
+        suggestions = []
+
+        # Get the raw content as text, weed out useless elements
+        for data in self.driver.page_source.split("<android.widget.FrameLayout"):
+            if "com.touchtype.swiftkey" in data and "<android.view.View " in data:
+                sections = data.split("<android.view.View ")
+                for section in sections[1:]:
+                    m = re.search(r"content-desc=\"([^\"]*)\"", section)
+                    if m:
+                        suggestions.append(html.unescape(m.group(1)))
+                break
+
+        return suggestions
+
+
 class TappaLayoutDetector(LayoutDetector):
     """Layout detector for the Tappa keyboard. See `LayoutDetector` for more
     information.
@@ -1017,7 +1125,7 @@ class TappaLayoutDetector(LayoutDetector):
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
-            xpath_root="./*/*[@package='com.tappa.keyboard']",
+            xpath_root=f"./*/*[@package='{KEYBOARD_PACKAGE[TAPPA]}']",
             xpath_keys=".//com.mocha.keyboard.inputmethod.keyboard.Key",
             **kwargs,
         )
@@ -1031,7 +1139,7 @@ class TappaLayoutDetector(LayoutDetector):
         suggestions = []
 
         # Get the raw content as text, weed out useless elements
-        section = self.driver.page_source.split("com.tappa.keyboard:id/toolbar")[1].split(
+        section = self.driver.page_source.split(f"{KEYBOARD_PACKAGE[TAPPA]}:id/toolbar")[1].split(
             "</android.widget.FrameLayout>"
         )[0]
 

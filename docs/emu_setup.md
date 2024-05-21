@@ -103,6 +103,40 @@ Make sure to disable the clipboard :
 !!! failure "Layout"
     For now, the only layout supported is `english US`. Make sure this is the layout GBoard is using.
 
+### Preparing Swiftkey
+
+Swiftkey keyboard isn't installed on the emulator by default : you need to install it first.
+
+!!! note
+    If you want to run the tests in parallel on several emulators, you need to repeat these steps for each emulator.
+
+Start the emulator, then go to Google, and paste [this link](https://play.google.com/store/apps/details?id=com.touchtype.swiftkey&hl=en_US&gl=US) to install Swiftkey.
+
+!!! tip
+    If the clipboard isn't shared with the emulator, open a terminal and run :
+
+    ```bash
+    adb shell input text "https://play.google.com/store/apps/details?id=com.touchtype.swiftkey&hl=en_US&gl=US"
+    ```
+
+Install the keyboard on your emulator :
+
+![](assets/swiftkey_setup_1.png){ width="300" }
+
+Open the app, follow the instructions to activate the keyboard.
+
+---
+
+By default, Swiftkey has the clipboard enabled, and it may interfere with the layout detection. You can disable the clipboard. First, access the clipboard settings :
+
+![](assets/swiftkey_setup_2.png){ width="300" }
+
+![](assets/swiftkey_setup_3.png){ width="300" }
+
+And disable the clipboard suggestions :
+
+![](assets/swiftkey_setup_4.png){ width="300" }
+
 ## Setting up iOS emulator
 
 ### Creating the emulator

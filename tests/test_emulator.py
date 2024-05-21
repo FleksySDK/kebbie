@@ -23,11 +23,13 @@ class SubprocessResult:
 def test_get_android_devices(monkeypatch):
     def android_subprocess(*args, **kwargs):
         return SubprocessResult(
-            DummyStdout("""List of devices attached
+            DummyStdout(
+                """List of devices attached
 emulator-5554	device
 emulator-5558	device
 
-""")
+"""
+            )
         )
 
     monkeypatch.setattr(subprocess, "run", android_subprocess)
@@ -42,7 +44,8 @@ emulator-5558	device
 def test_get_ios_devices(monkeypatch):
     def ios_subprocess(*args, **kwargs):
         return SubprocessResult(
-            DummyStdout("""== Devices ==
+            DummyStdout(
+                """== Devices ==
 -- iOS 14.4 --
     iPhone 12 mini (8A192CB8-A72C-4BBA-9A98-2476E66ABEF8) (Shutdown) (unavailable)
     iPhone 12 (C0E1F6AB-FDA5-4953-BB22-7CDB09D3B303) (Shutdown) (unavailable)
@@ -71,7 +74,8 @@ def test_get_ios_devices(monkeypatch):
     iPad mini (6th generation) (EC7F8EF2-D5A6-437B-9531-E2DBE924FB5A) (Shutdown) (unavailable)
     iPad Pro (11-inch) (4th generation) (49F56D2F-5722-41CD-9C11-D4979084DA3E) (Shutdown) (unavailable)
     iPad Pro (12.9-inch) (6th generation) (08E5485D-D293-4B7B-9831-F29D55EDA053) (Shutdown) (unavailable)
-""")
+"""
+            )
         )
 
     monkeypatch.setattr(subprocess, "run", ios_subprocess)
