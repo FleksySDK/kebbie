@@ -524,6 +524,9 @@ class Emulator:
                 if self.kb_is_upper:
                     # If the keyboard is in uppercase mode, change it to lowercase
                     self._tap(self.layout["uppercase"]["shift"])
+                    if self.keyboard == SWIFTKEY:
+                        # Swiftkey needs double tap, otherwise we are capslocking
+                        self._tap(self.layout["uppercase"]["shift"])
                 self._tap(self.layout["lowercase"][c])
             elif c in self.layout["uppercase"]:
                 # The character is an uppercase character
@@ -541,9 +544,9 @@ class Emulator:
                     self._tap(self.layout["lowercase"]["numbers"])
                 self._tap(self.layout["numbers"][c])
 
-                if c != "'" or self.keyboard == GBOARD:
+                if c != "'" or self.keyboard in [GBOARD, SWIFTKEY]:
                     # For some reason, when `'` is typed, the keyboard automatically goes back
-                    # to lowercase, so no need to re-tap the button (unless the keyboard is GBoard).
+                    # to lowercase, so no need to re-tap the button (unless the keyboard is GBoard / Swiftkey).
                     # In all other cases, switch back to letters keyboard
                     self._tap(self.layout["numbers"]["letters"])
             else:
