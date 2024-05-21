@@ -402,6 +402,13 @@ class Emulator:
         Args:
             keyboard (str): Keyboard to search.
         """
+        if keyboard not in KEYBOARD_PACKAGE:
+            print(
+                f"Warning ! {keyboard}'s IME isn't provided (in `KEYBOARD_PACKAGE`), can't automatically select the "
+                "keyboard."
+            )
+            return
+
         ime_list = subprocess.check_output(["adb", "shell", "ime", "list", "-s"], universal_newlines=True)
         ime_name = None
         for ime in ime_list.strip().split("\n"):
