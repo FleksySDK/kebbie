@@ -104,10 +104,13 @@ CONTENT_TO_RENAME = {
     "Keyboard Type - emojis": "smiley",
     "Search": "enter",
     "return": "enter",
+    "Enter": "enter",
     "Symbol keyboard": "numbers",
     "Symbols": "numbers",
+    "Symbols and numbers": "numbers",
     "Keyboard Type - numeric": "numbers",
     "Voice input": "mic",
+    ",, alternatives available, Voice typing, long press to activate": "mic",
     "Close features menu": "magic",
     "Open features menu": "magic",
     "underline": "_",
@@ -129,7 +132,35 @@ CONTENT_TO_RENAME = {
     "Digit keyboard": "numbers",
     "More symbols": "shift",
     "Keyboard Type - symbolic": "shift",
+    "Double tap for uppercase": "shift",
+    "Double tap for caps lock": "shift",
+    "capital Q": "Q",
+    "capital W": "W",
+    "capital E": "E",
+    "capital R": "R",
+    "capital T": "T",
+    "capital Y": "Y",
+    "capital U": "U",
+    "capital I": "I",
     "Capital I": "I",
+    "capital O": "O",
+    "capital P": "P",
+    "capital A": "A",
+    "capital S": "S",
+    "capital D": "D",
+    "capital F": "F",
+    "capital G": "G",
+    "capital H": "H",
+    "capital J": "J",
+    "capital K": "K",
+    "capital L": "L",
+    "capital Z": "Z",
+    "capital X": "X",
+    "capital C": "C",
+    "capital V": "V",
+    "capital B": "B",
+    "capital N": "N",
+    "capital M": "M",
 }
 FLEKSY_LAYOUT = {
     "keyboard_frame": [0, 517, 393, 266],  # Only the keyboard frame is defined as absolute position
@@ -1065,13 +1096,13 @@ class SwiftkeyLayoutDetector(LayoutDetector):
 
         # Get the raw content as text, weed out useless elements
         for data in self.driver.page_source.split("<android.widget.FrameLayout"):
-            if "com.touchtype.swiftkey" in data:
-                sections = data.split("<android.view.View")
-                if len(sections) == 3:
-                    for section in sections:
-                        m = re.search(r"content-desc=\"([^\"]*)\"", section)
-                        if m:
-                            suggestions.append(html.unescape(m.group(1)))
+            if "com.touchtype.swiftkey" in data and "<android.view.View " in data:
+                sections = data.split("<android.view.View ")
+                for section in sections[1:]:
+                    m = re.search(r"content-desc=\"([^\"]*)\"", section)
+                    if m:
+                        suggestions.append(html.unescape(m.group(1)))
+                break
 
         return suggestions
 
