@@ -400,7 +400,7 @@ class Emulator:
         """Searches the IME of the desired keyboard and selects it, only for Android.
 
         Args:
-            keyboard (str): Keyboard to searc
+            keyboard (str): Keyboard to search.
         """
         ime_list = subprocess.check_output(["adb", "shell", "ime", "list", "-s"], universal_newlines=True)
         ime_name = None
@@ -930,7 +930,7 @@ class GboardLayoutDetector(LayoutDetector):
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
-            xpath_root="./*/*[@package='" + KEYBOARD_PACKAGE[GBOARD] + "']",
+            xpath_root=f"./*/*[@package='{KEYBOARD_PACKAGE[GBOARD]}']",
             xpath_keys=".//*[@resource-id][@content-desc]",
             **kwargs,
         )
@@ -1081,7 +1081,7 @@ class SwiftkeyLayoutDetector(LayoutDetector):
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
-            xpath_root="./*/*[@package='" + KEYBOARD_PACKAGE[SWIFTKEY] + "']",
+            xpath_root=f"./*/*[@package='{KEYBOARD_PACKAGE[SWIFTKEY]}']",
             xpath_keys=".//*[@class='android.view.View'][@content-desc]",
             **kwargs,
         )
@@ -1115,7 +1115,7 @@ class TappaLayoutDetector(LayoutDetector):
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
-            xpath_root="./*/*[@package='" + KEYBOARD_PACKAGE[TAPPA] + "']",
+            xpath_root=f"./*/*[@package='{KEYBOARD_PACKAGE[TAPPA]}']",
             xpath_keys=".//com.mocha.keyboard.inputmethod.keyboard.Key",
             **kwargs,
         )
@@ -1129,7 +1129,7 @@ class TappaLayoutDetector(LayoutDetector):
         suggestions = []
 
         # Get the raw content as text, weed out useless elements
-        section = self.driver.page_source.split(KEYBOARD_PACKAGE[TAPPA] + ":id/toolbar")[1].split(
+        section = self.driver.page_source.split(f"{KEYBOARD_PACKAGE[TAPPA]}:id/toolbar")[1].split(
             "</android.widget.FrameLayout>"
         )[0]
 
