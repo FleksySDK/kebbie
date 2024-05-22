@@ -1087,8 +1087,8 @@ class TappaLayoutDetector(LayoutDetector):
         suggestions = []
 
         # Get the raw content as text, weed out useless elements
-        section = self.driver.page_source.split(f"{KEYBOARD_PACKAGE[TAPPA]}:id/toolbar")[1].split(
-            "</android.widget.FrameLayout>"
+        section = self.driver.page_source.split(f"{KEYBOARD_PACKAGE[TAPPA]}:id/suggestions_strip")[1].split(
+            "</android.widget.LinearLayout>"
         )[0]
 
         for line in section.split("\n"):
