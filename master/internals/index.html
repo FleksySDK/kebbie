@@ -8977,8 +8977,8 @@ information.</p>
         <span class="n">suggestions</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1"># Get the raw content as text, weed out useless elements</span>
-        <span class="n">section</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">page_source</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">KEYBOARD_PACKAGE</span><span class="p">[</span><span class="n">TAPPA</span><span class="p">]</span><span class="si">}</span><span class="s2">:id/toolbar&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
-            <span class="s2">&quot;&lt;/android.widget.FrameLayout&gt;&quot;</span>
+        <span class="n">section</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">page_source</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">KEYBOARD_PACKAGE</span><span class="p">[</span><span class="n">TAPPA</span><span class="p">]</span><span class="si">}</span><span class="s2">:id/suggestions_strip&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+            <span class="s2">&quot;&lt;/android.widget.LinearLayout&gt;&quot;</span>
         <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">section</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
@@ -9069,8 +9069,8 @@ information.</p>
     <span class="n">suggestions</span> <span class="o">=</span> <span class="p">[]</span>
 
     <span class="c1"># Get the raw content as text, weed out useless elements</span>
-    <span class="n">section</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">page_source</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">KEYBOARD_PACKAGE</span><span class="p">[</span><span class="n">TAPPA</span><span class="p">]</span><span class="si">}</span><span class="s2">:id/toolbar&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
-        <span class="s2">&quot;&lt;/android.widget.FrameLayout&gt;&quot;</span>
+    <span class="n">section</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">driver</span><span class="o">.</span><span class="n">page_source</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">KEYBOARD_PACKAGE</span><span class="p">[</span><span class="n">TAPPA</span><span class="p">]</span><span class="si">}</span><span class="s2">:id/suggestions_strip&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
+        <span class="s2">&quot;&lt;/android.widget.LinearLayout&gt;&quot;</span>
     <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
 
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">section</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">):</span>
