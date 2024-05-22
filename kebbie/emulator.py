@@ -33,11 +33,11 @@ FLEKSY = "fleksy"
 KBKITPRO = "kbkitpro"
 KBKITOSS = "kbkitoss"
 SWIFTKEY = "swiftkey"
-ANYSOFT = "anysoft"
+YANDEX = "yandex"
 KEYBOARD_PACKAGE = {
     GBOARD: "com.google.android.inputmethod.latin",
     SWIFTKEY: "com.touchtype.swiftkey",
-    ANYSOFT: "com.menny.android.anysoftkeyboard",
+    YANDEX: "ru.yandex.androidkeyboard",
     TAPPA: "com.tappa.keyboard",
 }
 ANDROID_CAPABILITIES = {
@@ -358,13 +358,13 @@ class Emulator:
         elif self.keyboard == SWIFTKEY:
             self.detected = SwiftkeyLayoutDetector(self.driver, self._tap)
             self.layout = self.detected.layout
-        elif self.keyboard == ANYSOFT:
-            self.detected = AnysoftLayoutDetector(self.driver, self._tap)
+        elif self.keyboard == YANDEX:
+            self.detected = YandexLayoutDetector(self.driver, self._tap)
             self.layout = self.detected.layout
         else:
             raise ValueError(
                 f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, `{FLEKSY}`, "
-                f"`{SWIFTKEY}`, `{ANYSOFT}`, `{KBKITPRO}`, `{KBKITOSS}` or `{IOS}`."
+                f"`{SWIFTKEY}`, `{YANDEX}`, `{KBKITPRO}`, `{KBKITOSS}` or `{IOS}`."
             )
 
         self.typing_field.clear()
@@ -1120,16 +1120,17 @@ class SwiftkeyLayoutDetector(LayoutDetector):
                 break
 
         return suggestions
-class AnysoftLayoutDetector(LayoutDetector):
-    """Layout detector for the Anysoft keyboard. See `LayoutDetector` for more
+
+class YandexLayoutDetector(LayoutDetector):
+    """Layout detector for the Yandex keyboard. See `LayoutDetector` for more
     information.
     """
 
     def __init__(self, *args, **kwargs):
         super().__init__(
             *args,
-            xpath_root=f"./*/*[@package='{KEYBOARD_PACKAGE[ANYSOFT]}']",
-            xpath_keys=".//*[@class='android.view.View'][@content-desc]",
+            xpath_root=f"./*/*[@package='{KEYBOARD_PACKAGE[YANDEX]}']",
+            xpath_keys=".//*[@class='ya.d'][@content-desc]",
             **kwargs,
         )
 
@@ -1142,14 +1143,13 @@ class AnysoftLayoutDetector(LayoutDetector):
         suggestions = []
 
         # Get the raw content as text, weed out useless elements
-        for data in self.driver.page_source.split("<android.widget.FrameLayout"):
-            if "com.touchtype.swiftkey" in data and "<android.view.View " in data:
-                sections = data.split("<android.view.View ")
-                for section in sections[1:]:
-                    m = re.search(r"content-desc=\"([^\"]*)\"", section)
-                    if m:
-                        suggestions.append(html.unescape(m.group(1)))
-                break
+        section = self.driver.page_source.split("<javaClass")
+
+        for line in section.split("\n"):
+            if f"{KEYBOARD_PACKAGE[YANDEX]}" in line:
+                m = re.search(r"content-desc=\"([^\"]*)\"", section)
+                if m:
+                    suggestions.append(html.unescape(m.group(1)))
 
         return suggestions
 
