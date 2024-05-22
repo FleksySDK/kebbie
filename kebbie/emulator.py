@@ -1121,6 +1121,7 @@ class SwiftkeyLayoutDetector(LayoutDetector):
 
         return suggestions
 
+
 class YandexLayoutDetector(LayoutDetector):
     """Layout detector for the Yandex keyboard. See `LayoutDetector` for more
     information.
