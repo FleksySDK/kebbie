@@ -33,9 +33,11 @@ FLEKSY = "fleksy"
 KBKITPRO = "kbkitpro"
 KBKITOSS = "kbkitoss"
 SWIFTKEY = "swiftkey"
+ANYSOFT = "anysoft"
 KEYBOARD_PACKAGE = {
     GBOARD: "com.google.android.inputmethod.latin",
     SWIFTKEY: "com.touchtype.swiftkey",
+    ANYSOFT: "com.menny.android.anysoftkeyboard",
     TAPPA: "com.tappa.keyboard",
 }
 ANDROID_CAPABILITIES = {
@@ -356,10 +358,13 @@ class Emulator:
         elif self.keyboard == SWIFTKEY:
             self.detected = SwiftkeyLayoutDetector(self.driver, self._tap)
             self.layout = self.detected.layout
+        elif self.keyboard == ANYSOFT:
+            self.detected = AnysoftLayoutDetector(self.driver, self._tap)
+            self.layout = self.detected.layout
         else:
             raise ValueError(
                 f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, `{FLEKSY}`, "
-                f"`{SWIFTKEY}`, `{KBKITPRO}`, `{KBKITOSS}` or `{IOS}`."
+                f"`{SWIFTKEY}`, `{ANYSOFT}`, `{KBKITPRO}`, `{KBKITOSS}` or `{IOS}`."
             )
 
         self.typing_field.clear()
@@ -1092,6 +1097,38 @@ class SwiftkeyLayoutDetector(LayoutDetector):
         super().__init__(
             *args,
             xpath_root=f"./*/*[@package='{KEYBOARD_PACKAGE[SWIFTKEY]}']",
+            xpath_keys=".//*[@class='android.view.View'][@content-desc]",
+            **kwargs,
+        )
+
+    def get_suggestions(self) -> List[str]:
+        """Method to retrieve the keyboard suggestions from the XML tree.
+
+        Returns:
+            List of suggestions from the keyboard.
+        """
+        suggestions = []
+
+        # Get the raw content as text, weed out useless elements
+        for data in self.driver.page_source.split("<android.widget.FrameLayout"):
+            if "com.touchtype.swiftkey" in data and "<android.view.View " in data:
+                sections = data.split("<android.view.View ")
+                for section in sections[1:]:
+                    m = re.search(r"content-desc=\"([^\"]*)\"", section)
+                    if m:
+                        suggestions.append(html.unescape(m.group(1)))
+                break
+
+        return suggestions
+class AnysoftLayoutDetector(LayoutDetector):
+    """Layout detector for the Anysoft keyboard. See `LayoutDetector` for more
+    information.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            *args,
+            xpath_root=f"./*/*[@package='{KEYBOARD_PACKAGE[ANYSOFT]}']",
             xpath_keys=".//*[@class='android.view.View'][@content-desc]",
             **kwargs,
         )
