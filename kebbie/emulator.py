@@ -131,6 +131,8 @@ CONTENT_TO_RENAME = {
     "Letter keyboard": "letters",
     "Letters": "letters",
     "Keyboard Type - auto": "letters",
+    "Delete.": "backspace",
+    "To symbols.": "numbers",
     "Digit keyboard": "numbers",
     "More symbols": "shift",
     "Keyboard Type - symbolic": "shift",
