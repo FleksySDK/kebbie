@@ -1094,26 +1094,15 @@ class YandexLayoutDetector(LayoutDetector):
         suggestions = []
 
         # Get the raw content as text, weed out useless elements
-        '''''''''
-        section = self.driver.page_source.split("<javaClass")
+        section = self.driver.page_source.split(f"{KEYBOARD_PACKAGE[YANDEX]}:id/drawable_suggest_container")[1].split(
+            "</android.view.View>"
+        )[0]
 
         for line in section.split("\n"):
-            if f"{KEYBOARD_PACKAGE[YANDEX]}" in line:
-                m = re.search(r"content-desc=\"([^\"]*)\"", section)
+            if "<javaClass" in line:
+                m = re.search(r"content-desc=\"([^\"]*)\"", line)
                 if m:
                     suggestions.append(html.unescape(m.group(1)))
-
-        return suggestions
-        '''''''''
-
-        for data in self.driver.page_source.split("<javaClass"):
-            if KEYBOARD_PACKAGE[YANDEX] in data and "content-desc" in data:
-                sections = data.split("<javaClass ")
-                for section in sections[1:]:
-                    m = re.search(r"content-desc=\"([^\"]*)\"", section)
-                    if m:
-                        suggestions.append(html.unescape(m.group(1)))
-                break
 
         return suggestions
 
