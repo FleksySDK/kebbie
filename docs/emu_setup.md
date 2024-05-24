@@ -137,6 +137,40 @@ And disable the clipboard suggestions :
 
 ![](assets/swiftkey_setup_4.png){ width="300" }
 
+### Preparing Tappa keyboard
+
+Tappa keyboard isn't installed on the emulator by default : you need to install it first.
+
+!!! note
+    If you want to run the tests in parallel on several emulators, you need to repeat these steps for each emulator.
+
+Start the emulator, then go to Google, and paste [this link](https://play.google.com/store/apps/details?id=com.tappa.keyboard&hl=en_US) to install Tappa keyboard.
+
+!!! tip
+    If the clipboard isn't shared with the emulator, open a terminal and run :
+
+    ```bash
+    adb shell input text "https://play.google.com/store/apps/details?id=com.tappa.keyboard&hl=en_US"
+    ```
+
+Install the keyboard on your emulator :
+
+![](assets/tappa_setup_1.png){ width="300" }
+
+Open the app, follow the instructions to activate the keyboard.
+
+---
+
+By default, Tappa keyboard suggests contact names, and it may interfere with the results across runs. You should disable the option. First, access the text correction settings :
+
+![](assets/tappa_setup_2.png){ width="300" }
+
+![](assets/tappa_setup_3.png){ width="300" }
+
+And disable "Personalized suggestions" and "Suggest Contact names" :
+
+![](assets/tappa_setup_4.png){ width="300" }
+
 ## Setting up iOS emulator
 
 ### Creating the emulator

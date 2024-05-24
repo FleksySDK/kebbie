@@ -613,9 +613,7 @@ class Emulator:
         """
         screen_data = self.driver.get_screenshot_as_png()
         screen = np.asarray(Image.open(io.BytesIO(screen_data)))
-        return cv2.resize(
-            screen, (self.screen_size["width"], self.screen_size["height"]), interpolation=cv2.INTER_AREA
-        )
+        return screen.copy()
 
     def get_predictions(self, lang: str = "en") -> List[str]:
         """Retrieve the predictions displayed by the keyboard.
@@ -775,11 +773,7 @@ class LayoutDetector:
         # Reset out keyboard to the original layer
         self.tap(layout["numbers"]["letters"], layout["keyboard_frame"])
 
-        # Fix the keys' offset compared to the keyboard frame
-        if self.android:
-            self.layout = self._apply_status_bar_offset(layout)
-        else:
-            self.layout = layout
+        self.layout = layout
 
     def get_suggestions(self) -> List[str]:
         """Method to retrieve the keyboard suggestions from the XML tree.
@@ -889,52 +883,6 @@ class LayoutDetector:
             return CONTENT_TO_RENAME[content]
         else:
             return content
-
-    def _get_status_bar_bounds(self) -> List[int]:
-        """For layout detection, this method retrieve the bounds of the status
-        bar from the XML tree.
-
-        Returns:
-            Bounds of the status bar.
-        """
-        sb = self.driver.find_element(By.ID, "com.android.systemui:id/status_bar")
-        return self._get_frame(sb)
-
-    def _apply_status_bar_offset(self, layout: Dict) -> Dict:
-        """Method offsetting the given layout to match the screen.
-
-        On Android, somehow the detected positions for the keys aren't matching
-        what we see on screen. This is because of the status bar, which shift
-        everything. So, detect the status bar, and shift back the keys to the
-        right position.
-
-        Args:
-            layout (Dict): Layout to fix.
-
-        Returns:
-            Fixed layout.
-        """
-        sb_bounds = self._get_status_bar_bounds()
-        dy = sb_bounds[3]
-        screen_size = layout["keyboard_frame"][1] + layout["keyboard_frame"][3]
-
-        # First of all, offset the keyboard frame
-        frame_dy1 = int(dy * (layout["keyboard_frame"][1] / screen_size))
-        frame_dy2 = int(dy * ((layout["keyboard_frame"][1] + layout["keyboard_frame"][3]) / screen_size))
-        layout["keyboard_frame"][1] -= frame_dy1
-        layout["keyboard_frame"][3] -= frame_dy2 - frame_dy1
-
-        # Then do the same for each keys of each layouts
-        for layer in ["lowercase", "uppercase", "numbers"]:
-            for k in layout[layer]:
-                dy1 = int(dy * ((layout["keyboard_frame"][1] + layout[layer][k][1]) / screen_size))
-                dy2 = int(
-                    dy * ((layout["keyboard_frame"][1] + layout[layer][k][1] + layout[layer][k][3]) / screen_size)
-                )
-                layout[layer][k][1] -= dy1 - frame_dy1
-                layout[layer][k][3] -= dy2 - dy1
-
-        return layout
 
 
 class GboardLayoutDetector(LayoutDetector):
@@ -1177,8 +1125,8 @@ class TappaLayoutDetector(LayoutDetector):
         suggestions = []
 
         # Get the raw content as text, weed out useless elements
-        section = self.driver.page_source.split(f"{KEYBOARD_PACKAGE[TAPPA]}:id/toolbar")[1].split(
-            "</android.widget.FrameLayout>"
+        section = self.driver.page_source.split(f"{KEYBOARD_PACKAGE[TAPPA]}:id/suggestions_strip")[1].split(
+            "</android.widget.LinearLayout>"
         )[0]
 
         for line in section.split("\n"):

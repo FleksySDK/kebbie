@@ -10,6 +10,8 @@
 >>>KeyboardKit Open-source|results/keyboardkit_oss.json
 >>>KeyboardKit Pro|results/keyboardkit_pro.json
 >>>Gboard|results/gboard.json
+>>>Swiftkey|results/swiftkey.json
+>>>Tappa keyboard|results/tappa.json
 
 !!! info
     The metrics used in this leaderboard are :
