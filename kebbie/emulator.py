@@ -107,6 +107,8 @@ CONTENT_TO_RENAME = {
     "Search": "enter",
     "return": "enter",
     "Enter": "enter",
+    "Delete.": "backspace",
+    "To symbols.": "numbers",
     "Symbol keyboard": "numbers",
     "Symbols": "numbers",
     "Symbols and numbers": "numbers",
@@ -1092,6 +1094,7 @@ class YandexLayoutDetector(LayoutDetector):
         suggestions = []
 
         # Get the raw content as text, weed out useless elements
+        '''''''''
         section = self.driver.page_source.split("<javaClass")
 
         for line in section.split("\n"):
@@ -1099,6 +1102,18 @@ class YandexLayoutDetector(LayoutDetector):
                 m = re.search(r"content-desc=\"([^\"]*)\"", section)
                 if m:
                     suggestions.append(html.unescape(m.group(1)))
+
+        return suggestions
+        '''''''''
+
+        for data in self.driver.page_source.split("<javaClass"):
+            if KEYBOARD_PACKAGE[YANDEX] in data and "content-desc" in data:
+                sections = data.split("<javaClass ")
+                for section in sections[1:]:
+                    m = re.search(r"content-desc=\"([^\"]*)\"", section)
+                    if m:
+                        suggestions.append(html.unescape(m.group(1)))
+                break
 
         return suggestions
 
