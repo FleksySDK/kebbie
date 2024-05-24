@@ -33,9 +33,11 @@ FLEKSY = "fleksy"
 KBKITPRO = "kbkitpro"
 KBKITOSS = "kbkitoss"
 SWIFTKEY = "swiftkey"
+YANDEX = "yandex"
 KEYBOARD_PACKAGE = {
     GBOARD: "com.google.android.inputmethod.latin",
     SWIFTKEY: "com.touchtype.swiftkey",
+    YANDEX: "ru.yandex.androidkeyboard",
     TAPPA: "com.tappa.keyboard",
 }
 ANDROID_CAPABILITIES = {
@@ -92,6 +94,7 @@ CONTENT_TO_IGNORE = [
     "Are",
     "“A”",
     "🚀",
+    "Switch language.",
 ]
 CONTENT_TO_RENAME = {
     "Shift": "shift",
@@ -99,12 +102,16 @@ CONTENT_TO_RENAME = {
     "Backspace": "backspace",
     "Space": "spacebar",
     "space": "spacebar",
+    "Space.": "spacebar",
     "Emoji button": "smiley",
     "Emoji": "smiley",
     "Keyboard Type - emojis": "smiley",
     "Search": "enter",
     "return": "enter",
     "Enter": "enter",
+    "Delete.": "backspace",
+    "To symbols.": "numbers",
+    "Return.": "enter",
     "Symbol keyboard": "numbers",
     "Symbols": "numbers",
     "Symbols and numbers": "numbers",
@@ -129,11 +136,14 @@ CONTENT_TO_RENAME = {
     "Letter keyboard": "letters",
     "Letters": "letters",
     "Keyboard Type - auto": "letters",
+    "To letters.": "letters",
     "Digit keyboard": "numbers",
     "More symbols": "shift",
     "Keyboard Type - symbolic": "shift",
     "Double tap for uppercase": "shift",
     "Double tap for caps lock": "shift",
+    "Uppercase key.": "shift",
+    "Additional symbols.": "shift",
     "capital Q": "Q",
     "capital W": "W",
     "capital E": "E",
@@ -356,10 +366,13 @@ class Emulator:
         elif self.keyboard == SWIFTKEY:
             self.detected = SwiftkeyLayoutDetector(self.driver, self._tap)
             self.layout = self.detected.layout
+        elif self.keyboard == YANDEX:
+            self.detected = YandexLayoutDetector(self.driver, self._tap)
+            self.layout = self.detected.layout
         else:
             raise ValueError(
                 f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, `{FLEKSY}`, "
-                f"`{SWIFTKEY}`, `{KBKITPRO}`, `{KBKITOSS}` or `{IOS}`."
+                f"`{SWIFTKEY}`, `{YANDEX}`, `{KBKITPRO}`, `{KBKITOSS}` or `{IOS}`."
             )
 
         self.typing_field.clear()
@@ -1061,6 +1074,58 @@ class SwiftkeyLayoutDetector(LayoutDetector):
                     if m:
                         suggestions.append(html.unescape(m.group(1)))
                 break
+
+        return suggestions
+
+
+class YandexLayoutDetector(LayoutDetector):
+    """Layout detector for the Yandex keyboard. See `LayoutDetector` for more
+    information.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            *args,
+            xpath_root=f"./*/*[@package='{KEYBOARD_PACKAGE[YANDEX]}']",
+            xpath_keys=".//*[@class='ya.d'][@content-desc]",
+            **kwargs,
+        )
+
+    def get_suggestions(self) -> List[str]:
+        """Method to retrieve the keyboard suggestions from the XML tree.
+
+        Returns:
+            List of suggestions from the keyboard.
+        """
+        suggestions = []
+
+        # Depending if we are on a real device or on emulator, the
+        # Yandex keyboard uses different XML tags...
+        if "<javaClass" in self.driver.page_source:  # Real device
+            section = self.driver.page_source.split(f"{KEYBOARD_PACKAGE[YANDEX]}:id/drawable_suggest_container")[
+                1
+            ].split("</android.view.View>")[0]
+
+            for line in section.split("\n"):
+                if "<javaClass" in line:
+                    m = re.search(r"content-desc=\"([^\"]*)\"", line)
+                    if m:
+                        suggestions.append(html.unescape(m.group(1)))
+        else:  # Emulator
+            for s in self.driver.page_source.split("android.widget.LinearLayout"):
+                if f"{KEYBOARD_PACKAGE[YANDEX]}:id/kb_suggest_suggestions_container" in s:
+                    suggestions_section = s
+                    break
+
+            for line in suggestions_section.split("\n"):
+                if (
+                    "kb_suggest_left_suggestion" in line
+                    or "kb_suggest_center_suggestion" in line
+                    or "kb_suggest_right_suggestion" in line
+                ):
+                    m = re.search(r"content-desc=\"([^\"]*)\"", line)
+                    if m:
+                        suggestions.append(html.unescape(m.group(1)))
 
         return suggestions
 
