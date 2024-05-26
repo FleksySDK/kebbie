@@ -12,6 +12,7 @@
 >>>Gboard|results/gboard.json
 >>>Swiftkey|results/swiftkey.json
 >>>Tappa keyboard|results/tappa.json
+>>>Yandex keyboard|results/yandex.json
 
 !!! info
     The metrics used in this leaderboard are :
