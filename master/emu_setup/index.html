@@ -439,6 +439,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#preparing-yandex-keyboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing Yandex keyboard
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -784,6 +793,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#preparing-yandex-keyboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preparing Yandex keyboard
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1019,6 +1037,35 @@ Appium needs to run in order for Python to communicate with the emulators.</p>
 <p><img alt="" src="../assets/tappa_setup_3.png" width="300" /></p>
 <p>And disable "Personalized suggestions" and "Suggest Contact names" :</p>
 <p><img alt="" src="../assets/tappa_setup_4.png" width="300" /></p>
+<h3 id="preparing-yandex-keyboard">Preparing Yandex keyboard</h3>
+<p>Yandex keyboard isn't installed on the emulator by default : you need to install it first.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If you want to run the tests in parallel on several emulators, you need to repeat these steps for each emulator.</p>
+</div>
+<p>Start the emulator, then go to Google, and paste <a href="https://play.google.com/store/apps/details?id=ru.yandex.androidkeyboard&amp;hl=en">this link</a> to install Yandex keyboard.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>If the clipboard isn't shared with the emulator, open a terminal and run :</p>
+<div class="highlight"><pre><span></span><code>adb<span class="w"> </span>shell<span class="w"> </span>input<span class="w"> </span>text<span class="w"> </span><span class="s2">&quot;https://play.google.com/store/apps/details?id=ru.yandex.androidkeyboard&amp;hl=en&quot;</span>
+</code></pre></div>
+</div>
+<p>Install the keyboard on your emulator :</p>
+<p><img alt="" src="../assets/yandex_setup_1.png" width="300" /></p>
+<p>Open the app, follow the instructions to activate the keyboard.</p>
+<hr />
+<p>The keyboard has many settings, let's see what to change to have the best results.</p>
+<p>First, deactivate the number rows. It's okay to keep the popup on keypress :</p>
+<p><img alt="" src="../assets/yandex_setup_2.png" width="300" /></p>
+<p>Then, in "Text input", make sure auto-correction is on, as well as the auto-capitalization :</p>
+<p><img alt="" src="../assets/yandex_setup_3.png" width="300" />
+<img alt="" src="../assets/yandex_setup_4.png" width="300" /></p>
+<p>In "Top bar", make sure to enable word suggestions, and disable email suggestions, contact names suggestions. Also disable scrollable and expandable suggestions :</p>
+<p><img alt="" src="../assets/yandex_setup_5.png" width="300" />
+<img alt="" src="../assets/yandex_setup_6.png" width="300" /></p>
+<p>Finally, in "Personalization", disable personal dictionary :</p>
+<p><img alt="" src="../assets/yandex_setup_7.png" width="300" />
+<img alt="" src="../assets/yandex_setup_8.png" width="300" /></p>
 <h2 id="setting-up-ios-emulator">Setting up iOS emulator</h2>
 <h3 id="creating-the-emulator_1">Creating the emulator</h3>
 <ul>
