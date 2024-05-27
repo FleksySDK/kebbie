@@ -21,6 +21,9 @@ A small framework to test and compare mobile keyboards
   <a href="https://FleksySDK.github.io/kebbie/" target="_blank">Documentation</a>
 </p>
 
+<p align="center">
+    <img src="docs/assets/kebbie_logo.gif" alt="kebbie_logo" />
+</p>
 
 <h2 align="center">Description</h2>
 

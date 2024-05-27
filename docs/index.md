@@ -1,5 +1,7 @@
 # Kebbie
 
+![](assets/kebbie_logo.gif)
+
 ## Introduction
 
 Welcome to the documentation of the `kebbie` package.
