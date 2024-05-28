@@ -171,6 +171,51 @@ And disable "Personalized suggestions" and "Suggest Contact names" :
 
 ![](assets/tappa_setup_4.png){ width="300" }
 
+### Preparing Yandex keyboard
+
+Yandex keyboard isn't installed on the emulator by default : you need to install it first.
+
+!!! note
+    If you want to run the tests in parallel on several emulators, you need to repeat these steps for each emulator.
+
+Start the emulator, then go to Google, and paste [this link](https://play.google.com/store/apps/details?id=ru.yandex.androidkeyboard&hl=en) to install Yandex keyboard.
+
+!!! tip
+    If the clipboard isn't shared with the emulator, open a terminal and run :
+
+    ```bash
+    adb shell input text "https://play.google.com/store/apps/details?id=ru.yandex.androidkeyboard&hl=en"
+    ```
+
+Install the keyboard on your emulator :
+
+![](assets/yandex_setup_1.png){ width="300" }
+
+Open the app, follow the instructions to activate the keyboard.
+
+---
+
+The keyboard has many settings, let's see what to change to have the best results.
+
+First, deactivate the number rows. It's okay to keep the popup on keypress :
+
+![](assets/yandex_setup_2.png){ width="300" }
+
+Then, in "Text input", make sure auto-correction is on, as well as the auto-capitalization :
+
+![](assets/yandex_setup_3.png){ width="300" }
+![](assets/yandex_setup_4.png){ width="300" }
+
+In "Top bar", make sure to enable word suggestions, and disable email suggestions, contact names suggestions. Also disable scrollable and expandable suggestions :
+
+![](assets/yandex_setup_5.png){ width="300" }
+![](assets/yandex_setup_6.png){ width="300" }
+
+Finally, in "Personalization", disable personal dictionary :
+
+![](assets/yandex_setup_7.png){ width="300" }
+![](assets/yandex_setup_8.png){ width="300" }
+
 ## Setting up iOS emulator
 
 ### Creating the emulator

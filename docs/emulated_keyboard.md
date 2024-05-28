@@ -63,6 +63,8 @@ Here is the list of keyboards for which the layout auto-detection is supported :
 * **KeyboardKit Pro**, with the `-K kbkitpro` argument
 * **KeyboardKit Open-source**, with the `-K kbkitoss` argument
 * **Tappa keyboard**, with the `-K tappa` argument
+* **Swiftkey keyboard**, with the `-K swiftkey` argument
+* **Yandex keyboard**, with the `-K yandex` argument
 
 ## Testing the keyboard
 

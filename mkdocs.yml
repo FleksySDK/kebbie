@@ -34,6 +34,12 @@ markdown_extensions:
   - attr_list
   - pymdownx.highlight
   - pymdownx.superfences
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
 
 nav:
   - Welcome: "index.md"
@@ -43,7 +49,7 @@ nav:
   - "test_a_new_keyboard.md"
   - "how_testing_is_done.md"
   - "architecture.md"
-  - "leaderboard.md"
+  - "leaderboards/main.md"
   - Code reference:
     - "public_api.md"
     - "internals.md"
@@ -69,6 +75,9 @@ extra:
 
 extra_css:
   - css/mkdocstrings.css
+<<<<<<< test_new_keyboard_doc
 
 extra_javascript:
   - https://unpkg.com/tablesort@5.3.0/dist/tablesort.min.js
+=======
+>>>>>>> main
