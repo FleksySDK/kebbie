@@ -128,7 +128,7 @@ def cli():
     )
     page_source_parser.set_defaults(cmd="get_page_source")
     common_args(page_source_parser)
-    evaluate_parser.add_argument(
+    page_source_parser.add_argument(
         "--result_file",
         "-R",
         dest="page_sources",
