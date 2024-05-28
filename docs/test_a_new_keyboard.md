@@ -9,21 +9,29 @@ to have Appium 2 correctly installed and the emulator ready.
 
 So you need to:
 
-
-* Setup Appium (check [emulator setup](emu_setup.md))
-* Setup the emulator (check [emulator setup](emu_setup.md#))
+* Setup Appium by following the [emulator setup](emu_setup.md) documentation.
+* Setup the emulator by following the [emulator setup](emu_setup.md) documentation.
 
 
 ## Installing the keyboard on the device
-First of all install the desired keyboard on the device by dragging the apk to the emulator or installing the app 
-from the store.
+First of all install the APK manually if you have the file locally or download it from the app the store:
 
-Once it's installed, if it hasn't any setup wizard, go to the `Languages and input methods` section in the 
-device's settings.
+![](assets/swiftkey_setup_1.png){ width="300" }
 
-Then access to the `On screen keyboards` section.
+Once it's installed, if it hasn't any setup wizard, access to the on-screen keyboard settings to enable and select it.
 
-And finally enable and select the keyboard.
+Example for Android:
+
+![](assets/keyboard_setup_android.png){ width="300" }
+
+Example for iOS:
+
+![](assets/keyboard_setup_ios_1.png){ width="300" }
+
+!!! warning
+    On iOS keyboards you will need to allow the full access permission.
+
+    ![](assets/keyboard_setup_ios_2.png){ width="300" }
 
 
 ## Get full elements tree:
@@ -146,3 +154,6 @@ First check the key mapping running the command `kebbie show_layout -K newkkeybo
 
 Finally evaluate the keyboard with the command `kebbie evaluate -K newkeyboard` and wait until the evaluation 
 is finished to get the results.
+
+!!! info "Note"
+    See ["How testing is done?"](how_testing_is_done.md) to know the internal process performed.
