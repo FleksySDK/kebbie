@@ -3,3 +3,11 @@ div.doc-contents:not(.first) {
     border-left: 4px solid rgba(230, 230, 230);
     margin-bottom: 80px;
 }
+
+.x_icon {
+    color: #ef5552;
+}
+
+.v_icon {
+    color: #4cae50;
+}
