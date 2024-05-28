@@ -123,6 +123,20 @@ def cli():
     layout_parser.set_defaults(cmd="show_layout")
     common_args(layout_parser)
 
+    page_source_parser = subparsers.add_parser(
+        "get_page_source", help="Gets the page source of the keyboard for debugging purpose."
+    )
+    page_source_parser.set_defaults(cmd="get_page_source")
+    common_args(page_source_parser)
+    evaluate_parser.add_argument(
+        "--result_file",
+        "-R",
+        dest="page_sources",
+        type=str,
+        default="keyboard_page_source.xml",
+        help="Where to save the keyboard page source",
+    )
+
     args = parser.parse_args()
 
     if args.cmd is None:
@@ -148,3 +162,15 @@ def cli():
         for c in correctors:
             c.emulator.show_keyboards()
             print(f"Predictions : {c.emulator.get_predictions()}")
+
+    elif args.cmd == "get_page_source":
+        correctors = instantiate_correctors(args.keyboard)
+        for c in correctors:
+            page_source = c.emulator.get_page_source()
+
+            # Print page source in console
+            print(f"Page source:\n{page_source}")
+
+            # Save the results in a file
+            with open(args.page_sources, "w", encoding="utf-8") as f:
+                json.dump(page_source, f, ensure_ascii=False, indent=4)
