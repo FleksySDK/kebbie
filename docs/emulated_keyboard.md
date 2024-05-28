@@ -8,7 +8,7 @@ Now, let's see how to use the `kebbie` CLI to run similar tests on an existing k
 
 First, you need to install and setup Appium and the emulators.
 
-Follow the intructions in [Emulator setup](emu_setup.md).
+Follow the instructions in [Emulator setup](emu_setup.md).
 
 ---
 
