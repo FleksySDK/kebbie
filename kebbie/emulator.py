@@ -732,12 +732,12 @@ class Emulator:
         cv2.putText(image, tag, (x, y + h + 17), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
     def get_page_source(self, print_page_source: bool = False) -> str:
-        """Gets the page source of the keyboard for debugging purpose.
-        """
+        """Gets the page source of the keyboard for debugging purpose."""
         page_source = self.driver.page_source
         if print_page_source:
             print(page_source)
         return page_source
+
 
 class LayoutDetector:
     """Base class for auto-detection of the keyboard layout.
@@ -1109,9 +1109,9 @@ class YandexLayoutDetector(LayoutDetector):
         # Depending if we are on a real device or on emulator, the
         # Yandex keyboard uses different XML tags...
         if "<javaClass" in self.get_page_source:  # Real device
-            section = self.get_page_source.split(f"{KEYBOARD_PACKAGE[YANDEX]}:id/drawable_suggest_container")[
-                1
-            ].split("</android.view.View>")[0]
+            section = self.get_page_source.split(f"{KEYBOARD_PACKAGE[YANDEX]}:id/drawable_suggest_container")[1].split(
+                "</android.view.View>"
+            )[0]
 
             for line in section.split("\n"):
                 if "<javaClass" in line:
