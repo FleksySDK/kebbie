@@ -174,7 +174,7 @@ def cli():
     elif args.cmd == "get_page_source":
         correctors = instantiate_correctors(args.keyboard)
         for c in correctors:
-            page_source = c.emulator.get_page_source(print_page_source=args.print_page_source)
+            page_source = c.emulator.driver.page_source
 
             with open(args.page_source_file, "w", encoding="utf-8") as file:
                 file.write(page_source)

@@ -923,7 +923,7 @@ class GboardLayoutDetector(LayoutDetector):
 
         sections = [
             data
-            for data in self.get_page_source.split("<android.widget.FrameLayout")
+            for data in self.driver.page_source.split("<android.widget.FrameLayout")
             if "com.google.android.inputmethod" in data
         ]
         for section in sections:
@@ -962,7 +962,7 @@ class IosLayoutDetector(LayoutDetector):
         suggestions = []
 
         sections = [
-            data for data in self.get_page_source.split("<XCUIElementTypeOther") if "name=" in data.split(">")[0]
+            data for data in self.driver.page_source.split("<XCUIElementTypeOther") if "name=" in data.split(">")[0]
         ]
         is_typing_predictions_section = False
         for section in sections:
@@ -1002,7 +1002,7 @@ class KbkitproLayoutDetector(LayoutDetector):
         """
         suggestions = []
 
-        for data in self.get_page_source.split("<XCUIElementTypeOther"):
+        for data in self.driver.page_source.split("<XCUIElementTypeOther"):
             if "<XCUIElementTypeTextField" in data:
                 pred_part = data.split("<XCUIElementTypeTextField")[0]
                 if "<XCUIElementTypeButton" in pred_part and 'name="Add"' in pred_part:
@@ -1039,7 +1039,7 @@ class KbkitossLayoutDetector(LayoutDetector):
         """
         suggestions = []
 
-        for data in self.get_page_source.split("<XCUIElementTypeOther"):
+        for data in self.driver.page_source.split("<XCUIElementTypeOther"):
             if ", Subtitle" in data:
                 pred_part = data.split(", Subtitle")[0]
                 for elem in pred_part.split(">")[1:]:
@@ -1073,7 +1073,7 @@ class SwiftkeyLayoutDetector(LayoutDetector):
         suggestions = []
 
         # Get the raw content as text, weed out useless elements
-        for data in self.get_page_source.split("<android.widget.FrameLayout"):
+        for data in self.driver.page_source.split("<android.widget.FrameLayout"):
             if "com.touchtype.swiftkey" in data and "<android.view.View " in data:
                 sections = data.split("<android.view.View ")
                 for section in sections[1:]:
@@ -1108,8 +1108,8 @@ class YandexLayoutDetector(LayoutDetector):
 
         # Depending if we are on a real device or on emulator, the
         # Yandex keyboard uses different XML tags...
-        if "<javaClass" in self.get_page_source:  # Real device
-            section = self.get_page_source.split(f"{KEYBOARD_PACKAGE[YANDEX]}:id/drawable_suggest_container")[1].split(
+        if "<javaClass" in self.driver.page_source:  # Real device
+            section = self.driver.page_source.split(f"{KEYBOARD_PACKAGE[YANDEX]}:id/drawable_suggest_container")[1].split(
                 "</android.view.View>"
             )[0]
 
@@ -1119,7 +1119,7 @@ class YandexLayoutDetector(LayoutDetector):
                     if m:
                         suggestions.append(html.unescape(m.group(1)))
         else:  # Emulator
-            for s in self.get_page_source.split("android.widget.LinearLayout"):
+            for s in self.driver.page_source.split("android.widget.LinearLayout"):
                 if f"{KEYBOARD_PACKAGE[YANDEX]}:id/kb_suggest_suggestions_container" in s:
                     suggestions_section = s
                     break
@@ -1159,7 +1159,7 @@ class TappaLayoutDetector(LayoutDetector):
         suggestions = []
 
         # Get the raw content as text, weed out useless elements
-        section = self.get_page_source.split(f"{KEYBOARD_PACKAGE[TAPPA]}:id/suggestions_strip")[1].split(
+        section = self.driver.page_source.split(f"{KEYBOARD_PACKAGE[TAPPA]}:id/suggestions_strip")[1].split(
             "</android.widget.LinearLayout>"
         )[0]
 
@@ -1210,7 +1210,7 @@ class FleksyLayoutDetector(LayoutDetector):
         # Get the raw content as text, weed out useless elements
         sections = [
             s
-            for s in self.get_page_source.split("XCUIElementTypeOther")
+            for s in self.driver.page_source.split("XCUIElementTypeOther")
             if "XCUIElementTypeStaticText" in s and "XCUIElementTypeButton" not in s
         ]
 
