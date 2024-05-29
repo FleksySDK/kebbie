@@ -2,13 +2,13 @@
 
 import argparse
 import json
+import os
 import sys
-from typing import List
 import xml.etree.ElementTree as ET
+from typing import List
 
-from kebbie import evaluate
+from kebbie import emulator, evaluate
 from kebbie.correctors import EmulatorCorrector
-from kebbie import emulator
 from kebbie.emulator import Emulator
 from kebbie.utils import get_soda_dataset
 
@@ -32,7 +32,7 @@ def instantiate_correctors(
     Returns:
         The list of created Correctors.
     """
-    if keyboard in ["gboard", "tappa", "swiftkey", "yandex"]:
+    if keyboard in ["gboard", "tappa", "swiftkey", "yandex", "florisboard"]:
         # Android keyboards
         return [
             EmulatorCorrector(
@@ -74,7 +74,7 @@ def common_args(parser: argparse.ArgumentParser):
         dest="keyboard",
         type=str,
         required=True,
-        choices=["gboard", "ios", "kbkitpro", "kbkitoss", "tappa", "fleksy", "swiftkey", "yandex"],
+        choices=["gboard", "ios", "kbkitpro", "kbkitoss", "tappa", "fleksy", "swiftkey", "yandex", "florisboard"],
         help="Which keyboard, to be tested, is currently installed on the emulator.",
     )
 
@@ -139,7 +139,7 @@ def cli():
         "-F",
         dest="page_source_file",
         type=str,
-        default= "keyboard_page_source.xml",
+        default="keyboard_page_source.xml",
         help="Where to save the keyboard page source",
     )
     page_source_parser.add_argument(
@@ -185,14 +185,17 @@ def cli():
             keyboard_package = emulator.KEYBOARD_PACKAGE[args.keyboard]
 
             # Get the page source and filter the elements of the keyboard
-            page_source = ET.fromstring( c.emulator.driver.page_source)
-            page_source[:] = [element for element in page_source if element.get('package') == keyboard_package]
-            page_source = ET.tostring(page_source, encoding='utf8').decode('utf8')
+            page_source = ET.fromstring(c.emulator.driver.page_source)
+            page_source[:] = [element for element in page_source if element.get("package") == keyboard_package]
+            page_source = ET.tostring(page_source, encoding="utf8").decode("utf8")
 
             # Print the elements of the keyboard on console
             if args.print_page_source:
                 print(page_source)
 
-            # Save the elements of the keyboard on console
-            with open(args.page_source_file, "w", encoding="utf-8") as file:
+            # Save the elements of the keyboard in a file
+            folder_name = "keyboards_page_source"
+            os.makedirs(folder_name, exist_ok=True)
+            file_path = os.path.join(folder_name, args.keyboard + "_" + args.page_source_file)
+            with open(file_path, "w", encoding="utf-8") as file:
                 file.write(page_source)
