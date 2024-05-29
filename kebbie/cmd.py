@@ -4,9 +4,11 @@ import argparse
 import json
 import sys
 from typing import List
+import xml.etree.ElementTree as ET
 
 from kebbie import evaluate
 from kebbie.correctors import EmulatorCorrector
+from kebbie import emulator
 from kebbie.emulator import Emulator
 from kebbie.utils import get_soda_dataset
 
@@ -137,7 +139,7 @@ def cli():
         "-F",
         dest="page_source_file",
         type=str,
-        default="keyboard_page_source.xml",
+        default= "keyboard_page_source.xml",
         help="Where to save the keyboard page source",
     )
     page_source_parser.add_argument(
@@ -179,10 +181,18 @@ def cli():
         correctors = instantiate_correctors(args.keyboard, get_layout=False)
 
         for c in correctors:
-            page_source = c.emulator.driver.page_source
+            # Get the package name of the keyboard app
+            keyboard_package = emulator.KEYBOARD_PACKAGE[args.keyboard]
 
+            # Get the page source and filter the elements of the keyboard
+            page_source = ET.fromstring( c.emulator.driver.page_source)
+            page_source[:] = [element for element in page_source if element.get('package') == keyboard_package]
+            page_source = ET.tostring(page_source, encoding='utf8').decode('utf8')
+
+            # Print the elements of the keyboard on console
             if args.print_page_source:
                 print(page_source)
 
+            # Save the elements of the keyboard on console
             with open(args.page_source_file, "w", encoding="utf-8") as file:
                 file.write(page_source)
