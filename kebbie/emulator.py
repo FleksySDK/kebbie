@@ -731,14 +731,6 @@ class Emulator:
         cv2.rectangle(image, (x, y), (x + w, y + h), color, 2)
         cv2.putText(image, tag, (x, y + h + 17), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 2)
 
-    def get_page_source(self, print_page_source: bool = False) -> str:
-        """Gets the page source of the keyboard for debugging purpose."""
-        page_source = self.driver.page_source
-        if print_page_source:
-            print(page_source)
-        return page_source
-
-
 class LayoutDetector:
     """Base class for auto-detection of the keyboard layout.
 

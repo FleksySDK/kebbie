@@ -176,5 +176,8 @@ def cli():
         for c in correctors:
             page_source = c.emulator.driver.page_source
 
+            if args.print_page_source:
+                print(page_source)
+
             with open(args.page_source_file, "w", encoding="utf-8") as file:
                 file.write(page_source)
