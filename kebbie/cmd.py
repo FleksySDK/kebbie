@@ -12,7 +12,7 @@ from kebbie.utils import get_soda_dataset
 
 
 def instantiate_correctors(
-    keyboard: str, fast_mode: bool = True, instantiate_emulator: bool = True
+    keyboard: str, get_layout: bool = True, fast_mode: bool = True, instantiate_emulator: bool = True
 ) -> List[EmulatorCorrector]:
     """Create the right correctors (with the right platform, etc...) given the
     arguments from the command line.
@@ -24,6 +24,8 @@ def instantiate_correctors(
         instantiate_emulator (bool, optional): If `True`, the emulators are
             instantiated (which trigger the layout detection). If `False`, only
             the corrector is instantiated, not the emulator.
+        get_layout (bool, optional):  If `True`, The keyboard keys and suggestions
+            will be mapped and shown on screen.
 
     Returns:
         The list of created Correctors.
@@ -37,6 +39,7 @@ def instantiate_correctors(
                 keyboard=keyboard,
                 fast_mode=fast_mode,
                 instantiate_emulator=instantiate_emulator,
+                get_layout=get_layout,
             )
             for d in Emulator.get_android_devices()
         ]
@@ -51,6 +54,7 @@ def instantiate_correctors(
                 instantiate_emulator=instantiate_emulator,
                 ios_name=ios_name,
                 ios_platform=ios_platform,
+                get_layout=get_layout,
             )
             for i, (ios_platform, ios_name) in enumerate(Emulator.get_ios_devices())
         ]
@@ -172,7 +176,9 @@ def cli():
             print(f"Predictions : {c.emulator.get_predictions()}")
 
     elif args.cmd == "get_page_source":
-        correctors = instantiate_correctors(args.keyboard)
+        print("A")
+        correctors = instantiate_correctors(args.keyboard, get_layout=False)
+
         for c in correctors:
             page_source = c.emulator.driver.page_source
 
