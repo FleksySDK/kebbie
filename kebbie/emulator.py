@@ -34,7 +34,6 @@ KBKITPRO = "kbkitpro"
 KBKITOSS = "kbkitoss"
 SWIFTKEY = "swiftkey"
 YANDEX = "yandex"
-NEW = ""
 KEYBOARD_PACKAGE = {
     GBOARD: "com.google.android.inputmethod.latin",
     SWIFTKEY: "com.touchtype.swiftkey",
