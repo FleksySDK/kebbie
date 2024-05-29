@@ -176,7 +176,6 @@ def cli():
             print(f"Predictions : {c.emulator.get_predictions()}")
 
     elif args.cmd == "get_page_source":
-        print("A")
         correctors = instantiate_correctors(args.keyboard, get_layout=False)
 
         for c in correctors:
