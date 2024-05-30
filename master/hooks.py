@@ -113,7 +113,7 @@ def render_compare(entries: List[DynamicEntry]) -> List[str]:
         e.nwp = e.results["next_word_prediction"]["score"]["top3_accuracy"]
         e.acp = e.results["auto_completion"]["score"]["top3_accuracy"]
         e.acr_detection = e.results["auto_correction"]["score"]["recall"]
-        e.acr_frustration = 1 - e.results["auto_correction"]["score"]["precision"]
+        e.acr_relevance = e.results["auto_correction"]["score"]["precision"]
 
     # Sort entries according to the overall score
     entries.sort(reverse=True, key=lambda e: e.score)
@@ -123,7 +123,7 @@ def render_compare(entries: List[DynamicEntry]) -> List[str]:
     best_nwp = max(e.nwp for e in entries)
     best_acp = max(e.acp for e in entries)
     best_acr_detection = max(e.acr_detection for e in entries)
-    best_acr_frustration = min(e.acr_frustration for e in entries)
+    best_acr_relevance = max(e.acr_relevance for e in entries)
 
     # Render the entries
     rendered_entries = []
@@ -132,7 +132,7 @@ def render_compare(entries: List[DynamicEntry]) -> List[str]:
         nwp = f"{round(e.nwp * 100)}%"
         acp = f"{round(e.acp * 100)}%"
         acr_detection = f"{round(e.acr_detection * 100)}%"
-        acr_frustration = f"{round(e.acr_frustration * 100)}%"
+        acr_relevance = f"{round(e.acr_relevance * 100)}%"
 
         # Highlight the best scores
         if e.score == best_score:
@@ -143,16 +143,16 @@ def render_compare(entries: List[DynamicEntry]) -> List[str]:
             acp = f"**{acp}**"
         if e.acr_detection == best_acr_detection:
             acr_detection = f"**{acr_detection}**"
-        if e.acr_frustration == best_acr_frustration:
-            acr_frustration = f"**{acr_frustration}**"
+        if e.acr_relevance == best_acr_relevance:
+            acr_relevance = f"**{acr_relevance}**"
 
         # Render
         additional_fields = " | ".join(e.additional_fields)
         if additional_fields != "":
             rendered_entries.append(
-                f"| {e.name} | {score} | {acr_detection} | {acr_frustration} | {acp} | {nwp} | {additional_fields} |"
+                f"| {e.name} | {score} | {acr_detection} | {acr_relevance} | {acp} | {nwp} | {additional_fields} |"
             )
         else:
-            rendered_entries.append(f"| {e.name} | {score} | {acr_detection} | {acr_frustration} | {acp} | {nwp} |")
+            rendered_entries.append(f"| {e.name} | {score} | {acr_detection} | {acr_relevance} | {acp} | {nwp} |")
 
     return rendered_entries
