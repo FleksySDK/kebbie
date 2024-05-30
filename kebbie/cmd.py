@@ -181,21 +181,31 @@ def cli():
         correctors = instantiate_correctors(args.keyboard, get_layout=False)
 
         for c in correctors:
-            # Get the package name of the keyboard app
-            keyboard_package = emulator.KEYBOARD_PACKAGE[args.keyboard]
-
-            # Get the page source and filter the elements of the keyboard
+            # Get the page source
             page_source = ET.fromstring(c.emulator.driver.page_source)
-            page_source[:] = [element for element in page_source if element.get("package") == keyboard_package]
-            page_source = ET.tostring(page_source, encoding="utf8").decode("utf8")
 
-            # Print the elements of the keyboard on console
+            # Determine the state of the keyboard_package using a tri-state approach
+            keyboard_package = emulator.KEYBOARD_PACKAGE.get(args.keyboard, None)
+
+            if keyboard_package:
+                # Filter elements that have the specified package
+                filtered_elements = [element for element in page_source if element.get("package") == keyboard_package]
+
+                if filtered_elements:
+                    # If there are filtered elements, create a new XML with those elements
+                    filtered_page_source = ET.Element(page_source.tag, page_source.attrib)
+                    filtered_page_source.extend(filtered_elements)
+                    page_source = filtered_page_source
+
+            page_source_str = ET.tostring(page_source, encoding="utf8").decode("utf8")
+
+            # Print the keyboard elements to the console if specified
             if args.print_page_source:
-                print(page_source)
+                print(page_source_str)
 
-            # Save the elements of the keyboard in a file
+            # Save the keyboard elements to a file
             folder_name = "keyboards_page_source"
             os.makedirs(folder_name, exist_ok=True)
             file_path = os.path.join(folder_name, args.keyboard + "_" + args.page_source_file)
             with open(file_path, "w", encoding="utf-8") as file:
-                file.write(page_source)
+                file.write(page_source_str)
