@@ -34,11 +34,13 @@ KBKITPRO = "kbkitpro"
 KBKITOSS = "kbkitoss"
 SWIFTKEY = "swiftkey"
 YANDEX = "yandex"
+FLORISBOARD = "florisboard"
 KEYBOARD_PACKAGE = {
     GBOARD: "com.google.android.inputmethod.latin",
     SWIFTKEY: "com.touchtype.swiftkey",
     YANDEX: "ru.yandex.androidkeyboard",
     TAPPA: "com.tappa.keyboard",
+    FLORISBOARD: "dev.patrickgold.florisboard",
 }
 ANDROID_CAPABILITIES = {
     "platformName": "android",
