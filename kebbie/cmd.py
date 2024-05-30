@@ -184,7 +184,7 @@ def cli():
             # Get the page source
             page_source = ET.fromstring(c.emulator.driver.page_source)
 
-            # Determine the state of the keyboard_package using a tri-state approach
+            # Get the keyboard package name
             keyboard_package = emulator.KEYBOARD_PACKAGE.get(args.keyboard, None)
 
             if keyboard_package:
