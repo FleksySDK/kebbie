@@ -9,7 +9,7 @@ hide:
 [//]: # (There is a Mkdocs hook (defined in `docs/hooks.py`) that will read the content of this page. Any line starting with `>>>` will be extracted and replaced with the scores found in the corresponding result file.)
 [//]: # (The format to follow is : `>>>{name}|{result_file_name}|{optional_additional_fields}`)
 
-| Keyboard | Overall score | Typo detection rate | Auto-correction frustration rate | Auto-completion success rate | Next-word prediction success rate | SDK available |
+| Keyboard | Overall score | Typo detection rate | Auto-correction relevance | Auto-completion success rate | Next-word prediction success rate | SDK available |
 |---------:|:-------------:|:-------------------:|:--------------------------------:|:---------------:|:-------------------:|:-------------:|
 >>>Fleksy|results/fleksy.json|:fontawesome-solid-circle-check:{ .v_icon }
 >>>iOS keyboard|results/ios.json|:fontawesome-regular-circle-xmark:{ .x_icon }
@@ -34,11 +34,12 @@ hide:
 
     :material-trending-up: _Higher is better._
 
-=== "Auto-correction frustration rate"
+=== "Auto-correction relevance"
 
-    Percentage of words correctly typed, but corrected to something else by the keyboard.
+    Percentage of auto-corrections that are relevant (the auto-corrected word indeed contain a typo).  
+    The correction is irrelevant when a word is correctly typed, but the keyboard corrects it to something else.
 
-    :material-trending-down: _Lower is better._
+    :material-trending-up: _Higher is better._
 
 === "Auto-completion success rate"
 
