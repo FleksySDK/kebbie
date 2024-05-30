@@ -32,7 +32,7 @@ def instantiate_correctors(
     Returns:
         The list of created Correctors.
     """
-    if keyboard in ["gboard", "tappa", "swiftkey", "yandex", "florisboard"]:
+    if keyboard in ["gboard", "tappa", "swiftkey", "yandex"]:
         # Android keyboards
         return [
             EmulatorCorrector(
@@ -74,7 +74,7 @@ def common_args(parser: argparse.ArgumentParser):
         dest="keyboard",
         type=str,
         required=True,
-        choices=["gboard", "ios", "kbkitpro", "kbkitoss", "tappa", "fleksy", "swiftkey", "yandex", "florisboard"],
+        choices=["gboard", "ios", "kbkitpro", "kbkitoss", "tappa", "fleksy", "swiftkey", "yandex"],
         help="Which keyboard, to be tested, is currently installed on the emulator.",
     )
 
