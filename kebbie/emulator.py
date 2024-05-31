@@ -378,7 +378,7 @@ class Emulator:
                     f"`{SWIFTKEY}`, `{YANDEX}`, `{KBKITPRO}`, `{KBKITOSS}` or `{IOS}`."
                 )
 
-            self.typing_field.clear()
+        self.typing_field.clear()
 
     def _access_typing_field(self):
         """Start the right application and access the typing field where we
