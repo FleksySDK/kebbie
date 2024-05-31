@@ -204,8 +204,5 @@ def cli():
                 print(page_source_str)
 
             # Save the keyboard elements to a file
-            folder_name = "keyboards_page_source"
-            os.makedirs(folder_name, exist_ok=True)
-            file_path = os.path.join(folder_name, args.keyboard + "_" + args.page_source_file)
-            with open(file_path, "w", encoding="utf-8") as file:
+            with open(args.keyboard + "_" + args.page_source_file, "w", encoding="utf-8") as file:
                 file.write(page_source_str)
