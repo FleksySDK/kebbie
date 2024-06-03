@@ -3,16 +3,17 @@
 import argparse
 import json
 import sys
+import xml.etree.ElementTree as ET
 from typing import List
 
-from kebbie import evaluate
+from kebbie import emulator, evaluate
 from kebbie.correctors import EmulatorCorrector
 from kebbie.emulator import Emulator
 from kebbie.utils import get_soda_dataset
 
 
 def instantiate_correctors(
-    keyboard: str, fast_mode: bool = True, instantiate_emulator: bool = True
+    keyboard: str, get_layout: bool = True, fast_mode: bool = True, instantiate_emulator: bool = True
 ) -> List[EmulatorCorrector]:
     """Create the right correctors (with the right platform, etc...) given the
     arguments from the command line.
@@ -24,6 +25,8 @@ def instantiate_correctors(
         instantiate_emulator (bool, optional): If `True`, the emulators are
             instantiated (which trigger the layout detection). If `False`, only
             the corrector is instantiated, not the emulator.
+        get_layout (bool, optional):  If `True`, The keyboard keys and suggestions
+            will be mapped and shown on screen.
 
     Returns:
         The list of created Correctors.
@@ -37,6 +40,7 @@ def instantiate_correctors(
                 keyboard=keyboard,
                 fast_mode=fast_mode,
                 instantiate_emulator=instantiate_emulator,
+                get_layout=get_layout,
             )
             for d in Emulator.get_android_devices()
         ]
@@ -51,6 +55,7 @@ def instantiate_correctors(
                 instantiate_emulator=instantiate_emulator,
                 ios_name=ios_name,
                 ios_platform=ios_platform,
+                get_layout=get_layout,
             )
             for i, (ios_platform, ios_name) in enumerate(Emulator.get_ios_devices())
         ]
@@ -123,6 +128,28 @@ def cli():
     layout_parser.set_defaults(cmd="show_layout")
     common_args(layout_parser)
 
+    page_source_parser = subparsers.add_parser(
+        "get_page_source", help="Save the page source of the keyboard in a file for debugging purpose."
+    )
+    page_source_parser.set_defaults(cmd="get_page_source")
+    common_args(page_source_parser)
+    page_source_parser.add_argument(
+        "--page_source_file",
+        "-F",
+        dest="page_source_file",
+        type=str,
+        default="keyboard_page_source.xml",
+        help="Where to save the keyboard page source",
+    )
+    page_source_parser.add_argument(
+        "--print_page_source",
+        "-P",
+        dest="print_page_source",
+        action="store_true",
+        default=False,
+        help="If specified, the page source will be shown in console too.",
+    )
+
     args = parser.parse_args()
 
     if args.cmd is None:
@@ -148,3 +175,33 @@ def cli():
         for c in correctors:
             c.emulator.show_keyboards()
             print(f"Predictions : {c.emulator.get_predictions()}")
+
+    elif args.cmd == "get_page_source":
+        correctors = instantiate_correctors(args.keyboard, get_layout=False)
+
+        for c in correctors:
+            # Get the page source
+            page_source = ET.fromstring(c.emulator.driver.page_source)
+
+            # Get the keyboard package name
+            keyboard_package = emulator.KEYBOARD_PACKAGE.get(args.keyboard, None)
+
+            if keyboard_package:
+                # Filter elements that have the specified package
+                filtered_elements = [element for element in page_source if element.get("package") == keyboard_package]
+
+                if filtered_elements:
+                    # If there are filtered elements, create a new XML with those elements
+                    filtered_page_source = ET.Element(page_source.tag, page_source.attrib)
+                    filtered_page_source.extend(filtered_elements)
+                    page_source = filtered_page_source
+
+            page_source_str = ET.tostring(page_source, encoding="utf8").decode("utf8")
+
+            # Print the keyboard elements to the console if specified
+            if args.print_page_source:
+                print(page_source_str)
+
+            # Save the keyboard elements to a file
+            with open(args.page_source_file, "w", encoding="utf-8") as file:
+                file.write(page_source_str)

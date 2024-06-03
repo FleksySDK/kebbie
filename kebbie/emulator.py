@@ -294,6 +294,7 @@ class Emulator:
         device (str, optional): Device UDID to use.
         host (str, optional): Appium server's address.
         port (str, optional): Appium server's port.
+        get_layout (bool, optional): Set False to don't map the keys.
 
     Raises:
         ValueError: Error raised if the given platform doesn't exist.
@@ -308,6 +309,7 @@ class Emulator:
         port: str = "4723",
         ios_name: str = None,
         ios_platform: str = None,
+        get_layout: bool = True,
     ):
         super().__init__()
 
@@ -345,35 +347,36 @@ class Emulator:
             self.select_keyboard(keyboard)
 
         # Get the right layout
-        if self.keyboard == GBOARD:
-            self.detected = GboardLayoutDetector(self.driver, self._tap)
-            self.layout = self.detected.layout
-        elif self.keyboard == TAPPA:
-            self.detected = TappaLayoutDetector(self.driver, self._tap)
-            self.layout = self.detected.layout
-        elif self.keyboard == FLEKSY:
-            self.detected = FleksyLayoutDetector(self.driver)
-            self.layout = self.detected.layout
-        elif self.keyboard == IOS:
-            self.detected = IosLayoutDetector(self.driver, self._tap)
-            self.layout = self.detected.layout
-        elif self.keyboard == KBKITPRO:
-            self.detected = KbkitproLayoutDetector(self.driver, self._tap)
-            self.layout = self.detected.layout
-        elif self.keyboard == KBKITOSS:
-            self.detected = KbkitossLayoutDetector(self.driver, self._tap)
-            self.layout = self.detected.layout
-        elif self.keyboard == SWIFTKEY:
-            self.detected = SwiftkeyLayoutDetector(self.driver, self._tap)
-            self.layout = self.detected.layout
-        elif self.keyboard == YANDEX:
-            self.detected = YandexLayoutDetector(self.driver, self._tap)
-            self.layout = self.detected.layout
-        else:
-            raise ValueError(
-                f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, `{FLEKSY}`, "
-                f"`{SWIFTKEY}`, `{YANDEX}`, `{KBKITPRO}`, `{KBKITOSS}` or `{IOS}`."
-            )
+        if get_layout:
+            if self.keyboard == GBOARD:
+                self.detected = GboardLayoutDetector(self.driver, self._tap)
+                self.layout = self.detected.layout
+            elif self.keyboard == TAPPA:
+                self.detected = TappaLayoutDetector(self.driver, self._tap)
+                self.layout = self.detected.layout
+            elif self.keyboard == FLEKSY:
+                self.detected = FleksyLayoutDetector(self.driver)
+                self.layout = self.detected.layout
+            elif self.keyboard == IOS:
+                self.detected = IosLayoutDetector(self.driver, self._tap)
+                self.layout = self.detected.layout
+            elif self.keyboard == KBKITPRO:
+                self.detected = KbkitproLayoutDetector(self.driver, self._tap)
+                self.layout = self.detected.layout
+            elif self.keyboard == KBKITOSS:
+                self.detected = KbkitossLayoutDetector(self.driver, self._tap)
+                self.layout = self.detected.layout
+            elif self.keyboard == SWIFTKEY:
+                self.detected = SwiftkeyLayoutDetector(self.driver, self._tap)
+                self.layout = self.detected.layout
+            elif self.keyboard == YANDEX:
+                self.detected = YandexLayoutDetector(self.driver, self._tap)
+                self.layout = self.detected.layout
+            else:
+                raise ValueError(
+                    f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, `{FLEKSY}`, "
+                    f"`{SWIFTKEY}`, `{YANDEX}`, `{KBKITPRO}`, `{KBKITOSS}` or `{IOS}`."
+                )
 
         self.typing_field.clear()
 
