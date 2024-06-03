@@ -9,8 +9,8 @@ to have Appium 2 correctly installed and the emulator ready.
 
 So you need to:
 
-* Setup Appium by following the [emulator setup](emu_setup.md) documentation.
-* Setup the emulator by following the [emulator setup](emu_setup.md) documentation.
+* Setup Appium by following the [emulator setup](emu_setup.md#installing-appium-20) documentation.
+* Setup the emulator by following the [emulator setup](emu_setup.md#setting-up-android-emulator) documentation.
 
 
 ## Installing the keyboard on the device
@@ -34,41 +34,16 @@ Example for iOS:
     ![](assets/keyboard_setup_ios_2.png){ width="300" }
 
 
-## Get full elements tree:
-
-Prepare the code to open any app with a text input field using Appium. For example using these capabilities to open Firefox app:
-```bash
-{
-"platformName": "Android",
-"deviceName": "test",
-"automationName": "UiAutomator2",
-"appPackage": "org.mozilla.firefox",
-"appActivity": "org.mozilla.fenix.HomeActivity",
-"browserName": ""
-}
-```
-
-Press the input field to open the keyboard in any application
-
-Run the method `driver.getPageSource()` on your code
-
-Get the XML returned by that method and then filter it by the keyboard package (e.g. `com.newkeyboardCompany.newkeyboard`)
-
-Find the keyboard frame coordinates, the layout size and the data of each key by checking the content-desc or the resource-id
-
-Get the root element of the keyboard and then the type for each key
-
-
 ## Add a new keyboard to Kebbie:
-Add the name of the new keyboard in the available choices in the file `kebbie > kebbie > cmd.py`
+Add the name of the new keyboard in the available choices at the [cmd.py](internals.md#cmdpy) file
 
 Example:
 
 ```bash
-choices = ["gboard", "ios", "kbkitpro", "kbkitoss", "tappa", "fleksy", "newKeyboard"]
+choices = ["newKeyboard", "gboard", "tappa", "ios", "kbkitpro", "fleksy"]
 ```
 
-And in the file `kebbie > kebbie > emulator.py`
+Add it at the file [emulator.py](internals.md#emulatorpy) file
 
 Example:
 
@@ -76,14 +51,44 @@ Example:
 NEWKEYBOARD = "newkeyboard"
 ```
 
-!!! info "Note"
-    If it’s an Android keyboard add it to the `instantiate_correctors` list in the `cmd.py` file
+And in the [instantiate_correctors](internals.md#instantiate_correctors) list at the [cmd.py](internals.md#cmdpy) file if it's an 
+Android keyboard.
+
+Then add it the `KEYBOARD_PACKAGE` list at the [emulator.py](internals.md#emulatorpy) file to automatically select 
+it before the keys mapping or the keyboard evaluation and to filter the page source if you want to map the keys.
+
+!!! success "Tip"
+    To get the package of the new keyboard, once it's installed on the device, just run the command `adb shell pm list packages -3 | cut -f 2 -d ":"` and search it in the list.
+
+
+## Get full keyboard locators:
+
+Run the command `kebbie get_page_source -K newKeyboard` on your code. The device will open a web browser and 
+show the keyboard currently selected. After that, the system will get all the locators on screen and save them in an 
+XML file.
+
+!!! success "Tip"
+    If you have set the keyboard package, you will get the information automatically 
+    filtered by the keyboard locators to find the keys and suggestions easier.
 
 !!! info "Note"
-    If there is any content in the keyboard that we want to ignore from the mapping, add it in the `CONTENT_TO_IGNORE` list at the `emulator.py` file (e.g. `"Gallery"`)
+    You can show that information directly on console just adding the parameter `--print_page_source` or `-P` to the `get_page_source` command.
 
-!!! info "Note"
-    If there is any content in the keyboard that we want to map with another name, add it in the `CONTENT_TO_RENAME` list at the `emulator.py` file (e.g. `"Find": "enter"`)
+!!! warning "Important"
+    If there is no keyboard package set, or it is not found in the data gathered, the system will save the whole page source without filtering it.
+
+
+Once you have all the locators related with the keyboard, find the root element of the keyboard, the keyboard 
+keys and suggestions elements
+
+!!! success "Tip"
+    You can usually find the keys by the `content-desc` or the `text` of their elements, if not, try to find the `resource-id` value.
+
+!!! success "Tip"
+    To find the suggestions easier, type something with the keyboard to show up the suggestions just before get the page source, then you will be able to find the locators by searching the text of those suggestions.
+
+
+## Get the keyboard layout
 
 Create a layout detector class with the keyboard name adding the methods to get the root, the keys and the suggestions (see the `GboardLayoutDetector` class for an example)
 
@@ -129,8 +134,14 @@ class NewKeyboardLayoutDetector(LayoutDetector):
         return suggestions
 ```
 
-Finally, in the `__init__` method at the `emulator.py` file, add the name of the keyboard in the `Get the 
-right layout` section using the layout detector class and add the keyboard to the error handling.
+!!! warning "Important"
+    If there is any content in the keyboard that you want to ignore from the mapping, add it in the `CONTENT_TO_IGNORE` list at the [emulator.py](internals.md#emulatorpy) file (e.g. `"Gallery"`)
+
+!!! warning "Important"
+    If there is any content in the keyboard that you want to map with another name, add it in the `CONTENT_TO_RENAME` list at the [emulator.py](internals.md#emulatorpy) file (e.g. `"Find": "enter"`)
+
+Finally, in the `__init__` method at the [emulator.py](internals.md#emulatorpy) file, add the new keyboard in the 
+`Get the right layout` section to run its layout detector and add the keyboard to the error handling.
 
 Example:
 
@@ -140,8 +151,8 @@ elif self.keyboard == NEWKEYBOARD:
     self.layout = self.detected.layout
 else:
     raise ValueError(
-        f"Unknown keyboard : {self.keyboard}. Please specify {GBOARD}, {TAPPA}, {FLEKSY}, "
-        f"{NEWKEYBOARD}, {KBKITPRO}, {KBKITOSS} or {IOS}."
+        f"Unknown keyboard : {self.keyboard}. Please specify {NEWKEYBOARD}, {GBOARD}, {TAPPA}, "
+        f"{FLEKSY}, {KBKITPRO}, {KBKITOSS} or {IOS}."
     )
 ```
 
@@ -149,11 +160,10 @@ else:
 ## Test the new keyboard with Kebbie:
 First check the key mapping running the command `kebbie show_layout -K newkkeyboard`
 
-!!! tip
+!!! success "Tip"
     If the keys mapping fails trying to get the numbers layout, add a `print(self.driver.page_source)` before the method `self.tap(layout["lowercase"]["numbers"]` and launch the command again to get the key to switch to numbers adding it in the `CONTENT_TO_RENAME` list (e.g. `"Digit keyboard": "numbers"`)
 
-Finally evaluate the keyboard with the command `kebbie evaluate -K newkeyboard` and wait until the evaluation 
-is finished to get the results.
+Finally, evaluate the keyboard with the command `kebbie evaluate -K newkeyboard` and wait until the evaluation is finished to get the results.
 
 !!! info "Note"
     See ["How testing is done?"](how_testing_is_done.md) to know the internal process performed.
