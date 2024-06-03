@@ -34,7 +34,7 @@ Example for iOS:
 
 
 ## Add a new keyboard to Kebbie:
-Add the name of the new keyboard in the available choices at the [cmd.py](internals.md#cmdpy) file.
+Add the name of the new keyboard in the available choices in the [cmd.py](internals.md#cmdpy) file.
 
 Example:
 
@@ -42,7 +42,7 @@ Example:
 choices = ["newKeyboard", "gboard", "tappa", "ios", "kbkitpro", "fleksy"]
 ```
 
-Add it at the file [emulator.py](internals.md#emulatorpy) file.
+Add it in the file [emulator.py](internals.md#emulatorpy) file.
 
 Example:
 
@@ -50,9 +50,9 @@ Example:
 NEWKEYBOARD = "newkeyboard"
 ```
 
-And in the [instantiate_correctors](internals.md#instantiate_correctors) list at the [cmd.py](internals.md#cmdpy) file if it's an Android keyboard.
+And in the [instantiate_correctors](internals.md#instantiate_correctors) list in the [cmd.py](internals.md#cmdpy) file if it's an Android keyboard.
 
-Then add it the `KEYBOARD_PACKAGE` list at the [emulator.py](internals.md#emulatorpy) file to automatically select it before the keys mapping or the keyboard evaluation and to filter the page source if you want to map the keys.
+Then add it the `KEYBOARD_PACKAGE` list in the [emulator.py](internals.md#emulatorpy) file to automatically select it before the keys mapping or the keyboard evaluation and to filter the page source if you want to map the keys.
 
 !!! success "Tip"
     To get the package of the new keyboard, once it's installed on the device, just run the command `adb shell pm list packages -3 | cut -f 2 -d ":"` and search it in the list.
@@ -128,12 +128,12 @@ class NewKeyboardLayoutDetector(LayoutDetector):
 ```
 
 !!! warning "Important"
-    If there is any content in the keyboard that you want to ignore from the mapping, add it in the `CONTENT_TO_IGNORE` list at the [emulator.py](internals.md#emulatorpy) file (e.g. `"Gallery"`).
+    If there is any content in the keyboard that you want to ignore from the mapping, add it in the `CONTENT_TO_IGNORE` dictionary in the [`kebbie/emulator.py`](https://github.com/FleksySDK/kebbie/blob/main/kebbie/emulator.py) file (e.g. `"Gallery"`).
 
 !!! warning "Important"
-    If there is any content in the keyboard that you want to map with another name, add it in the `CONTENT_TO_RENAME` list at the [emulator.py](internals.md#emulatorpy) file (e.g. `"Find": "enter"`).
+    If there is any content in the keyboard that you want to map with another name, add it in the `CONTENT_TO_RENAME` dictionary in the [`kebbie/emulator.py`](https://github.com/FleksySDK/kebbie/blob/main/kebbie/emulator.py) file (e.g. `"Find": "enter"`).
 
-Finally, in the `__init__` method at the [emulator.py](internals.md#emulatorpy) file, add the new keyboard in the `Get the right layout` section to run its layout detector and add the keyboard to the error handling.
+Finally, in the `__init__` method in the [`kebbie/emulator.py`](https://github.com/FleksySDK/kebbie/blob/main/kebbie/emulator.py) file, add the name of the keyboard in the `Get the the right layout` section to run its layout detector and add the keyboard to the error handling.
 
 Example:
 
