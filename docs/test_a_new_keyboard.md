@@ -4,8 +4,7 @@ To be able to test a keyboard not supported yet by Kebbie you will need to do so
 
 
 ## Device setup
-To get the elements of the keyboard to be able to map the keys and then evaluate the keyboard you need 
-to have Appium 2 correctly installed and the emulator ready. 
+To get the elements of the keyboard to be able to map the keys and then evaluate the keyboard you need to have Appium 2 correctly installed and the emulator ready. 
 
 So you need to:
 
@@ -35,7 +34,7 @@ Example for iOS:
 
 
 ## Add a new keyboard to Kebbie:
-Add the name of the new keyboard in the available choices at the [cmd.py](internals.md#cmdpy) file
+Add the name of the new keyboard in the available choices at the [cmd.py](internals.md#cmdpy) file.
 
 Example:
 
@@ -43,7 +42,7 @@ Example:
 choices = ["newKeyboard", "gboard", "tappa", "ios", "kbkitpro", "fleksy"]
 ```
 
-Add it at the file [emulator.py](internals.md#emulatorpy) file
+Add it at the file [emulator.py](internals.md#emulatorpy) file.
 
 Example:
 
@@ -51,11 +50,9 @@ Example:
 NEWKEYBOARD = "newkeyboard"
 ```
 
-And in the [instantiate_correctors](internals.md#instantiate_correctors) list at the [cmd.py](internals.md#cmdpy) file if it's an 
-Android keyboard.
+And in the [instantiate_correctors](internals.md#instantiate_correctors) list at the [cmd.py](internals.md#cmdpy) file if it's an Android keyboard.
 
-Then add it the `KEYBOARD_PACKAGE` list at the [emulator.py](internals.md#emulatorpy) file to automatically select 
-it before the keys mapping or the keyboard evaluation and to filter the page source if you want to map the keys.
+Then add it the `KEYBOARD_PACKAGE` list at the [emulator.py](internals.md#emulatorpy) file to automatically select it before the keys mapping or the keyboard evaluation and to filter the page source if you want to map the keys.
 
 !!! success "Tip"
     To get the package of the new keyboard, once it's installed on the device, just run the command `adb shell pm list packages -3 | cut -f 2 -d ":"` and search it in the list.
@@ -63,13 +60,10 @@ it before the keys mapping or the keyboard evaluation and to filter the page sou
 
 ## Get full keyboard locators:
 
-Run the command `kebbie get_page_source -K newKeyboard` on your code. The device will open a web browser and 
-show the keyboard currently selected. After that, the system will get all the locators on screen and save them in an 
-XML file.
+Run the command `kebbie get_page_source -K newKeyboard` on your code. The device will open a web browser and show the keyboard currently selected. After that, the system will get all the locators on screen and save them in an XML file.
 
 !!! success "Tip"
-    If you have set the keyboard package, you will get the information automatically 
-    filtered by the keyboard locators to find the keys and suggestions easier.
+    If you have set the keyboard package, you will get the information automatically filtered by the keyboard locators to find the keys and suggestions easier.
 
 !!! info "Note"
     You can show that information directly on console just adding the parameter `--print_page_source` or `-P` to the `get_page_source` command.
@@ -78,8 +72,7 @@ XML file.
     If there is no keyboard package set, or it is not found in the data gathered, the system will save the whole page source without filtering it.
 
 
-Once you have all the locators related with the keyboard, find the root element of the keyboard, the keyboard 
-keys and suggestions elements
+Once you have all the locators related with the keyboard, find the root element of the keyboard, the keyboard keys and suggestions elements
 
 !!! success "Tip"
     You can usually find the keys by the `content-desc` or the `text` of their elements, if not, try to find the `resource-id` value.
@@ -135,13 +128,12 @@ class NewKeyboardLayoutDetector(LayoutDetector):
 ```
 
 !!! warning "Important"
-    If there is any content in the keyboard that you want to ignore from the mapping, add it in the `CONTENT_TO_IGNORE` list at the [emulator.py](internals.md#emulatorpy) file (e.g. `"Gallery"`)
+    If there is any content in the keyboard that you want to ignore from the mapping, add it in the `CONTENT_TO_IGNORE` list at the [emulator.py](internals.md#emulatorpy) file (e.g. `"Gallery"`).
 
 !!! warning "Important"
-    If there is any content in the keyboard that you want to map with another name, add it in the `CONTENT_TO_RENAME` list at the [emulator.py](internals.md#emulatorpy) file (e.g. `"Find": "enter"`)
+    If there is any content in the keyboard that you want to map with another name, add it in the `CONTENT_TO_RENAME` list at the [emulator.py](internals.md#emulatorpy) file (e.g. `"Find": "enter"`).
 
-Finally, in the `__init__` method at the [emulator.py](internals.md#emulatorpy) file, add the new keyboard in the 
-`Get the right layout` section to run its layout detector and add the keyboard to the error handling.
+Finally, in the `__init__` method at the [emulator.py](internals.md#emulatorpy) file, add the new keyboard in the `Get the right layout` section to run its layout detector and add the keyboard to the error handling.
 
 Example:
 
@@ -157,11 +149,11 @@ else:
 ```
 
 
-## Test the new keyboard with Kebbie:
-First check the key mapping running the command `kebbie show_layout -K newkkeyboard`
+## Test the new keyboard with Kebbie
+First check the key mapping running the command `kebbie show_layout -K newkkeyboard`.
 
 !!! success "Tip"
-    If the keys mapping fails trying to get the numbers layout, add a `print(self.driver.page_source)` before the method `self.tap(layout["lowercase"]["numbers"]` and launch the command again to get the key to switch to numbers adding it in the `CONTENT_TO_RENAME` list (e.g. `"Digit keyboard": "numbers"`)
+    If the keys mapping fails trying to get the numbers layout, add a `print(self.driver.page_source)` before the method `self.tap(layout["lowercase"]["numbers"]` and launch the command again to get the key to switch to numbers adding it in the `CONTENT_TO_RENAME` list (e.g. `"Digit keyboard": "numbers"`).
 
 Finally, evaluate the keyboard with the command `kebbie evaluate -K newkeyboard` and wait until the evaluation is finished to get the results.
 
