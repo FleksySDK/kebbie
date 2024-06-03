@@ -203,5 +203,5 @@ def cli():
                 print(page_source_str)
 
             # Save the keyboard elements to a file
-            with open(args.keyboard + "_" + args.page_source_file, "w", encoding="utf-8") as file:
+            with open(args.page_source_file, "w", encoding="utf-8") as file:
                 file.write(page_source_str)
