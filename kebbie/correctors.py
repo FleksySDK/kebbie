@@ -180,6 +180,7 @@ class EmulatorCorrector(Corrector):
         ios_name: str = None,
         ios_platform: str = None,
         instantiate_emulator: bool = True,
+        get_layout: bool = True,
     ):
         super().__init__()
 
@@ -189,6 +190,7 @@ class EmulatorCorrector(Corrector):
         self.fast_mode = fast_mode
         self.ios_name = ios_name
         self.ios_platform = ios_platform
+        self.get_layout = get_layout
 
         self.emulator = None
         if instantiate_emulator:
@@ -198,6 +200,7 @@ class EmulatorCorrector(Corrector):
                 device=self.device,
                 ios_name=self.ios_name,
                 ios_platform=self.ios_platform,
+                get_layout=self.get_layout,
             )
 
         # Typing on keyboard is slow. Because we go through several AC calls
