@@ -33,7 +33,7 @@ Example for iOS:
     ![](assets/keyboard_setup_ios_2.png){ width="300" }
 
 
-## Add a new keyboard to Kebbie:
+## Add a new keyboard to Kebbie
 Add the name of the new keyboard in the available choices in the [cmd.py](internals.md#cmdpy) file.
 
 Example:
@@ -58,7 +58,7 @@ Then add it the `KEYBOARD_PACKAGE` list in the [emulator.py](internals.md#emulat
     To get the package of the new keyboard, once it's installed on the device, just run the command `adb shell pm list packages -3 | cut -f 2 -d ":"` and search it in the list.
 
 
-## Get full keyboard locators:
+## Get full keyboard locators
 
 Run the command `kebbie get_page_source -K newKeyboard` on your code. The device will open a web browser and show the keyboard currently selected. After that, the system will get all the locators on screen and save them in an XML file.
 
@@ -72,7 +72,8 @@ Run the command `kebbie get_page_source -K newKeyboard` on your code. The device
     If there is no keyboard package set, or it is not found in the data gathered, the system will save the whole page source without filtering it.
 
 
-Once you have all the locators related with the keyboard, find the root element of the keyboard, the keyboard keys and suggestions elements
+Once you have all the locators related with the keyboard, find the root element of the keyboard, the keyboard keys and suggestions elements.
+
 
 !!! success "Tip"
     You can usually find the keys by the `content-desc` or the `text` of their elements, if not, try to find the `resource-id` value.
@@ -83,7 +84,7 @@ Once you have all the locators related with the keyboard, find the root element 
 
 ## Get the keyboard layout
 
-Create a layout detector class with the keyboard name adding the methods to get the root, the keys and the suggestions (see the `GboardLayoutDetector` class for an example)
+Create a layout detector class with the keyboard name adding the methods to get the root, the keys and the suggestions (see the `GboardLayoutDetector` class for an example).
 
 Example copying and editing the Gboard layout detector:
 
