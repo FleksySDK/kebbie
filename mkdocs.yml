@@ -46,6 +46,7 @@ nav:
   - "usage.md"
   - "emulated_keyboard.md"
   - "emu_setup.md"
+  - "test_a_new_keyboard.md"
   - "how_testing_is_done.md"
   - "architecture.md"
   - "leaderboards/main.md"
