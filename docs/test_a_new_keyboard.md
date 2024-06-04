@@ -74,7 +74,6 @@ Run the command `kebbie get_page_source -K newKeyboard` on your code. The device
 
 Once you have all the locators related with the keyboard, find the root element of the keyboard, the keyboard keys and suggestions elements.
 
-
 !!! success "Tip"
     You can usually find the keys by the `content-desc` or the `text` of their elements, if not, try to find the `resource-id` value.
 
