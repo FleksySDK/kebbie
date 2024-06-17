@@ -34,11 +34,13 @@ KBKITPRO = "kbkitpro"
 KBKITOSS = "kbkitoss"
 SWIFTKEY = "swiftkey"
 YANDEX = "yandex"
+FUTO = "futo"
 KEYBOARD_PACKAGE = {
     GBOARD: "com.google.android.inputmethod.latin",
     SWIFTKEY: "com.touchtype.swiftkey",
     YANDEX: "ru.yandex.androidkeyboard",
     TAPPA: "com.tappa.keyboard",
+    FUTO: "org.futo.inputmethod.latin.playstore",
 }
 ANDROID_CAPABILITIES = {
     "platformName": "android",
@@ -98,24 +100,42 @@ CONTENT_TO_IGNORE = [
 ]
 CONTENT_TO_RENAME = {
     "Shift": "shift",
+    "Mayús": "shift",
+    "More symbols": "shift",
+    "Keyboard Type - symbolic": "shift",
+    "Double tap for uppercase": "shift",
+    "Double tap for caps lock": "shift",
+    "Uppercase key.": "shift",
+    "Additional symbols.": "shift",
     "Delete": "backspace",
     "Backspace": "backspace",
     "Space": "spacebar",
     "space": "spacebar",
     "Space.": "spacebar",
+    "Espacio": "spacebar",
+    "Eliminar": "backspace",
+    "Delete.": "backspace",
     "Emoji button": "smiley",
     "Emoji": "smiley",
+    "Emojis": "smiley",
     "Keyboard Type - emojis": "smiley",
     "Search": "enter",
     "return": "enter",
-    "Enter": "enter",
-    "Delete.": "backspace",
-    "To symbols.": "numbers",
     "Return.": "enter",
+    "Enter": "enter",
+    "Intro": "enter",
+    "Letter keyboard": "letters",
+    "Letters": "letters",
+    "Letras": "letters",
+    "Keyboard Type - auto": "letters",
+    "To letters.": "letters",
+    "To symbols.": "numbers",
+    "Símbolos": "numbers",
     "Symbol keyboard": "numbers",
     "Symbols": "numbers",
     "Symbols and numbers": "numbers",
     "Keyboard Type - numeric": "numbers",
+    "Digit keyboard": "numbers",
     "Voice input": "mic",
     ",, alternatives available, Voice typing, long press to activate": "mic",
     "Close features menu": "magic",
@@ -133,17 +153,7 @@ CONTENT_TO_RENAME = {
     "Semicolon": ";",
     "Exclamation": "!",
     "Question mark": "?",
-    "Letter keyboard": "letters",
-    "Letters": "letters",
-    "Keyboard Type - auto": "letters",
-    "To letters.": "letters",
-    "Digit keyboard": "numbers",
-    "More symbols": "shift",
-    "Keyboard Type - symbolic": "shift",
-    "Double tap for uppercase": "shift",
-    "Double tap for caps lock": "shift",
-    "Uppercase key.": "shift",
-    "Additional symbols.": "shift",
+    "I mayúscula": "I",
     "capital Q": "Q",
     "capital W": "W",
     "capital E": "E",
@@ -371,6 +381,9 @@ class Emulator:
                 self.layout = self.detected.layout
             elif self.keyboard == YANDEX:
                 self.detected = YandexLayoutDetector(self.driver, self._tap)
+                self.layout = self.detected.layout
+            elif self.keyboard == FUTO:
+                self.detected = FutoLayoutDetector(self.driver, self._tap)
                 self.layout = self.detected.layout
             else:
                 raise ValueError(
@@ -1164,6 +1177,42 @@ class TappaLayoutDetector(LayoutDetector):
                 m = re.search(r"text=\"([^\"]*)\"", line)
                 if m:
                     suggestions.append(html.unescape(m.group(1)))
+
+        return suggestions
+
+
+class FutoLayoutDetector(LayoutDetector):
+    """Layout detector for the Futo keyboard. See `LayoutDetector` for more
+    information.
+    """
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(
+            *args,
+            xpath_root=f"./*/*[@package='{KEYBOARD_PACKAGE[FUTO]}']",
+            xpath_keys=".//*[@class='android.inputmethodservice.Keyboard$Key'][@content-desc]",
+            **kwargs,
+        )
+
+    def get_suggestions(self) -> List[str]:
+        """Method to retrieve the keyboard suggestions from the XML tree.
+
+        Returns:
+            List of suggestions from the keyboard.
+        """
+        suggestions = []
+
+        # Get the raw content as text, weed out useless elements
+        for data in self.driver.page_source.split("<android.widget.FrameLayout"):
+            if f"{KEYBOARD_PACKAGE[FUTO]}" in data and "<android.view.View index=\"0\"" in data:
+                sections = data.split("<android.view.View index=\"0\"")
+                for section in sections:
+                    m = re.search(r"content-desc=\"([^\"]*)\"", section)
+                    if m:
+                        content_desc = m.group(1)
+                        if "Open Actions" not in content_desc and "Voice Input" not in content_desc:
+                            suggestions.append(html.unescape(content_desc))
+                break
 
         return suggestions
 
