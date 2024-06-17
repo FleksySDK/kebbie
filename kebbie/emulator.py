@@ -1204,8 +1204,8 @@ class FutoLayoutDetector(LayoutDetector):
 
         # Get the raw content as text, weed out useless elements
         for data in self.driver.page_source.split("<android.widget.FrameLayout"):
-            if f"{KEYBOARD_PACKAGE[FUTO]}" in data and "<android.view.View index=\"0\"" in data:
-                sections = data.split("<android.view.View index=\"0\"")
+            if f"{KEYBOARD_PACKAGE[FUTO]}" in data and '<android.view.View index="0"' in data:
+                sections = data.split('<android.view.View index="0"')
                 for section in sections:
                     m = re.search(r"content-desc=\"([^\"]*)\"", section)
                     if m:
