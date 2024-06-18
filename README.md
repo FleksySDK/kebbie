@@ -7,7 +7,7 @@ A small framework to test and compare mobile keyboards
     <a href="https://github.com/FleksySDK/kebbie/releases"><img src="https://img.shields.io/github/release/FleksySDK/kebbie.svg" alt="GitHub release" /></a>
     <a href="https://github.com/FleksySDK/kebbie/actions/workflows/pytest.yaml"><img src="https://github.com/FleksySDK/kebbie/actions/workflows/pytest.yaml/badge.svg" alt="Test status" /></a>
     <a href="https://github.com/FleksySDK/kebbie/actions/workflows/lint.yaml"><img src="https://github.com/FleksySDK/kebbie/actions/workflows/lint.yaml/badge.svg" alt="Lint status" /></a>
-    <img src=".github/badges/coverage.svg" alt="Coverage status" />
+    <img src="https://gist.githubusercontent.com/astariul/e15968f6a51f62a67f9a8c9a553390bc/raw/coverage.svg" alt="Coverage status" />
     <a href="https://FleksySDK.github.io/kebbie"><img src="https://img.shields.io/website?down_message=failing&label=docs&up_color=green&up_message=passing&url=https%3A%2F%2FFleksySDK.github.io%2Fkebbie" alt="Docs" /></a>
     <a href="https://github.com/FleksySDK/kebbie/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="licence" /></a>
 </p>
