@@ -8,7 +8,7 @@ reqs = [
     "regex",
     "datasets~=2.18",
     "scipy~=1.12",
-    "numpy~=1.26",
+    "numpy>=1.26,<3.0",
     "requests~=2.31",
     "opencv-python~=4.9",
     "tesseract~=0.1",
