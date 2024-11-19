@@ -6,7 +6,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 reqs = [
     "regex",
-    "datasets~=2.18",
+    "datasets>=2.18,<4.0",
     "scipy~=1.12",
     "numpy~=1.26",
     "requests~=2.31",
