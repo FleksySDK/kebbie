@@ -1071,7 +1071,7 @@ class TypewiseKeyboardLayoutDetector(LayoutDetector):
         kb = root.find_element(By.ID, "android:id/inputArea")
         keyboard_frame = self._get_frame(kb)
         self.layout["keyboard_frame"] = keyboard_frame
-        kb_root = root.find_element(By.ID, "ch.icoaching.typewise:id/keyboard_root")
+        kb_root = root.find_element(By.ID, f"{KEYBOARD_PACKAGE[TYPEWISE]}:id/keyboard_root")
         frame1 = kb_root.find_elements(By.CLASS_NAME, "android.widget.FrameLayout")[0]
         linear1 = frame1.find_elements(By.CLASS_NAME, "android.widget.LinearLayout")[0]
         viewGroups = linear1.find_elements(By.CLASS_NAME, "android.view.ViewGroup")  # these are the symbols' rows
@@ -1098,7 +1098,10 @@ class TypewiseKeyboardLayoutDetector(LayoutDetector):
         """
         suggestions = []
         for s in self.driver.page_source.split("android.widget.TextView"):
-            if 'package="ch.icoaching.typewise"' in s and 'resource-id="ch.icoaching.typewise:id/tv_prediction"' in s:
+            if (
+                f'package="{KEYBOARD_PACKAGE[TYPEWISE]}"' in s
+                and f'resource-id="{KEYBOARD_PACKAGE[TYPEWISE]}:id/tv_prediction"' in s
+            ):
                 m = re.search(r"text=\"([^\"]*)\"", s)
                 if m:
                     suggestions.append(m.group(1))
