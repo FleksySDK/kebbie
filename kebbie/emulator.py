@@ -34,11 +34,13 @@ KBKITPRO = "kbkitpro"
 KBKITOSS = "kbkitoss"
 SWIFTKEY = "swiftkey"
 YANDEX = "yandex"
+TYPEWISE = "typewise"
 KEYBOARD_PACKAGE = {
     GBOARD: "com.google.android.inputmethod.latin",
     SWIFTKEY: "com.touchtype.swiftkey",
     YANDEX: "ru.yandex.androidkeyboard",
     TAPPA: "com.tappa.keyboard",
+    TYPEWISE: "ch.icoaching.typewise",
 }
 ANDROID_CAPABILITIES = {
     "platformName": "android",
@@ -282,6 +284,116 @@ FLEKSY_LAYOUT = {
     },
 }
 
+# Typewise layout does not have text descriptions or ids to identify the keys, so one way to pull out the views
+# is to index them in their layout coordinates
+TYPEWISE_LAYOUT = {
+    "lowercase": {
+        "q": [0, 0],  # View group index + view index
+        "w": [0, 1],
+        "e": [0, 2],
+        "r": [0, 3],
+        "t": [0, 4],
+        "y": [0, 5],
+        "u": [0, 6],
+        "i": [0, 7],
+        "o": [0, 8],
+        "p": [0, 9],
+        "a": [1, 1],
+        "s": [1, 2],
+        "d": [1, 3],
+        "f": [1, 4],
+        "g": [1, 5],
+        "h": [1, 6],
+        "j": [1, 7],
+        "k": [1, 8],
+        "l": [1, 9],
+        "shift": [2, 0],
+        "z": [2, 2],
+        "x": [2, 3],
+        "c": [2, 4],
+        "v": [2, 5],
+        "b": [2, 6],
+        "n": [2, 7],
+        "m": [2, 8],
+        "backspace": [2, 10],
+        "numbers": [3, 0],
+        ".": [3, 1],
+        "spacebar": [3, 2],
+        "?": [3, 3],
+        "enter": [3, 4],
+    },
+    "uppercase": {
+        "Q": [0, 0],  # View group index + view index
+        "W": [0, 1],
+        "E": [0, 2],
+        "R": [0, 3],
+        "T": [0, 4],
+        "Y": [0, 5],
+        "U": [0, 6],
+        "I": [0, 7],
+        "O": [0, 8],
+        "P": [0, 9],
+        "A": [1, 1],
+        "S": [1, 2],
+        "D": [1, 3],
+        "F": [1, 4],
+        "G": [1, 5],
+        "H": [1, 6],
+        "J": [1, 7],
+        "K": [1, 8],
+        "L": [1, 9],
+        "shift": [2, 0],
+        "Z": [2, 2],
+        "X": [2, 3],
+        "C": [2, 4],
+        "V": [2, 5],
+        "B": [2, 6],
+        "N": [2, 7],
+        "M": [2, 8],
+        "backspace": [2, 10],
+        "numbers": [3, 0],
+        ".": [3, 1],
+        "spacebar": [3, 2],
+        "?": [3, 3],
+        "enter": [3, 4],
+    },
+    "numbers": {
+        "1": [0, 0],  # View group index + view index
+        "2": [0, 1],
+        "3": [0, 2],
+        "4": [0, 3],
+        "5": [0, 4],
+        "6": [0, 5],
+        "7": [0, 6],
+        "8": [0, 7],
+        "9": [0, 8],
+        "0": [0, 9],
+        "-": [1, 1],
+        "/": [1, 2],
+        ":": [1, 3],
+        ";": [1, 4],
+        "(": [1, 5],
+        ")": [1, 6],
+        "&": [1, 7],
+        "@": [1, 8],
+        "%": [1, 9],
+        "shift": [2, 0],
+        ".": [2, 2],
+        ",": [2, 3],
+        "„": [2, 4],
+        "?": [2, 5],
+        '"': [2, 6],
+        "'": [2, 7],
+        "!": [2, 8],
+        "backspace": [2, 10],
+        "letters": [3, 0],
+        "smiley": [3, 1],
+        "spacebar": [3, 2],
+        "..": [3, 3],
+        "enter": [3, 4],
+    },
+}
+
 
 class Emulator:
     """Class used to interact with an emulator and type word on a given keyboard.
@@ -372,10 +484,13 @@ class Emulator:
             elif self.keyboard == YANDEX:
                 self.detected = YandexLayoutDetector(self.driver, self._tap)
                 self.layout = self.detected.layout
+            elif self.keyboard == TYPEWISE:
+                self.detected = TypewiseKeyboardLayoutDetector(self.driver, self._tap)
+                self.layout = self.detected.layout
             else:
                 raise ValueError(
-                    f"Unknown keyboard : {self.keyboard}. Please specify `{GBOARD}`, `{TAPPA}`, `{FLEKSY}`, "
-                    f"`{SWIFTKEY}`, `{YANDEX}`, `{KBKITPRO}`, `{KBKITOSS}` or `{IOS}`."
+                    f"Unknown keyboard : {self.keyboard}. Please specify `{TYPEWISE}`, `{GBOARD}`, `{TAPPA}`, "
+                    f"`{FLEKSY}`, `{SWIFTKEY}`, `{YANDEX}`, `{KBKITPRO}`, `{KBKITOSS}` or `{IOS}`."
                 )
 
         self.typing_field.clear()
@@ -560,9 +675,10 @@ class Emulator:
                     self._tap(self.layout["lowercase"]["numbers"])
                 self._tap(self.layout["numbers"][c])
 
-                if c != "'" or self.keyboard in [GBOARD, SWIFTKEY]:
+                if c != "'" or self.keyboard in [GBOARD, SWIFTKEY, TYPEWISE]:
                     # For some reason, when `'` is typed, the keyboard automatically goes back
-                    # to lowercase, so no need to re-tap the button (unless the keyboard is GBoard / Swiftkey).
+                    # to lowercase, so no need to re-tap the button (unless the keyboard is GBoard / Swiftkey /
+                    # Typewise).
                     # In all other cases, switch back to letters keyboard
                     self._tap(self.layout["numbers"]["letters"])
             else:
@@ -932,6 +1048,60 @@ class GboardLayoutDetector(LayoutDetector):
                     emoji = re.match(r"emoji (&[^;]+;)", content)
                     suggestions.append(html.unescape(emoji[1]) if emoji else content)
 
+        return suggestions
+
+
+class TypewiseKeyboardLayoutDetector(LayoutDetector):
+    """Layout detector for the NewKeyboard keyboard. See `LayoutDetector` for more
+    information.
+    """
+
+    def __init__(self, driver: webdriver.Remote, tap_fn: Callable):
+        self.tap = tap_fn
+        self.driver = driver
+        self.android = True
+        self.layout = {}
+
+        xpath_root = f"./*/*[@package='{KEYBOARD_PACKAGE[TYPEWISE]}']"
+
+        # Get the root element of our keyboard
+        root = self.driver.find_element(By.XPATH, xpath_root)
+
+        # Detect the keyboard frame
+        kb = root.find_element(By.ID, "android:id/inputArea")
+        keyboard_frame = self._get_frame(kb)
+        self.layout["keyboard_frame"] = keyboard_frame
+        kb_root = root.find_element(By.ID, "ch.icoaching.typewise:id/keyboard_root")
+        frame1 = kb_root.find_elements(By.CLASS_NAME, "android.widget.FrameLayout")[0]
+        linear1 = frame1.find_elements(By.CLASS_NAME, "android.widget.LinearLayout")[0]
+        viewGroups = linear1.find_elements(By.CLASS_NAME, "android.view.ViewGroup")  # these are the symbols' rows
+
+        for layout_name in ["uppercase", "lowercase", "numbers"]:
+            layout = {}
+            for label, coordinates in TYPEWISE_LAYOUT[layout_name].items():
+                _view = viewGroups[coordinates[0]].find_elements(By.CLASS_NAME, "android.view.View")[coordinates[1]]
+                layout[label] = self._get_frame(_view)
+
+            # Then update the letters positions to be relative to the keyboard frame
+            for k in layout:
+                layout[k][0] -= keyboard_frame[0]
+                layout[k][1] -= keyboard_frame[1]
+            self.layout[layout_name] = layout
+
+        self.keyboard_frame = keyboard_frame
+
+    def get_suggestions(self) -> List[str]:
+        """Method to retrieve the keyboard suggestions from the XML tree.
+
+        Returns:
+            List of suggestions from the keyboard.
+        """
+        suggestions = []
+        for s in self.driver.page_source.split("android.widget.TextView"):
+            if 'package="ch.icoaching.typewise"' in s and 'resource-id="ch.icoaching.typewise:id/tv_prediction"' in s:
+                m = re.search(r"text=\"([^\"]*)\"", s)
+                if m:
+                    suggestions.append(m.group(1))
         return suggestions
 
 
