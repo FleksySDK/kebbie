@@ -65,7 +65,9 @@ def noisy(monkeypatch_session, tmp_cache):
         # mocked list of common typos)
         # Note that we initialize it with all typo probabilities set to 0, and
         # each test will individually change these probabilities
-        return NoiseModel(lang="en-US", typo_probs={t: 0.0 for t in Typo}, x_ratio=float("inf"), y_ratio=float("inf"))
+        return NoiseModel(
+            lang="en-US", typo_probs=dict.fromkeys(Typo, 0.0), x_ratio=float("inf"), y_ratio=float("inf")
+        )
 
 
 class MockDataset:
