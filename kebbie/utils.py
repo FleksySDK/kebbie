@@ -122,9 +122,9 @@ def sample_among(probs: Dict[Any, float], with_none: bool = True) -> Any:
     """
     options = list(probs.keys())
     weights = list(probs.values())
-    assert (
-        all(w >= 0 for w in weights) and sum(weights) <= 1
-    ), "The numbers given are not a probability (should be above 0 and their sum should not exceed 1)"
+    assert all(w >= 0 for w in weights) and sum(weights) <= 1, (
+        "The numbers given are not a probability (should be above 0 and their sum should not exceed 1)"
+    )
 
     if with_none:
         options.append(None)
