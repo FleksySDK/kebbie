@@ -4,7 +4,7 @@ To be able to test a keyboard not supported yet by Kebbie you will need to do so
 
 
 ## Device setup
-To get the elements of the keyboard to be able to map the keys and then evaluate the keyboard you need to have Appium 2 correctly installed and the emulator ready. 
+To get the elements of the keyboard to be able to map the keys and then evaluate the keyboard you need to have Appium 2 correctly installed and the emulator ready.
 
 So you need to:
 
