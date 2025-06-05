@@ -6,9 +6,9 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 reqs = [
     "regex",
-    "datasets~=2.18",
+    "datasets~=3.6",
     "scipy~=1.12",
-    "numpy~=1.26",
+    "numpy~=2.0",
     "requests~=2.31",
     "opencv-python~=4.9",
     "tesseract~=0.1",
@@ -17,8 +17,8 @@ reqs = [
 ]
 
 extras_require = {
-    "test": ["pytest~=8.0", "pytest-cov~=5.0"],
-    "hook": ["pre-commit~=3.0"],
+    "test": ["pytest~=8.0", "pytest-cov~=6.1"],
+    "hook": ["pre-commit~=4.2"],
     "lint": ["ruff~=0.2"],
     "docs": ["mkdocs-material~=9.0", "mkdocstrings[python]~=0.18", "mike~=2.0"],
 }
