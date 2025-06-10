@@ -14,6 +14,8 @@
 >>>Swiftkey|results/swiftkey.json
 >>>Tappa|results/tappa.json
 >>>Yandex|results/yandex.json
+>>>Neurokeys|results/neurocast.json
+>>>Fleksy public|results/fleksy_public.json
 
 ---
 
